@@ -1,0 +1,25 @@
+[appServer]
+#dbconnection-connection from 1 dbdriver to 1 backend, with 4 loaders, each of the 5 coords receives 40 connections
+10
+#transaction_queue_size
+1500
+#transaction_array_size
+1500
+
+[dbdriver]
+#items
+10000
+#customers
+28800
+#eu
+400
+#eu/min
+100
+#mean think_time
+7.2
+#run_duration in seconds
+4000
+#access mode access with access_direct or access_appServer
+access_direct
+#access clean of order table with access_clean if cleanup, by default disactivated if let empty
+access_clean

@@ -1,0 +1,129 @@
+dnl> Process this file with autoconf to produce a configure script.
+AC_INIT(dbt1, 3.0.0)
+AC_CONFIG_HEADERS(config.h)
+
+dnl> Checks for programs.
+AC_PROG_AWK
+AC_PROG_CC
+AC_PROG_CXX
+
+dnl> Checks for libraries.
+dnl Replace `main' with a function in -lm:
+AC_CHECK_LIB(m, main)
+dnl Replace `main' with a function in -lpthread:
+AC_CHECK_LIB(pthread, main)
+
+dnl> Checks for header files.
+AC_HEADER_STDC
+AC_HEADER_SYS_WAIT
+AC_CHECK_HEADERS(fcntl.h limits.h malloc.h strings.h sys/time.h unistd.h)
+
+dnl> Checks for typedefs, structures, and compiler characteristics.
+AC_C_CONST
+AC_TYPE_SIZE_T
+AC_HEADER_TIME
+AC_STRUCT_TM
+
+dnl> Checks for library functions.
+AC_TYPE_SIGNAL
+AC_FUNC_VPRINTF
+AC_CHECK_FUNCS(gettimeofday mktime socket strdup)
+
+dnl> Configuration options for different databases, PostgreSQL is default.
+DATABASE_TO_USE="pgsql"
+DBI_NAME="libpq"
+PG_INSTALL_DIR="/usr"
+
+AC_ARG_WITH(postgresql,
+		 [AC_HELP_STRING(	[--with-postgresql=DIR],
+							[Default on. Set to the path of the PostgreSQL's installation, or leave
+							unset if the path is already in the compiler search path.
+							(Default DIR = /usr)]
+						)
+		],
+		[PG_INSTALL_DIR=$withval],
+		[DATABASE_TO_USE="pgsql"]
+)
+
+AC_ARG_WITH(postgresql-odbc,
+		[AC_HELP_STRING(	[--with-postgresql-odbc],
+							[Use odbc. Default libpq.]
+						)
+		],
+		[ DATABASE_TO_USE="pgsql" DBI_NAME="odbc" ]
+)
+
+
+dnl> Set up rules depending on what API is selected.
+#
+#PostgreSQL libpq (Default)
+#
+if test "$DBI_NAME" = "libpq" ; then
+	CFLAGS="-I${PG_INSTALL_DIR}/include -I/usr/include -DLIBPQ $CFLAGS"
+	CPPFLAGS="-I${PG_INSTALL_DIR}/include -I/usr/include $CPPFLAGS"
+	LDFLAGS="-L${PG_INSTALL_DIR}/lib -Wl,-R${PG_INSTALL_DIR}/lib -L/usr/local/lib -Wl,-R/usr/local/lib $LDFLAGS"
+	AC_CHECK_HEADERS(libpq-fe.h, [], AC_MSG_ERROR([libpq headers required]))
+	AC_SEARCH_LIBS(PQexec, pq, [], AC_MSG_ERROR([libpq libs required]))
+	AC_DEFINE(LIBPQ, 1, [using PostgreSQL])
+#
+#PostgreSQL ODBC
+#	
+elif test "$DBI_NAME" = "odbc" ; then
+	AC_MSG_WARN(PostgreSQL ODBC)
+	CFLAGS=" -DODBC $CFLAGS"
+	CPPFLAGS="$CPPFLAGS"
+	LDFLAGS="-L/usr/local/lib -Wl,-R/usr/local/lib $LDFLAGS"
+		
+	AC_CHECK_HEADERS(	sql.h sqlext.h sqltypes.h,
+						[],
+						AC_MSG_ERROR([unixODBC headers required])
+						)
+			
+	AC_SEARCH_LIBS(	SQLDriverConnect,
+						odbc,
+						,
+						AC_MSG_ERROR([unixODBC library required])
+					)
+		
+else
+	AC_MSG_ERROR( configuration error )
+fi
+	
+TOPDIR=`pwd`
+AC_SUBST(TOPDIR)
+AC_SUBST(DBI_NAME)
+AC_SUBST(DATABASE_TO_USE)
+
+AC_OUTPUT(
+make.common 
+Makefile 
+cache/Makefile 
+common/Makefile 
+dbdriver/Makefile 
+wgen/Makefile 
+interfaces/Makefile 
+interfaces/libpq_com/Makefile
+interfaces/odbc_com/Makefile
+appServer/Makefile 
+tools/Makefile 
+datagen/Makefile
+datagen/main.c
+scripts/stats/pgxc_collect_data.sh
+scripts/pgsql/build_db.sh
+scripts/pgsql/build_param.sh
+scripts/pgsql/create_db.sh
+scripts/pgsql/create_fk.sh
+scripts/pgsql/create_indexes.sh
+scripts/pgsql/create_tables.sh
+scripts/pgsql/data_transfer.sh
+scripts/pgsql/test_data_transfer.sh
+scripts/pgsql/drop_db.sh
+scripts/pgsql/load_db.sh
+scripts/pgsql/load_dbproc.sh
+scripts/pgsql/set_run_env.sh
+scripts/pgsql/start_db.sh
+scripts/pgsql/stop_db.sh
+pgxc_test_launcher.sh
+scripts/pgsql/update_statistics.sh
+)
+

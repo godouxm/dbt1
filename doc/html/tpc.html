@@ -1,0 +1,519 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=iso-8859-1">
+	<TITLE>OSDL-DBT-1</TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 1.0  (Linux)">
+	<META NAME="AUTHOR" CONTENT="Jenny ">
+	<META NAME="CREATED" CONTENT="20020510;8270000">
+	<META NAME="CHANGED" CONTENT="20020620;10142600">
+	<STYLE>
+	<!--
+		H1 { margin-bottom: 0.11cm; color: #000000; widows: 0; orphans: 0 }
+		H1.western { font-family: "Arial", sans-serif; font-size: 16pt; so-language: en-US }
+		H1.cjk { font-family: "Times New Roman", serif; font-size: 16pt }
+		H1.ctl { font-family: "Arial Unicode MS"; font-size: 12pt; font-weight: medium }
+		H2 { margin-bottom: 0.11cm; color: #000000; widows: 0; orphans: 0 }
+		H2.western { font-family: "Arial", sans-serif; font-size: 16pt; so-language: en-US; font-style: italic; font-weight: medium }
+		H2.cjk { font-family: "Times New Roman", serif; font-size: 16pt; font-style: italic; font-weight: medium }
+		H2.ctl { font-family: "Arial Unicode MS"; font-size: 12pt; font-weight: medium }
+		H3 { margin-bottom: 0.11cm; color: #000000; widows: 0; orphans: 0 }
+		H3.western { font-family: "Arial", sans-serif; font-size: 13pt; so-language: en-US }
+		H3.cjk { font-family: "Times New Roman", serif; font-size: 13pt }
+		H3.ctl { font-family: "Arial Unicode MS"; font-size: 12pt; font-weight: medium }
+		H4 { margin-bottom: 0.11cm; color: #000000; widows: 0; orphans: 0 }
+		H4.western { font-family: "Times New Roman", serif; font-size: 14pt; so-language: en-US }
+		H4.cjk { font-family: "Times New Roman", serif; font-size: 14pt }
+		H4.ctl { font-family: "Arial Unicode MS"; font-size: 12pt; font-weight: medium }
+		P.sdfootnote-western { margin-left: 0.5cm; text-indent: -0.5cm; margin-bottom: 0cm; font-family: "Times New Roman", serif; font-size: 10pt; so-language: en-US }
+		P.sdfootnote-cjk { margin-left: 0.5cm; text-indent: -0.5cm; margin-bottom: 0cm; font-family: "Times New Roman", serif; font-size: 10pt }
+		P.sdfootnote-ctl { margin-left: 0.5cm; text-indent: -0.5cm; margin-bottom: 0cm }
+		A:link { text-decoration: none }
+		A.sdfootnoteanc { font-size: 57% }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" TEXT="#000000">
+<P STYLE="margin-bottom: 0cm"><FONT SIZE=4 STYLE="font-size: 16pt"><B>
+  </B></FONT>
+</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=CENTER STYLE="margin-top: 0.42cm; margin-bottom: 0.11cm"><FONT FACE="Arial, sans-serif"><FONT SIZE=4 STYLE="font-size: 16pt"><B>OSDL-DBT-1</B></FONT></FONT></P>
+<P ALIGN=CENTER STYLE="margin-top: 0.42cm; margin-bottom: 0.11cm"><BR><BR>
+</P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0.11cm"><FONT FACE="Arial, sans-serif">An
+On-Line Transaction Processing Test Kit</FONT></P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0.11cm"><BR><BR>
+</P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0.11cm"><FONT FACE="Arial, sans-serif">Similarities
+and Differences to the TPC-W&trade;</FONT></P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0.11cm"><BR><BR>
+</P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0.11cm"><FONT FACE="Arial, sans-serif">Version
+1.0</FONT></P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0.11cm"><BR><BR>
+</P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0.11cm"><FONT FACE="Arial, sans-serif"><SDFIELD TYPE=DATETIME SDNUM="1033;1033;MMMM D, YYYY">June 20, 2002</SDFIELD></FONT></P>
+<P STYLE="margin-bottom: 0cm; page-break-before: always"><FONT FACE="Arial, sans-serif"><FONT SIZE=4 STYLE="font-size: 16pt"><B>Table
+of Contents</B></FONT></FONT></P>
+<DIV ID="Table of Contents1">
+	<P STYLE="margin-top: 0.21cm"><FONT SIZE=2><B>1Similarities and
+	Differences to the TPC-W&trade; Specification	3</B></FONT></P>
+	<P STYLE="margin-left: 0.42cm; text-indent: 0cm; margin-bottom: 0cm">
+	<FONT SIZE=2>1.1Components	3</FONT></P>
+	<P STYLE="margin-left: 0.42cm; text-indent: 0cm; margin-bottom: 0cm">
+	<FONT SIZE=2>1.2Definition of Terms	3</FONT></P>
+	<P STYLE="margin-left: 0.85cm; text-indent: 0cm; margin-bottom: 0cm">
+	<FONT SIZE=2><I>1.2.1RBE vs. Driver 	3</I></FONT></P>
+	<P STYLE="margin-left: 0.85cm; text-indent: 0cm; margin-bottom: 0cm">
+	<FONT SIZE=2><I>1.2.2EB vs. EU	3</I></FONT></P>
+	<P STYLE="margin-left: 0.85cm; text-indent: 0cm; margin-bottom: 0cm">
+	<FONT SIZE=2><I>1.2.3Web Interaction vs. Interaction	3</I></FONT></P>
+	<P STYLE="margin-left: 0.85cm; text-indent: 0cm; margin-bottom: 0cm">
+	<FONT SIZE=2><I>1.2.4Transaction Management Server	4</I></FONT></P>
+	<P STYLE="margin-left: 0.42cm; text-indent: 0cm; margin-bottom: 0cm">
+	<FONT SIZE=2>1.3Implementation Rules	4</FONT></P>
+	<P STYLE="margin-left: 0.85cm; text-indent: 0cm; margin-bottom: 0cm">
+	<FONT SIZE=2><I>1.3.1The Driver	4</I></FONT></P>
+	<P STYLE="margin-left: 0.85cm; text-indent: 0cm; margin-bottom: 0cm">
+	<FONT SIZE=2><I>1.3.2 The Database	5</I></FONT></P>
+	<P STYLE="margin-left: 1.27cm; text-indent: 0cm; margin-bottom: 0cm">
+	<FONT SIZE=2 STYLE="font-size: 9pt">1.3.2.1Database Entities,
+	Relationships, and Characteristics	5</FONT></P>
+	<P STYLE="margin-left: 1.27cm; text-indent: 0cm; margin-bottom: 0cm">
+	<FONT SIZE=2 STYLE="font-size: 9pt">1.3.2.2Scaling and Database
+	Population	5</FONT></P>
+	<P STYLE="margin-left: 1.27cm; text-indent: 0cm; margin-bottom: 0cm">
+	<FONT SIZE=2 STYLE="font-size: 9pt">1.3.2.3ACID Properties	5</FONT></P>
+	<P STYLE="margin-left: 1.27cm; text-indent: 0cm; margin-bottom: 0cm">
+	<FONT SIZE=2 STYLE="font-size: 9pt">1.3.2.4Integrity Rules	6</FONT></P>
+	<P STYLE="margin-left: 1.27cm; text-indent: 0cm; margin-bottom: 0cm">
+	<FONT SIZE=2 STYLE="font-size: 9pt">1.3.2.5Checkpoints	6</FONT></P>
+	<P STYLE="margin-left: 1.27cm; text-indent: 0cm; margin-bottom: 0cm">
+	<FONT SIZE=2 STYLE="font-size: 9pt">1.3.2.6Isolation Level	6</FONT></P>
+	<P STYLE="margin-left: 1.27cm; text-indent: 0cm; margin-bottom: 0cm">
+	<FONT SIZE=2 STYLE="font-size: 9pt">1.3.2.7180-Day Space
+	Requirement	6</FONT></P>
+	<P STYLE="margin-left: 1.27cm; text-indent: 0cm; margin-bottom: 0cm">
+	<FONT SIZE=2 STYLE="font-size: 9pt">1.3.2.8Foreign Keys	6</FONT></P>
+	<P STYLE="margin-left: 1.27cm; text-indent: 0cm; margin-bottom: 0cm">
+	<FONT SIZE=2 STYLE="font-size: 9pt">1.3.2.9Stored Procedure	7</FONT></P>
+	<P STYLE="margin-left: 0.42cm; text-indent: 0cm; margin-bottom: 0cm">
+	<FONT SIZE=2>1.4The TPC	8</FONT></P>
+</DIV>
+<H1 CLASS="western" STYLE="page-break-before: always">1Similarities
+and Differences to the TPC-W<SUP>&trade; </SUP>Specification</H1>
+<H2 CLASS="western"><A NAME="6-1"></A>1.1Components</H2>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">TPC-W</FONT><SUP>&trade;</SUP><FONT COLOR="#000000">
+is composed of a Remote Browser Emulator (RBE), a Payment Gateway
+Emulator (PGE) and the System Under Test (SUT).  The SUT includes
+network components, web servers, application servers and a database
+server.</FONT></P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm">OSDL-DBT-1 has only a driver, a
+transaction management server and a database server.  The is no PGE
+used to simulate credit card authorizations.</P>
+<H2 CLASS="western"><A NAME="6-2"></A>1.2Definition of Terms</H2>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">Some terms
+defined in the TPC-W</FONT><SUP>&trade;</SUP><FONT COLOR="#000000">
+do not apply to the OSDL-DBT-1 test kit and some have different
+meanings.  The TPC-W</FONT><SUP>&trade;</SUP><FONT COLOR="#000000">
+terms will be used if they apply to both cases.  Where terms differ,
+they will be defined for the OSDL-DBT-1 test kit.</FONT></P>
+<H3 CLASS="western"><A NAME="RBE &amp; Driver"></A><A NAME="6-2-1"></A>
+1.2.1RBE vs. Driver 
+</H3>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">The Remote
+Browser Emulator (RBE) is the software component that drives the
+TPC-W</FONT><SUP>&trade;</SUP><FONT COLOR="#000000"> workloads.</FONT><SUP><FONT COLOR="#000000"><A CLASS="sdfootnoteanc" NAME="sdfootnote1anc" HREF="#sdfootnote1sym"><SUP>1</SUP></A></FONT></SUP><FONT COLOR="#000000">
+ It creates and manages the Emulated Browsers (EB).  The OSDL-DBT-1<FONT SIZE=1 STYLE="font-size: 8pt">
+</FONT></FONT><FONT COLOR="#000000">driver controls the DBT-1
+workloads.  It creates and manages the Emulated Users (EU).</FONT></P>
+<H3 CLASS="western"><A NAME="6-2-2"></A><A NAME="EB &amp; EU"></A>1.2.2EB
+vs. EU</H3>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">The Emulated
+Browser (EB) refers to the entity (e.g. a process or thread) that
+emulates a user communicating via a browser for HTML content</FONT><FONT COLOR="#000000">.
+Packets are sent through HTTP and TCP/IP protocols over a network
+connection to the SUT.</FONT><SUP><FONT COLOR="#000000"><A CLASS="sdfootnoteanc" NAME="sdfootnote2anc" HREF="#sdfootnote2sym"><SUP>2</SUP></A></FONT></SUP><FONT COLOR="#000000">
+ An Emulated User refers to the entity (e.g. a thread) communicating
+with the transaction management server by sending request input and
+receiving output data via TCP/IP sockets and thus eliminates the need
+for HTTP servers in the kit.</FONT></P>
+<H3 CLASS="western"><A NAME="Interaction"></A><A NAME="6-2-3"></A>1.2.3Web
+Interaction vs. Interaction</H3>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">The term web
+interaction in the TPC-W</FONT><SUP>&trade;</SUP><FONT COLOR="#000000">
+benchmark refers to a complete cycle of communication between the EB
+and the SUT.  The exchange of messages may include HTTP requests,
+cookies, HTML pages, image files or other web objects.</FONT><SUP><FONT COLOR="#000000"><A CLASS="sdfootnoteanc" NAME="sdfootnote3anc" HREF="#sdfootnote3sym"><SUP>3</SUP></A></FONT></SUP><FONT COLOR="#000000">
+ There are no web objects in the OSDL-DBT-1 test.  An interaction
+refers to a cycle of communication between an EU and the transaction
+management server.  The exchange of messages includes request input
+and output data.</FONT></P>
+<H3 CLASS="western"><A NAME="TMS"></A><A NAME="6-2-4"></A>1.2.4Transaction
+Management Server</H3>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">While the TPC-W</FONT><SUP>&trade;<FONT COLOR="#000000">
+</FONT></SUP><FONT COLOR="#000000">benchmark requires web servers to
+serve web objects, the OSDL-DBT-1 test kit contains a transaction
+management server that performs the transaction management functions.</FONT></P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm">In the OSDL-DBT-1 test kit, the
+transaction management server is the middle tier connecting the
+driver and the database.  It performs transaction management by
+creating and managing database connections and a transaction queue.</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">Web logging</FONT><SUP><FONT COLOR="#000000"><A CLASS="sdfootnoteanc" NAME="sdfootnote4anc" HREF="#sdfootnote4sym"><SUP>4</SUP></A></FONT></SUP><FONT COLOR="#000000">
+does not apply to the OSDL-DBT-1 test.</FONT></P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">Other terms, such
+as &quot;user session&quot;, &quot;customer&quot;, &quot;shopping
+session&quot;, &quot;database transaction&quot;, &quot;randomly
+selected with [x..y]&quot;, and &quot;non-uniform random function
+(NURand)&quot;, are the same in both cases.  Refer to the TPC-W</FONT><SUP>&trade;</SUP><FONT COLOR="#000000">
+Specification Clause 2.1 for the definition of these terms.</FONT></P>
+<H2 CLASS="western"><A NAME="6-3"></A>1.3Implementation Rules</H2>
+<H3 CLASS="western"><A NAME="6-3-1"></A>1.3.1The Driver</H3>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">The driver has
+the same responsibilities as the RBE</FONT><SUP><FONT COLOR="#000000"><A CLASS="sdfootnoteanc" NAME="sdfootnote5anc" HREF="#sdfootnote5sym"><SUP>5</SUP></A></FONT></SUP><FONT COLOR="#000000">,
+except for providing security for some web interactions.  In the
+TPC-W</FONT><SUP>&trade;<FONT COLOR="#000000"> </FONT></SUP><FONT COLOR="#000000">benchmark,
+the secure web interactions are: Buy Request, Buy Confirm, Order
+Inquiry, and Order Display.  In secure web interactions, all
+communications between the EB and the SUT must be encrypted and
+communicated with SSL version 3 or with TLS using
+SSL_RSA_WITHRC4_128_MD5 as the cipher suite.</FONT><SUP><FONT COLOR="#000000"><A CLASS="sdfootnoteanc" NAME="sdfootnote6anc" HREF="#sdfootnote6sym"><SUP>6</SUP></A></FONT></SUP><FONT COLOR="#000000">
+ The OSDL-DBT-1 driver does not provide any security mechanisms.</FONT></P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">Like the TPC-W</FONT><SUP>&trade;<FONT COLOR="#000000">
+</FONT></SUP><FONT COLOR="#000000">benchmark, the OSDL-DBT-1 driver
+uses TCP/IP sockets for all network communication.</FONT><SUP><FONT COLOR="#000000"><A CLASS="sdfootnoteanc" NAME="sdfootnote7anc" HREF="#sdfootnote7sym"><SUP>7</SUP></A></FONT></SUP><FONT COLOR="#000000">
+ </FONT>
+</P>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">However, the
+TPC-W</FONT><SUP>&trade;</SUP><FONT COLOR="#000000"> Specification
+requires that a new socket must be created for each user session and
+user sessions can not share a socket connection.</FONT><SUP><FONT COLOR="#000000"><A CLASS="sdfootnoteanc" NAME="sdfootnote8anc" HREF="#sdfootnote8sym"><SUP>8</SUP></A></FONT></SUP><FONT COLOR="#000000">
+ The OSDL-DBT-1 driver creates a socket connection for each EU, and
+keeps that socket open for the duration of the test.</FONT></P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">The EU sends
+input following the rules defined in the TPC-W</FONT><SUP>&trade;</SUP><FONT COLOR="#000000">
+Specification Clause 2.3 &quot;Input Requirements&quot; with some
+exceptions.  Due to limitations in the SAP DB, some of the stored
+procedures have the number of input and output  parameters reduced. 
+For a description of stored procedure limitations, refer to </FONT><FONT COLOR="#000080"><SPAN STYLE="text-decoration: none"><A HREF="#6-3-2-9"><FONT COLOR="#000000">Section
+1.3.2.9</FONT></A></SPAN></FONT><FONT COLOR="#000000">.</FONT></P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">In the TPC-W</FONT><SUP>&trade;<FONT COLOR="#000000">
+</FONT></SUP><FONT COLOR="#000000">benchmark, each web interaction
+results in the presentation of a page to the EB.</FONT><SUP><FONT COLOR="#000000"><A CLASS="sdfootnoteanc" NAME="sdfootnote9anc" HREF="#sdfootnote9sym"><SUP>9</SUP></A></FONT></SUP><FONT COLOR="#000000">
+ After receiving the page, the EB parses that page, and selects the
+web interaction to be requested next.  In the OSDL-DBT-1 test, each
+interaction results in the output data being sent directly to the EU.
+ After receiving the data, the EU selects the next interaction to
+request.  The EU chooses the navigation options in the same way as
+the EB.</FONT><SUP><FONT COLOR="#000000"><A CLASS="sdfootnoteanc" NAME="sdfootnote10anc" HREF="#sdfootnote10sym"><SUP>10</SUP></A></FONT></SUP><FONT COLOR="#000000">
+ The driver maintains the interaction mix defined in the TPC-W</FONT><SUP>&trade;</SUP><FONT COLOR="#000000">
+Specification Clause 5.2.1.</FONT></P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">After each
+interaction, the EU simulates a user thinking (think time) by
+sleeping for a certain period of time.  Think time is generated
+randomly according to the TPC-W</FONT><SUP>&trade;</SUP><FONT COLOR="#000000">
+Specification Clause 5.3.</FONT></P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">The EU ends a
+user session when the conditions defined in the TPC-W</FONT><SUP>&trade;</SUP><FONT COLOR="#000000">
+Specification Clause 6.2.2.1 are met or when the duration of the test
+expires.  The TPC-W</FONT><SUP>&trade;</SUP><FONT COLOR="#000000">
+Specification requires the EBs to close the network connection to the
+web servers when the user session ends, and start a new session for a
+new EB</FONT><FONT COLOR="#000000">.</FONT><SUP><FONT COLOR="#000000"><A CLASS="sdfootnoteanc" NAME="sdfootnote11anc" HREF="#sdfootnote11sym"><SUP>11</SUP></A></FONT></SUP><FONT COLOR="#000000">
+ The OSDL-DBT-1 driver keeps a socket open for the duration of the
+test.</FONT></P>
+<H3 CLASS="western"><A NAME="6-3-2"></A>1.3.2 The Database</H3>
+<H4 CLASS="western"><A NAME="6-3-2-1"></A>1.3.2.1Database Entities,
+Relationships, and Characteristics</H4>
+<P STYLE="margin-bottom: 0cm">The OSDL-DBT-1 database consists of 8
+individual base tables as defined in the TPC-W&trade; Specification
+Clause 1.3.1.  Table layouts are defined in the TPC-W&trade;
+Specification Clause 1.4.</P>
+<H4 CLASS="western"><A NAME="6-3-2-2"></A>1.3.2.2Scaling and Database
+Population</H4>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">The OSDL-DBT-1
+data generator mostly follows the guidelines in the TPC-W</FONT><SUP>&trade;</SUP><FONT COLOR="#000000">
+Specification.  The OSDL-DBT-1 data generator generates dates
+starting from the year 1900 while the TPC-W</FONT><SUP>&trade;<FONT COLOR="#000000">
+</FONT></SUP><FONT COLOR="#000000">data generator guidelines requires
+generating dates starting from the year 1800.</FONT><SUP><FONT COLOR="#000000"><A CLASS="sdfootnoteanc" NAME="sdfootnote12anc" HREF="#sdfootnote12sym"><SUP>12</SUP></A></FONT></SUP><FONT COLOR="#000000">
+ The OSDL-DBT-1 database follows the scaling rules defined in the
+TPC-W</FONT><SUP>&trade;</SUP><FONT COLOR="#000000"> Specification
+Clause 4.1, 4.2 and 4.3 and its database population follows the rules
+defined in the TPC-W</FONT><SUP>&trade;</SUP><FONT COLOR="#000000">
+Specification Clause 4.1.</FONT></P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm">No clustering, partitioning, or
+replication is used in the OSDL-DBT-1 database.</P>
+<H4 CLASS="western">1.3.2.3ACID Properties</H4>
+<P STYLE="margin-bottom: 0cm">The current version of the OSDL-DBT-1
+test kit does not contain any ACID tests defined in the TPC-W&trade;
+Specification Clause 3.1.</P>
+<H4 CLASS="western"><A NAME="6-3-2-4"></A>1.3.2.4Integrity Rules</H4>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">The current
+version of the OSDL-DBT-1 test does not enforce the integrity rules
+as defined in the TPC-W</FONT><SUP>&trade;</SUP><FONT COLOR="#000000">
+Specification Clause 1.7.</FONT></P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<H4 CLASS="western"><A NAME="6-3-2-5"></A>1.3.2.5Checkpoints</H4>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">The current
+version of the OSDL-DBT-1 test kit does not perform checkpoints as
+defined in the TPC-W</FONT><SUP>&trade;</SUP><FONT COLOR="#000000">
+Specification Clause 5.5.3.</FONT></P>
+<H4 CLASS="western"><A NAME="6-3-2-6"></A>1.3.2.6Isolation Level</H4>
+<P STYLE="margin-bottom: 0cm">The current version of the OSDL-DBT-1
+test uses the default isolation level set provided by the SAP DB. 
+</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">In the SAP DB,
+the default isolation level is 1.</FONT><SUP><FONT COLOR="#000000"><A CLASS="sdfootnoteanc" NAME="sdfootnote13anc" HREF="#sdfootnote13sym"><SUP>13</SUP></A></FONT></SUP><FONT COLOR="#000000">
+ With this isolation level, dirty reads are not possible, and
+non-repeatable reads as well as phantom phenomenon can occur.</FONT><SUP><FONT COLOR="#000000"><A CLASS="sdfootnoteanc" NAME="sdfootnote14anc" HREF="#sdfootnote14sym"><SUP>14</SUP></A></FONT></SUP></P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">The TPC-W</FONT><SUP>&trade;</SUP><FONT COLOR="#000000">
+Specification requires a Level 3 isolation level between any two
+TPC-W</FONT><SUP>&trade;</SUP><FONT COLOR="#000000"> update
+transactions, and a Level 2 isolation between any TPC-W</FONT><SUP>&trade;</SUP><FONT COLOR="#000000">
+read-only transaction and a TPC-W</FONT><SUP>&trade;</SUP><FONT COLOR="#000000">
+arbitrary transaction.</FONT><SUP><FONT COLOR="#000000"><A CLASS="sdfootnoteanc" NAME="sdfootnote15anc" HREF="#sdfootnote15sym"><SUP>15</SUP></A></FONT></SUP><FONT COLOR="#000000">
+ This rule does not apply to three transactions:  New Products, Best
+Sellers, and Admin Confirm.  The database reads to generate the list
+of 50 New Products/Best Sellers items may be performed at an
+isolation level of 0.  Admin Confirm requires the database to
+generate five item IDs; this can be performed at an isolation level
+of 0.</FONT><SUP><FONT COLOR="#000000"><A CLASS="sdfootnoteanc" NAME="sdfootnote16anc" HREF="#sdfootnote16sym"><SUP>16</SUP></A></FONT></SUP></P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">For the
+definitions of dirty reads, non-repeatable reads, phantom phenomenon,
+TPC-W</FONT><SUP>&trade;</SUP><FONT COLOR="#000000"> update
+transactions, TPC-W&trade; read-only transactions, and TPC-W&trade;
+arbitrary transactions, please refer to the TPC-W&trade;
+Specification Clause 3.1.4.1.</FONT></P>
+<H4 CLASS="western"><A NAME="6-3-2-7"></A>1.3.2.7180-Day Space
+Requirement</H4>
+<P STYLE="margin-bottom: 0cm">The current version of the OSDL-DBT-1
+test kit does not follow the 180-day space computation rules defined
+in the TPC-W&trade; Specification Clause 4.4.</P>
+<H4 CLASS="western"><A NAME="6-3-2-8"></A>1.3.2.8Foreign Keys</H4>
+<P STYLE="margin-bottom: 0cm">The current version of the OSDL-DBT-1
+test kit does not implement the foreign keys as defined in the TPC-W&trade;
+Specification Clause 1.4.</P>
+<H4 CLASS="western"><A NAME="6-3-2-9"></A>1.3.2.9Stored Procedure</H4>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">Stored procedures
+are created to execute the interactions.  Stored procedures
+accomplish the processes defined in the &quot;Processing Definition&quot;</FONT><SUP><FONT COLOR="#000000"><A CLASS="sdfootnoteanc" NAME="sdfootnote17anc" HREF="#sdfootnote17sym"><SUP>17</SUP></A></FONT></SUP><FONT COLOR="#000000">
+sub sub-sections for each interaction.  In the TPC-W&trade;
+Specification, a response page is defined for each web interaction. 
+The OSDL-DBT-1 stored procedures return the same data required in the
+response page section with some exceptions.</FONT></P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm">Due to limitations in the SAP DB,
+stored procedures can not always return the required information
+defined in the TPC-W&trade; Specification.</P>
+<UL>
+	<LI><P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">Shopping
+	Cart:  The TPC-W&trade; Specification Clause 2.4.2 requires a list
+	of I_ID, QTY pairs as input; the number of pairs can be up to 100. 
+	Clause 2.4.3.5 requires that this stored procedure returns item
+	information in the CART.  There can be up to 100 items.  Due to the
+	length limitation of the stored procedures in the SAP DB, the number
+	of input and output items is reduced to 20.</FONT></P>
+	<LI><P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">Order
+	Display:  The TPC-W&trade; Specification Clause 2.9.4 requires that
+	this stored procedure returns order line information in an order. 
+	There can be up to 100 order line items.  Due to the length
+	limitation of the stored procedures in the SAP DB, the number of
+	output order items is reduced to 20.</FONT></P>
+	<LI><P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">Buy Request:
+	 The TPC-W&trade; Specification Clause 2.6.4 requires that this
+	stored procedure returns item information in the CART.  There can be
+	up to 100 items.  Due to the length limitation of the stored
+	procedures in the SAP DB, the number of output items is reduced to
+	20.</FONT></P>
+	<LI><P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">Buy Confirm:
+	 The TPC-W&trade; Specification Clause 2.7.4 requires that this
+	stored procedure returns item information in the CART.  There can be
+	up to 100 items.  Due to the length limitation of the stored
+	procedures in the SAP DB, the number of output items is reduced to
+	20.  Furthermore, Buy Confirm does not obtain the credit card
+	authorizations from the PGE.</FONT></P>
+	<LI><P STYLE="margin-bottom: 0cm">Best Sellers:  This complicated
+	query requires cursor support in the stored procedure.
+	Unfortunately, the SAP DB stored procedures do not have cursors
+	implemented. Therefore, the current OSDL-DBT-1 Best Sellers stored
+	procedure executes New Products.</P>
+	<LI><P STYLE="margin-bottom: 0cm">Admin Confirm:  This complicated
+	query requires cursor support in the stored procedure.
+	Unfortunately, the SAP DB stored procedures do not have cursors
+	implemented. Thus, the current OSDL-DBT-1 Admin Confirm stored
+	procedure only updates I_COST, I_IMAGE and I_THUMBNAIL and returns
+	the item information.</P>
+</UL>
+<P STYLE="margin-bottom: 0cm"><A NAME="6-4"></A>Performance Data</P>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">The OSDL-DBT-1
+data analysis tool analyzes some performance information (e.g. the
+percentage of each interaction executed during the measured interval,
+average interaction response time, and number of interactions
+executed per second).  The OSDL-DBT-1 results are not comparable to
+the TPC-W&trade; results.  The performance data differences are noted
+below:</FONT></P>
+<UL>
+	<LI><P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">Instead of
+	WIPS</FONT><SUP><FONT COLOR="#000000"><A CLASS="sdfootnoteanc" NAME="sdfootnote18anc" HREF="#sdfootnote18sym"><SUP>18</SUP></A></FONT></SUP><FONT COLOR="#000000">,
+	OSDL-DBT-1 test reports interactions per second.</FONT></P>
+	<LI><P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">Instead of
+	WIRT</FONT><SUP><FONT COLOR="#000000"><A CLASS="sdfootnoteanc" NAME="sdfootnote19anc" HREF="#sdfootnote19sym"><SUP>19</SUP></A></FONT></SUP><FONT COLOR="#000000">,
+	OSDL-DBT-1 test reports interaction response time.</FONT></P>
+	<LI><P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">The current
+	version of the OSDL-DBT-1 test collects but does not report the
+	average duration of the think time</FONT><SUP><FONT COLOR="#000000"><A CLASS="sdfootnoteanc" NAME="sdfootnote20anc" HREF="#sdfootnote20sym"><SUP>20</SUP></A></FONT></SUP><FONT COLOR="#000000">
+	over the measured interval.</FONT></P>
+	<LI><P STYLE="margin-bottom: 0cm">The OSDL-DBT-1 test does not
+	report the 90% percentile of the interaction response times.</P>
+	<LI><P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">The
+	OSDL-DBT-1 test does not report the throughput rating</FONT><SUP><FONT COLOR="#000000"><A CLASS="sdfootnoteanc" NAME="sdfootnote21anc" HREF="#sdfootnote21sym"><SUP>21</SUP></A></FONT></SUP><FONT COLOR="#000000">.</FONT></P>
+	<LI><P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">The
+	OSDL-DBT-1 test does not enforce the measurement interval
+	requirements defined in the TPC-W&trade; Specification Clause 5.5. 
+	It is up to the users to decide the measurement interval duration.</FONT></P>
+	<LI><P STYLE="margin-bottom: 0cm">The OSDL-DBT-1 test reports CPU
+	utilization, I/O activity and page/swap activity of the database
+	machine.  It does not report the other performance statistics
+	required in the TPC-W&trade; Specification Clause 5.7.2.</P>
+</UL>
+<H2 CLASS="western"><A NAME="6-5"></A>1.4The TPC</H2>
+<P STYLE="margin-top: 0.18cm; margin-bottom: 0.18cm"><FONT COLOR="#000000">The
+TPC is a non-profit corporation founded to define transaction
+processing and database benchmarks and to disseminate objective,
+verifiable TPC performance data to the industry. TPC and TPC
+Benchmark W are trademarks of the Transaction Processing Performance
+Council.  For more information about the TPC please contact
+</FONT><FONT COLOR="#000080"><SPAN STYLE="text-decoration: none"><A HREF="mailto:info@tpc.org"><FONT COLOR="#000000">info@tpc.org</FONT></A></SPAN></FONT><FONT COLOR="#000000">
+or visit </FONT><FONT COLOR="#000080"><SPAN STYLE="text-decoration: none"><A HREF="http://www.tpc.org/"><FONT COLOR="#000000">www.tpc.org</FONT></A></SPAN></FONT><FONT COLOR="#000000">.</FONT></P>
+<DIV ID="sdfootnote1">
+	<P CLASS="sdfootnote-western"><A CLASS="sdfootnotesym" NAME="sdfootnote1sym" HREF="#sdfootnote1anc">1</A>
+	TPC-W<SUP>&trade; </SUP>Specification Version 1.7 Clause 6.1.1.</P>
+</DIV>
+<DIV ID="sdfootnote2">
+	<P CLASS="sdfootnote-western"><A CLASS="sdfootnotesym" NAME="sdfootnote2sym" HREF="#sdfootnote2anc">2</A>
+	TPC-W<SUP>&trade; </SUP>Specification Version 1.7 Clause 2.1.3.</P>
+</DIV>
+<DIV ID="sdfootnote3">
+	<P CLASS="sdfootnote-western"><A CLASS="sdfootnotesym" NAME="sdfootnote3sym" HREF="#sdfootnote3anc">3</A>
+	TPC-W<SUP>&trade; </SUP>Specification Version 1.7 Clause 2.1.4.</P>
+</DIV>
+<DIV ID="sdfootnote4">
+	<P CLASS="sdfootnote-western"><A CLASS="sdfootnotesym" NAME="sdfootnote4sym" HREF="#sdfootnote4anc">4</A>
+	TPC-W<SUP>&trade; </SUP>Specification Version 1.7 Clause 2.1.8.</P>
+</DIV>
+<DIV ID="sdfootnote5">
+	<P CLASS="sdfootnote-western"><A CLASS="sdfootnotesym" NAME="sdfootnote5sym" HREF="#sdfootnote5anc">5</A>
+	TPC-W&trade;<SUP> </SUP>Specification Version 1.7 Clause 6.1.4.</P>
+</DIV>
+<DIV ID="sdfootnote6">
+	<P CLASS="sdfootnote-western"><A CLASS="sdfootnotesym" NAME="sdfootnote6sym" HREF="#sdfootnote6anc">6</A>
+	TPC-W&trade;<SUP> </SUP>Specification Version 1.7 Clause 2.2.1.</P>
+</DIV>
+<DIV ID="sdfootnote7">
+	<P CLASS="sdfootnote-western"><A CLASS="sdfootnotesym" NAME="sdfootnote7sym" HREF="#sdfootnote7anc">7</A>
+	TPC-W&trade;<SUP> </SUP>Specification Version 1.7 Clause 6.1.6 and
+	6.1.7.</P>
+</DIV>
+<DIV ID="sdfootnote8">
+	<P CLASS="sdfootnote-western"><A CLASS="sdfootnotesym" NAME="sdfootnote8sym" HREF="#sdfootnote8anc">8</A>
+	TPC-W&trade;W&trade;<SUP> </SUP>Specification Version 1.7 Clause
+	6.1.7.</P>
+</DIV>
+<DIV ID="sdfootnote9">
+	<P CLASS="sdfootnote-western"><A CLASS="sdfootnotesym" NAME="sdfootnote9sym" HREF="#sdfootnote9anc">9</A>
+	TPC-W&trade;<SUP> </SUP>Specification Version 1.7 Clause 5.2.2.2.</P>
+</DIV>
+<DIV ID="sdfootnote10">
+	<P CLASS="sdfootnote-western"><A CLASS="sdfootnotesym" NAME="sdfootnote10sym" HREF="#sdfootnote10anc">10</A>
+	TPC-W<SUP>&trade; </SUP>Specification Version 1.7 Clause 5.2.2.3.</P>
+</DIV>
+<DIV ID="sdfootnote11">
+	<P CLASS="sdfootnote-western"><A CLASS="sdfootnotesym" NAME="sdfootnote11sym" HREF="#sdfootnote11anc">11</A>
+	TPC-W<SUP>&trade;</SUP> Specification Version 1.7 Clause 6.2.2.2.</P>
+</DIV>
+<DIV ID="sdfootnote12">
+	<P CLASS="sdfootnote-western"><A CLASS="sdfootnotesym" NAME="sdfootnote12sym" HREF="#sdfootnote12anc">12</A>
+	TPC-W<SUP>&trade;</SUP> Specification Version 1.7 Clause 4.7.1.</P>
+</DIV>
+<DIV ID="sdfootnote13">
+	<P CLASS="sdfootnote-western"><A CLASS="sdfootnotesym" NAME="sdfootnote13sym" HREF="#sdfootnote13anc">13</A>
+	Reference Manual: SAP DB P 211</P>
+</DIV>
+<DIV ID="sdfootnote14">
+	<P CLASS="sdfootnote-western"><A CLASS="sdfootnotesym" NAME="sdfootnote14sym" HREF="#sdfootnote14anc">14</A>
+	Reference Manual: SAP DB P 212</P>
+</DIV>
+<DIV ID="sdfootnote15">
+	<P CLASS="sdfootnote-western"><A CLASS="sdfootnotesym" NAME="sdfootnote15sym" HREF="#sdfootnote15anc">15</A>
+	TPC-W&trade; Specification Version 1.7 Clause 3.1.4.</P>
+</DIV>
+<DIV ID="sdfootnote16">
+	<P CLASS="sdfootnote-western"><A CLASS="sdfootnotesym" NAME="sdfootnote16sym" HREF="#sdfootnote16anc">16</A>
+	TPC-W&trade; Specification Version 1.7 Clause 2.12.3.1, 2.13.3.2 and
+	2.16.3.3.</P>
+</DIV>
+<DIV ID="sdfootnote17">
+	<P CLASS="sdfootnote-western"><A CLASS="sdfootnotesym" NAME="sdfootnote17sym" HREF="#sdfootnote17anc">17</A>
+	TPC-W&trade; Specification Clause 2.3.3, 2.4.3, 2.5.3, 2.6.3, 2.7.3,
+	2.8.3, 2.9.3, 2.10.3, 2.11.3, 2.12.3, 2.13.3, 2.14.3, 2.15.3, and
+	2.16.3.</P>
+</DIV>
+<DIV ID="sdfootnote18">
+	<P CLASS="sdfootnote-western"><A CLASS="sdfootnotesym" NAME="sdfootnote18sym" HREF="#sdfootnote18anc">18</A>
+	TPC-W&trade; Specification Version 1.7 Clause 5.7.1.</P>
+</DIV>
+<DIV ID="sdfootnote19">
+	<P CLASS="sdfootnote-western"><A CLASS="sdfootnotesym" NAME="sdfootnote19sym" HREF="#sdfootnote19anc">19</A>
+	TPC-W&trade; Specification Version 1.7 Clause 5.1.5.</P>
+</DIV>
+<DIV ID="sdfootnote20">
+	<P CLASS="sdfootnote-western"><A CLASS="sdfootnotesym" NAME="sdfootnote20sym" HREF="#sdfootnote20anc">20</A>
+	TPC-W&trade; Specification Version 1.7 Clause 5.3.1.2.</P>
+</DIV>
+<DIV ID="sdfootnote21">
+	<P CLASS="sdfootnote-western"><A CLASS="sdfootnotesym" NAME="sdfootnote21sym" HREF="#sdfootnote21anc">21</A>
+	TPC-W&trade; Specification Version 1.7 Clause 5.4 and Clause 5.6.2.</P>
+</DIV>
+</BODY>
+</HTML>

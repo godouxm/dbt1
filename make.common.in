@@ -1,0 +1,81 @@
+# make.common.in
+
+TOPDIR=@TOPDIR@
+DBI_NAME=@DBI_NAME@
+CACHE_DIR=$(TOPDIR)/cache
+COMMON_DIR=$(TOPDIR)/common
+DBDRIVER_DIR=$(TOPDIR)/dbdriver
+INCLUDE_DIR=$(TOPDIR)/include
+INCLUDE_DIR2=$(TOPDIR)/include/inc_pgsql_$(DBI_NAME)
+INCLUDE_DIR3=$(TOPDIR)
+
+CC = @CC@
+CFLAGS = -g -Wall -I$(INCLUDE_DIR) -I$(INCLUDE_DIR2) -I$(INCLUDE_DIR3) @CFLAGS@ @DEFS@ \
+	-DGET_TIME -DLINUX -D_FILE_OFFSET_BITS=64 
+LDFLAGS = @LDFLAGS@ @LIBS@ 
+
+COMMON_PRGS = $(COMMON_DIR)/common.c $(COMMON_DIR)/_socket.c
+COMMON_OBJS = $(COMMON_PRGS:.c=.o)
+
+DBI_DIR=$(TOPDIR)/interfaces/$(DBI_NAME)_com
+DBI_PRGS = \
+	$(DBI_DIR)/interaction.c \
+	$(DBI_DIR)/interaction_admin_confirm.c \
+	$(DBI_DIR)/interaction_admin_request.c \
+	$(DBI_DIR)/interaction_best_sellers.c \
+	$(DBI_DIR)/interaction_buy_confirm.c \
+	$(DBI_DIR)/interaction_buy_request.c \
+	$(DBI_DIR)/interaction_home.c \
+	$(DBI_DIR)/interaction_new_products.c \
+	$(DBI_DIR)/interaction_order_display.c \
+	$(DBI_DIR)/interaction_order_inquiry.c \
+	$(DBI_DIR)/interaction_product_detail.c \
+	$(DBI_DIR)/interaction_search_request.c \
+	$(DBI_DIR)/interaction_search_results.c \
+	$(DBI_DIR)/interaction_shopping_cart.c \
+	$(DBI_DIR)/addToSC.c \
+	$(DBI_DIR)/createSC.c \
+	$(DBI_DIR)/DigSyl.c \
+	$(DBI_DIR)/getCustInfo.c \
+	$(DBI_DIR)/getOrderItems.c \
+	$(DBI_DIR)/getPromoImages.c \
+	$(DBI_DIR)/getSCDetail.c \
+	$(DBI_DIR)/getSCSubtotal.c \
+	$(DBI_DIR)/initOrderItems.c \
+	$(DBI_DIR)/initSCItems.c \
+	$(DBI_DIR)/InsertCust.c \
+	$(DBI_DIR)/refreshSC.c \
+	$(DBI_DIR)/updateSC.c
+DBI_OBJS = $(DBI_PRGS:.c=.o)
+
+DBI_INCLUDE = $(INCLUDE_DIR2)/interaction_home.h \
+	$(INCLUDE_DIR2)/interaction.h \
+	$(INCLUDE_DIR2)/interaction_shopping_cart.h \
+	$(INCLUDE_DIR2)/interaction_buy_request.h \
+	$(INCLUDE_DIR2)/interaction_new_products.h \
+	$(INCLUDE_DIR2)/interaction_best_sellers.h \
+	$(INCLUDE_DIR2)/interaction_buy_confirm.h \
+	$(INCLUDE_DIR2)/interaction_order_inquiry.h \
+	$(INCLUDE_DIR2)/interaction_order_display.h \
+	$(INCLUDE_DIR2)/interaction_product_detail.h \
+	$(INCLUDE_DIR2)/interaction_search_request.h \
+	$(INCLUDE_DIR2)/interaction_admin_request.h \
+	$(INCLUDE_DIR2)/interaction_admin_confirm.h \
+	$(INCLUDE_DIR2)/interaction_search_results.h \
+	$(INCLUDE_DIR2)/addToSC.h \
+	$(INCLUDE_DIR2)/createSC.h \
+	$(INCLUDE_DIR2)/DigSyl.h \
+	$(INCLUDE_DIR2)/getCustInfo.h \
+	$(INCLUDE_DIR2)/getOrderItems.h \
+	$(INCLUDE_DIR2)/getPromoImages.h \
+	$(INCLUDE_DIR2)/getSCDetail.h \
+	$(INCLUDE_DIR2)/getSCSubtotal.h \
+	$(INCLUDE_DIR2)/initOrderItems.h \
+	$(INCLUDE_DIR2)/initSCItems.h \
+	$(INCLUDE_DIR2)/InsertCust.h \
+	$(INCLUDE_DIR2)/refreshSC.h \
+	$(INCLUDE_DIR2)/updateSC.h
+
+%.o:%.c
+	$(CC) -c $(CFLAGS) -o $@ $<
+

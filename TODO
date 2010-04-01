@@ -1,0 +1,12 @@
+1. Implement a Payment Gateway Emulator for the JBoss application server.
+
+2. Return sc_date in the shopping cart interaction.
+
+3. Make the JBOSS application server read in configuration defailts for the
+   item scale factor and other database connection parameters.
+
+4. Determine which items to update in the shopping cart correctly when
+   quantities are supposed to be updated.
+
+5. Why is Buy Confirm failing when using the driver and not when manually
+   using a web browser?

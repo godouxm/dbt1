@@ -1,0 +1,20 @@
+#! /bin/sh
+
+# create_db.sh
+#
+# This file is released under the terms of the Artistic License.  Please see
+# the file LICENSE, included in this package, for details.
+#
+# Copyright (C) 2002 Open Source Development Lab, Inc.
+#
+# History:
+# Aug-2003: Jenny Zhang
+
+source @TOPDIR@/scripts/pgsql/build_param.sh
+
+# create database
+echo "create database $SID1..."
+
+createdb -p $SERVER_PORT -h $SERVER_IP $SID1
+
+exit 0

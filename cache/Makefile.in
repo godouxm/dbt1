@@ -1,0 +1,49 @@
+# Makefile
+# 20 february 2002
+
+include @TOPDIR@/make.common
+
+EXE = appCache 
+CACHE_PRGS = cache.c cache_interface.c
+CACHE_OBJS = $(CACHE_PRGS:.c=.o)
+
+OBJS = $(COMMON_OBJS) $(CACHE_OBJS) $(DBI_OBJS) $(TOPDIR)/interfaces/db.o
+PRGS = $(COMMON_PRGS) $(CACHE_PRGS) $(DBI_PRGS)
+
+all: $(EXE)
+
+$(EXE): $(OBJS)
+	$(CC) -o $@ $(OBJS) $(LDFLAGS)
+
+$(COMMON_OBJS):$(COMMON_PRGS) \
+		$(TOPDIR)/make.common \
+		$(INCLUDE_DIR)/common.h \
+		$(COMMON_DIR)/Makefile
+	cd $(COMMON_DIR); $(MAKE)
+
+$(DBI_OBJS): $(DBI_PRGS) \
+		$(TOPDIR)/make.common \
+		$(INCLUDE_DIR)/common.h $(INCLUDE_DIR)/interaction_data.h \
+		$(DBI_INCLUDE) \
+		$(DBI_PRGS) \
+		$(DBI_DIR)/Makefile
+	cd $(DBI_DIR); $(MAKE)
+
+$(TOPDIR)/interfaces/db.o: $(TOPDIR)/interfaces/db.c \
+		$(INCLUDE_DIR)/db.h \
+		$(DBI_INCLUDE) \
+		$(TOPDIR)/interfaces/Makefile
+	cd $(TOPDIR)/interfaces; $(MAKE)
+
+$(CACHE_OBJS): $(CACHE_PRGS) \
+		$(INCLUDE_DIR)/db.h \
+		$(INCLUDE_DIR)/common.h \
+		$(INCLUDE_DIR)/cache.h \
+		$(INCLUDE_DIR)/_socket.h \
+		$(INCLUDE_DIR)/cache_interface.h
+clean:
+	rm -f $(EXE) *.o
+
+explain:
+	@echo "$(OBJS)"
+

@@ -1,0 +1,13 @@
+#!/bin/sh
+#List of parameters used for DBT-1 Database full creation
+
+TOPDIR=@TOPDIR@
+SERVER_IP=localhost
+SERVER_PORT=5432
+DATAGEN_ITEMS=1000
+DATAGEN_EUS=10
+DATAGEN_RESULT=$TOPDIR/scripts/pgsql/resultsql
+PGXC_USE=ON
+#as createdb and dropdb commands delicate to manipulate with Postgres-XC, this parameter skips the parts liked to that
+#it can be set at ON of necessary
+DATAGEN_USE=OFF

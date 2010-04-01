@@ -1,0 +1,992 @@
+/* main.c
+ *
+ * This file is released under the terms of the Artistic License.  Please see
+ * the file LICENSE, included in this package, for details.
+ *
+ * Copyright (C) 2002 Open Source Development Lab, Inc.
+ *
+ * History:  
+ * Jan-10-2001 Original version: Mark Wong and Jenny Zhang
+ * May-20-2003 Modified by Jenny Zhang to generate data for PostgreSQL
+ */
+
+#include <stdlib.h>
+#include <time.h>
+#include <string.h>
+#include <unistd.h>
+#include <ctype.h>
+#include <tpcw.h>
+#include <common.h>
+
+int item_count, author_count;
+int set_seeds;
+
+/* Variables for wgen. */
+char *dpath;
+int verbose;
+
+distribution articles;
+distribution nouns;
+distribution adjectives;
+distribution adverbs;
+distribution prepositions;
+distribution verbs;
+distribution terminators;
+distribution auxillaries;
+distribution np;
+distribution vp;
+distribution grammar;
+
+int items, ebs;
+/* directory where the datafile will be put */
+char path[256];
+int flag_cust_addr_ord, flag_item, flag_author;
+/* SAPDB requires " around data field */
+char field_deco[3];
+char delimiter;
+/* path of the create_sequence.sql */
+char sequence_file[256];
+/* SAPDB requires 'sql_execute' in front of the SQL command */
+char exec_sql[20];
+
+/* Prototypes */
+void gen_authors();
+void gen_customers();
+void gen_items();
+int process_options(int count, char **vector);
+void usage();
+/* Prototype for wgen/text.c since it doesn't provide one for us. */
+void load_dists(void);
+void print_timestamp(FILE *ofile, struct tm *date);
+
+int main(int argc, char *argv[])
+{
+	FILE *sequence_sql;
+	FILE *p;
+	char pwd[256];
+	char cmd[256];
+
+	path[0] = '\0';
+
+	if (process_options(argc, argv) == 0)
+	{
+		usage();
+		return 1;
+	}
+	strcpy(field_deco, "");
+	delimiter =  '>';
+	strcpy(sequence_file, "@TOPDIR@/scripts/pgsql/create_sequence.sql");
+	strcpy(exec_sql, "");
+
+	if (items != 1000 && items != 10000 && items != 100000 &&
+		items != 1000000 && items != 10000000)
+	{
+		printf("%d is an invalid item scale factor:\n", items);
+		printf("\t1000\n");
+		printf("\t10000\n");
+		printf("\t100000\n");
+		printf("\t1000000\n");
+		printf("\t10000000\n");
+		return 2;
+	}
+
+	p = popen("pwd", "r");
+	fscanf(p, "%s", pwd);
+	printf("%s\n", pwd);
+	if (strcmp(path, ".") == 0 || path[0] == '\0' )
+	{
+		strcpy(path, pwd);
+	}
+
+	printf("item scale factor %10d\n", items);
+	printf("user scale factor %10d\n", ebs);
+	printf("data files are in %10s\n", path);
+
+	printf("generating sequence creation file: %s\n", sequence_file);
+	sequence_sql = fopen(sequence_file, "w");
+	if (sequence_sql == NULL)
+	{
+		printf("cannot open %s\n", sequence_file);
+		return 3;
+	}
+	fprintf(sequence_sql,
+		"%s CREATE SEQUENCE custid INCREMENT 1 START %d;\n",
+		exec_sql,
+		2880 * ebs + 1);
+	fprintf(sequence_sql, "commit;");
+	fprintf(sequence_sql,
+		"%s CREATE SEQUENCE addrid INCREMENT 1 START %d;\n",
+		exec_sql,
+		ebs * 2880 * 2 + 1);
+	fprintf(sequence_sql, "commit;");
+	fprintf(sequence_sql,
+		"%s CREATE SEQUENCE scid INCREMENT 1 START %d;\n",
+		exec_sql,
+		(int) ((double) ebs * 2880.0 * 0.9 + 1.0));
+	fprintf(sequence_sql, "commit;");
+
+	fclose(sequence_sql);
+
+	dpath = (char *) malloc(sizeof(char) * 64);
+	strcpy(dpath, "@TOPDIR@/wgen/grammar.tpcw");
+
+	init_common();
+	load_dists();
+	printf("generating data files...\n");
+
+	if (flag_item == 1) 
+	{
+		gen_items();
+		sprintf(cmd, "ln -fs %sitem.data /tmp/item.data\n", path);
+		popen(cmd, "r");
+		sprintf(cmd, "ln -fs %sstock.data /tmp/stock.data\n", path);
+                popen(cmd, "r");
+	}
+
+	if (flag_cust_addr_ord == 1)
+	{
+		/* all the tables depend on ebs for the customer number */
+		gen_customers();
+		sprintf(cmd, "ln -fs %scustomer.data /tmp/customer.data", path);
+		popen(cmd, "r");
+
+	 	sprintf(cmd, "ln -fs %saddress.data /tmp/address.data", path);
+	 	popen(cmd, "r");
+
+	 	sprintf(cmd, "ln -fs %sorders.data /tmp/orders.data", path);
+	 	popen(cmd, "r");
+	 	sprintf(cmd, "ln -fs %sorder_line.data /tmp/order_line.data",
+	 		path);
+	 	popen(cmd, "r");
+	 	sprintf(cmd, "ln -fs %scc_xacts.data /tmp/cc_xacts.data", path);
+	 	popen(cmd, "r");
+	}
+
+	if (flag_author == 1) 
+	{
+		gen_authors();
+		sprintf(cmd, "ln -fs %sauthor.data /tmp/author.data", path);
+		popen(cmd, "r");
+	}
+
+	sprintf(cmd, "ln -fs @TOPDIR@/datagen/country.data.pgsql /tmp/country.data");
+	popen(cmd, "r");
+
+	free(dpath);
+	return 0;
+}
+
+/* Clause 4.7.1 */
+void gen_authors()
+{
+	int i;
+	FILE *output = stdout;
+	char a_string[1024];
+	struct tm tm1, *tm2, *tm3;
+	time_t t1, t2, t3;
+	char filename[256];
+
+	sprintf(filename, "%s/author.data", path);
+	output = fopen(filename, "w");
+	if (output == NULL)
+	{
+		fprintf(stderr, "cannot open author.data\n");
+		return;
+	}
+
+	srand(0);
+	printf("Generating author table data...\n");
+
+	author_count = items / 4;
+
+	for (i = 0; i < author_count; i++)
+	{
+		/* a_id */
+		fprintf(output, "%s%d%s", field_deco, i + 1, field_deco);
+		fprintf(output, "%c", delimiter);
+
+		/* a_fname */
+		get_a_string(a_string, 3, A_FNAME_LEN);
+		fprintf(output, "%s%s%s", field_deco, a_string, field_deco);
+		fprintf(output, "%c", delimiter);
+
+		/* a_lname */
+		fprintf(output, "%s%s%s", 
+			field_deco, mk_author(i + 1), field_deco);
+		fprintf(output, "%c", delimiter);
+
+		/* a_mname */
+		get_a_string(a_string, 1, A_MNAME_LEN);
+		fprintf(output, "%s%s%s", field_deco, a_string, field_deco);
+		fprintf(output, "%c", delimiter);
+
+		/* a_dob */
+		/* The date is being calculated from 1900 instead of 1800. */
+		tm1.tm_year = 0;
+		tm1.tm_mon = 0;
+		tm1.tm_mday = 1;
+		tm1.tm_sec = 0;
+		tm1.tm_min = 0;
+		tm1.tm_hour = 0;
+		t1 = mktime(&tm1);
+		time(&t2);
+		tm2 = localtime(&t2);
+		t3 = (time_t) (get_percentage() * (double) ((long long) t2 - (long long) t1 + (long long) 86400)) + t1;
+		tm3 = localtime(&t3);
+		fprintf(output, "%s%04d%02d%02d%s", 
+			field_deco, tm3->tm_year + 1900,
+			tm3->tm_mon + 1, tm3->tm_mday, field_deco);
+		fprintf(output, "%c", delimiter);
+
+		/* a_bio */
+		get_a_string(a_string, 125, A_BIO_LEN);
+		fprintf(output, "%s%s%s", field_deco, a_string, field_deco);
+
+		fprintf(output, "\n");
+	}
+
+	fflush(output);
+	fclose(output);
+	printf("Finished author table data.\n");
+	return;
+}
+
+/* Clause 4.7.1 */
+void gen_customers()
+{
+	int	i, j;
+	int	customers,
+		addresses,
+		addr_co_id,
+		order_id = 0;
+	FILE *customer_file = stdout;
+	FILE *address_file = stdout;
+	FILE *orders_file = stdout;
+	FILE *order_line_file = stdout;
+	FILE *cc_xacts_file = stdout;
+	char a_string[1024];
+	char c_uname[C_UNAME_LEN + 1];
+	int max;
+	struct tm *tm1, *tm2, *tm3;
+	time_t t1, t2, t3;
+	char filename1[256];
+	char filename2[256];
+	char filename3[256];
+	char filename4[256];
+	char filename5[256];
+	/* additional variable due to gen_order transfer */
+	double o_sub_total, o_tax, o_total;
+	int order_line_count, order_chance;
+
+	sprintf(filename1, "%s/customer.data", path);
+	customer_file = fopen(filename1, "w");
+	if (customer_file == NULL)
+	{
+		fprintf(stderr, "cannot open customer.data\n");
+		return;
+	}
+	sprintf(filename2, "%s/address.data", path);
+	address_file = fopen(filename2, "w");
+	if (address_file == NULL)
+	{
+		fprintf(stderr, "cannot open address.data\n");
+		return;
+	}
+	sprintf(filename3, "%s/orders.data", path);
+	orders_file = fopen(filename3, "w");
+	if (orders_file == NULL)
+	{
+		fprintf(stderr, "cannot open orders.data\n");
+		return;
+	}
+	sprintf(filename4, "%s/order_line.data", path);
+	order_line_file = fopen(filename4, "w");
+	if (order_line_file == NULL)
+	{
+		fprintf(stderr, "cannot open order_line.data\n");
+		return;
+	}
+	sprintf(filename5, "%s/cc_xacts.data", path);
+	cc_xacts_file = fopen(filename5, "w");
+	if (cc_xacts_file == NULL)
+	{
+		fprintf(stderr, "cannot open cc_xacts.data\n");
+		return;
+	}
+
+	srand(0);
+	printf("Generating customer table data...\n");
+	printf("Generating address table data...\n");
+	printf("Generating orders table data...\n");
+	printf("Generating order_line table data...\n");
+	printf("Generating cc_xacts table data...\n");
+
+	customers = 2880 * ebs;
+	addresses = customers;
+	/* as c_id and addr_id are double-referenced in customer
+	 * and address table their number of tuples becomes the same
+	 */
+	for (i = 0; i < customers; i++)
+	{
+
+		/* c_id */
+		fprintf(customer_file, "%s%d%s", field_deco, i + 1, field_deco);
+		fprintf(customer_file, "%c", delimiter);
+
+		/* c_uname */
+		/* Clause 4.6.2.10 */
+		digsyl2(c_uname, i + 1, 0);
+		fprintf(customer_file, "%s%s%s", field_deco, c_uname, field_deco);
+		fprintf(customer_file, "%c", delimiter);
+
+		/* c_passwd */
+		/* Clause 4.6.2.11 */
+		max = strlen(c_uname);
+		fprintf(customer_file, "%s", field_deco);
+		for (j = 0; j < max; j++)
+		{
+			fprintf(customer_file, "%c", (char) tolower(c_uname[j]));
+		}
+		fprintf(customer_file, "%s%c", field_deco, delimiter);
+
+		/* c_lname */
+		get_a_string(a_string, 8, C_LNAME_LEN);
+		fprintf(customer_file, "%s%s%s", field_deco, a_string, field_deco);
+		fprintf(customer_file, "%c", delimiter);
+
+		/* c_fname */
+		get_a_string(a_string, 8, C_FNAME_LEN);
+		fprintf(customer_file, "%s%s%s", field_deco, a_string, field_deco);
+		fprintf(customer_file, "%c", delimiter);
+
+		/* c_addr_id */
+		fprintf(customer_file, "%s%d%s", field_deco, i+1, field_deco);
+		fprintf(customer_file, "%c", delimiter);
+
+		/* c_phone */
+		get_n_string(a_string, 9, C_PHONE_LEN);
+		fprintf(customer_file, "%s%s%s", field_deco, a_string, field_deco);
+		fprintf(customer_file, "%c", delimiter);
+
+		/* c_email */
+		/* Clause 6.4.2.14 */
+		get_a_string(a_string, 2, 9);
+		fprintf(customer_file, "%s%s@%s%s", 
+			field_deco, c_uname, a_string, field_deco);
+		fprintf(customer_file, "%c", delimiter);
+
+		/* c_since */
+		time(&t2);
+		t1 = t2 - (86400 + get_random_int(63072000));
+		tm1 = localtime(&t1);
+		fprintf(customer_file, "%s%04d%02d%02d%s", 
+			field_deco, tm1->tm_year + 1900,
+			tm1->tm_mon + 1, tm1->tm_mday, field_deco);
+		fprintf(customer_file, "%c", delimiter);
+
+		/* c_last_visit */
+		t3 = t1 + get_random_int(5270400);
+		if (t3 > t2)
+		{
+			t3 = t2;
+		}
+		tm3 = localtime(&t3);
+		fprintf(customer_file, "%s%04d%02d%02d%s", 
+			field_deco, tm3->tm_year + 1900,
+			tm3->tm_mon + 1, tm3->tm_mday, field_deco);
+		fprintf(customer_file, "%c", delimiter);
+
+		/* c_login */
+		/* This should be changed to the date and time the table is
+		 * populated. Note that the milliseconds are not calculated. */
+		tm2 = localtime(&t2);
+		print_timestamp(customer_file, tm2);
+		fprintf(customer_file, "%c", delimiter);
+
+		/* c_expiration */
+		t2 += 7200;
+		tm2 = localtime(&t2);
+		print_timestamp(customer_file, tm2);
+		fprintf(customer_file, "%c", delimiter);
+
+		/* c_discount */
+		fprintf(customer_file, "%s%0.2f%s",
+			field_deco, (double) get_random_int(51) / 100.0, 
+			field_deco);
+		fprintf(customer_file, "%c", delimiter);
+
+		/* c_balance */
+		fprintf(customer_file, "%s0.0%s", field_deco, field_deco);
+		fprintf(customer_file, "%c", delimiter);
+
+		/* c_ytd_pmt */
+		fprintf(customer_file, "%s%0.2f%s", field_deco, 
+			(double) get_random_int(100000) / 100.0, field_deco);
+		fprintf(customer_file, "%c", delimiter);
+
+		/* c_birthdate */
+		/* The date is being calculated from 1900 instead of 1880. */
+		tm1->tm_year = 0;
+		tm1->tm_mon = 0;
+		tm1->tm_mday = 1;
+		tm1->tm_sec = 0;
+		tm1->tm_min = 0;
+		tm1->tm_hour = 0;
+		t1 = mktime(tm1);
+		time(&t2);
+		tm2 = localtime(&t2);
+		t3 = (time_t) (get_percentage() * (double) ((long long) t2 - (long long) t1 + (long long) 86400)) + t1;
+		tm3 = localtime(&t3);
+		fprintf(customer_file, "%s%04d%02d%02d%s", 
+			field_deco, tm3->tm_year + 1900,
+			tm3->tm_mon + 1, tm3->tm_mday, field_deco);
+		fprintf(customer_file, "%c", delimiter);
+
+		/* c_data */
+		get_a_string(a_string, 100, C_DATA_LEN);
+		fprintf(customer_file, "%s%s%s", field_deco, a_string, field_deco);
+
+		fprintf(customer_file, "\n");
+
+		/* beginning of the construction of the address table */
+
+		/* addr_id */
+		fprintf(address_file, "%s%d%s", field_deco, i + 1, field_deco);
+		fprintf(address_file, "%c", delimiter);
+
+		/* addr_street1 */
+		get_a_string(a_string, 15, ADDR_STREET1_LEN);
+		fprintf(address_file, "%s%s%s", field_deco, a_string, field_deco);
+		fprintf(address_file, "%c", delimiter);
+
+		/* addr_street2 */
+		get_a_string(a_string, 15, ADDR_STREET1_LEN);
+		fprintf(address_file, "%s%s%s", field_deco, a_string, field_deco);
+		fprintf(address_file, "%c", delimiter);
+
+		/* addr_city */
+		get_a_string(a_string, 4, ADDR_CITY_LEN);
+		fprintf(address_file, "%s%s%s", field_deco, a_string, field_deco);
+		fprintf(address_file, "%c", delimiter);
+
+		/* addr_state */
+		get_a_string(a_string, 2, ADDR_STATE_LEN);
+		fprintf(address_file, "%s%s%s", field_deco, a_string, field_deco);
+		fprintf(address_file, "%c", delimiter);
+
+		/* addr_zip */
+		get_a_string(a_string, 5, ADDR_ZIP_LEN);
+		fprintf(address_file, "%s%s%s", field_deco, a_string, field_deco);
+		fprintf(address_file, "%c", delimiter);
+
+		/* addr_co_id */
+		addr_co_id = get_random_int(CO_ID_MAX) + 1;
+		fprintf(address_file, "%s%d%s", field_deco, addr_co_id, field_deco);
+		fprintf(address_file, "%c", delimiter);
+
+		/* addr_c_id pgxc additional column */
+		fprintf(address_file, "%s%d%s",
+			field_deco, i + 1, field_deco);
+
+		fprintf(address_file, "\n");
+
+		/* beginning of the construction of orders, order_line and cc_xacts */
+		order_line_count = get_random_int(5) + 1;
+
+		/* get a random number from 1 to 10, if the number obtained is 10,
+		 * this customers has no former order table generated
+		 */
+		order_chance = get_random_int(10) + 1;
+		if (order_chance < 10)
+		{
+			order_id++;
+
+			order_line_count = get_random_int(5) + 1;
+			for (j = 0; j < order_line_count; j++)
+			{
+				/* ol_id */
+				fprintf(order_line_file, "%s%d%s",
+					field_deco, j + 1, field_deco);
+				fprintf(order_line_file, "%c", delimiter);
+
+				/* ol_o_id */
+				fprintf(order_line_file, "%s%d%s",
+					field_deco, order_id, field_deco);
+				fprintf(order_line_file, "%c", delimiter);
+
+				/* ol_i_id */
+				fprintf(order_line_file, "%s%d%s",
+					field_deco,
+				get_random_int(items) + 1, field_deco);
+				fprintf(order_line_file, "%c", delimiter);
+
+				/* ol_qty */
+				fprintf(order_line_file, "%s%d%s",
+					field_deco,
+					get_random_int(300) + 1, field_deco);
+				fprintf(order_line_file, "%c", delimiter);
+
+				/* ol_discount */
+				fprintf(order_line_file, "%s%0.2f%s",
+					field_deco,
+					(double) get_random_int(4) / 100.0, field_deco);
+				fprintf(order_line_file, "%c", delimiter);
+
+				/* ol_comments */
+				get_a_string(a_string, 20, OL_COMMENT_LEN);
+				fprintf(order_line_file, "%s%s%s",
+				field_deco, a_string, field_deco);
+				fprintf(order_line_file, "%c", delimiter);
+
+				/* ol_c_id pgxc additional column */
+				fprintf(order_line_file, "%s%d%s",
+					field_deco, i + 1, field_deco);
+
+				fprintf(order_line_file, "\n");
+			}
+			/* Orders */
+
+			/* o_id */
+			fprintf(orders_file, "%s%d%s", field_deco, order_id, field_deco);
+			fprintf(orders_file, "%c", delimiter);
+
+			/* o_c_id */
+			fprintf(orders_file, "%s%d%s",
+				field_deco, i + 1, field_deco);
+			fprintf(orders_file, "%c", delimiter);
+
+			/* o_date */
+			/* Note that the milliseconds are not calculated. */
+			time(&t2);
+			t1 = t2 - (86400 + get_random_int(5184000));
+			tm1 = localtime(&t1);
+			print_timestamp(orders_file, tm1);
+			fprintf(orders_file, "%c", delimiter);
+
+			/* o_sub_total */
+			o_sub_total = (double) (get_random_int(999990) + 10) / 100.0;
+			fprintf(orders_file, "%s%0.2f%s",
+				field_deco, o_sub_total, field_deco);
+			fprintf(orders_file, "%c", delimiter);
+
+			/* o_tax */
+			o_tax = o_sub_total * 0.0825;
+			fprintf(orders_file, "%s%0.2f%s",
+				field_deco, o_tax, field_deco);
+			fprintf(orders_file, "%c", delimiter);
+
+			/* o_total */
+			o_total = o_sub_total + o_tax + order_line_count;
+			fprintf(orders_file, "%s%0.2f%s",
+				field_deco, o_total, field_deco);
+			fprintf(orders_file, "%c", delimiter);
+
+			/* o_ship_type */
+			fprintf(orders_file, "%s%s%s",
+				field_deco,
+				o_ship_type[get_random_int(O_SHIP_TYPE_MAX)],
+				field_deco);
+			fprintf(orders_file, "%c", delimiter);
+
+			/* o_ship_date */
+			/* Note that the milliseconds are not calculated. */
+			t1 += get_random_int(691200);
+			print_timestamp(orders_file, tm1);
+			fprintf(orders_file, "%c", delimiter);
+
+			/* o_bill_addr_id */
+			fprintf(orders_file, "%s%d%s",
+				field_deco,
+				i + 1, field_deco);
+			fprintf(orders_file, "%c", delimiter);
+
+			/* o_ship_addr_id */
+			fprintf(orders_file, "%s%d%s",
+				field_deco,
+				i + 1, field_deco);
+			fprintf(orders_file, "%c", delimiter);
+
+			/* o_status */
+			fprintf(orders_file, "%s%s%s",
+				field_deco,
+				o_status[get_random_int(O_STATUS_MAX)], field_deco);
+
+			fprintf(orders_file, "\n");
+
+			/* CC Xacts */
+
+			/* cx_o_id */
+			fprintf(cc_xacts_file, "%s%d%s", field_deco, order_id, field_deco);
+			fprintf(cc_xacts_file, "%c", delimiter);
+
+			/* cx_type */
+			fprintf(cc_xacts_file, "%s%s%s",
+				field_deco,
+				cx_type[get_random_int(CX_TYPE_MAX)], field_deco);
+			fprintf(cc_xacts_file, "%c", delimiter);
+
+			/* cx_num */
+			get_n_string(a_string, 16, 16);
+			fprintf(cc_xacts_file, "%s%s%s",
+				field_deco, a_string, field_deco);
+			fprintf(cc_xacts_file, "%c", delimiter);
+
+			/* cx_name */
+			/* Clause 4.7.1 says this should be an a_string[14..30] but the
+			 * column definition in Clause 1.4.7 says it is at least 31. */
+			get_a_string(a_string, 14, 30);
+			fprintf(cc_xacts_file, "%s%s%s",
+				field_deco, a_string, field_deco);
+			fprintf(cc_xacts_file, "%c", delimiter);
+
+			/* cx_expiry */
+			t2 += 864000 + get_random_int(62294400);
+			tm2 = localtime(&t2);
+			fprintf(cc_xacts_file, "%s%04d%02d%02d%s",
+				field_deco, tm2->tm_year + 1900,
+				tm2->tm_mon + 1, tm2->tm_mday, field_deco);
+			fprintf(cc_xacts_file, "%c", delimiter);
+
+			/* cx_auth_id */
+			get_a_string(a_string, CX_AUTH_ID_LEN, CX_AUTH_ID_LEN);
+			fprintf(cc_xacts_file, "%s%s%s",
+				field_deco, a_string, field_deco);
+			fprintf(cc_xacts_file, "%c", delimiter);
+
+			/* cx_xact_amt */
+			fprintf(cc_xacts_file, "%s%0.2f%s",
+				field_deco, o_total, field_deco);
+			fprintf(cc_xacts_file, "%c", delimiter);
+
+			/* cx_xact_date */
+			/* Note that the milliseconds are not calculated. */
+			print_timestamp(cc_xacts_file, tm1);
+			fprintf(cc_xacts_file, "%c", delimiter);
+
+			/* cx_co_id */
+			fprintf(cc_xacts_file, "%s%d%s",
+			field_deco, addr_co_id, field_deco);
+			fprintf(cc_xacts_file, "%c", delimiter);
+
+			/* cx_c_id pgxc additional column */
+			fprintf(cc_xacts_file, "%s%d%s",
+			field_deco, i + 1, field_deco);
+
+			fprintf(cc_xacts_file, "\n");
+		}
+	}
+
+	fflush(customer_file);
+	fflush(address_file);
+	fflush(orders_file);
+	fflush(order_line_file);
+	fflush(cc_xacts_file);
+	fclose(customer_file);
+	fclose(address_file);
+	fclose(orders_file);
+	fclose(order_line_file);
+	fclose(cc_xacts_file);
+	printf("Finished customer table data.\n");
+	printf("Finished address table data.\n");
+	printf("Finished orders table data.\n");
+	printf("Finished order_line table data.\n");
+	printf("Finished cc_xacts table data.\n");
+	return;
+}
+
+/* Clause 4.7.1 */
+void gen_items()
+{
+	int i;
+	FILE *item_file = stdout;
+	FILE *stock_file = stdout;
+	char a_string[1024];
+	int i1, i2, i3, i4, i5;
+	double srp;
+	struct tm tm1, *tm2, *tm3;
+	time_t t1, t2, t3;
+	char filename1[256];
+	char filename2[256];
+
+	sprintf(filename1, "%s/item.data", path);
+	item_file = fopen(filename1, "w");
+	if (item_file == NULL)
+	{
+		fprintf(stderr, "cannot open item.data");
+		return;
+	}
+
+	/* pgxc modification: stock data file creation */
+	sprintf(filename2, "%s/stock.data", path);
+	stock_file = fopen(filename2, "w");
+	if (stock_file == NULL)
+	{
+		fprintf(stderr, "cannot open stock.data");
+		return;
+	}
+
+	srand(0);
+	printf("Generating item table data...\n");
+	printf("Generating stock table data...\n");
+
+	item_count = items;
+
+	for (i = 0; i < items; i++)
+	{
+
+		/* i_id */
+		fprintf(item_file, "%s%d%s", field_deco, i + 1, field_deco);
+		fprintf(item_file, "%c", delimiter);
+
+		/* i_title */
+		fprintf(item_file, "%s%s%s", field_deco, mk_title(i+1), field_deco);
+		fprintf(item_file, "%c", delimiter);
+
+		/* i_a_id */
+		if (i < items / 4)
+		{
+			fprintf(item_file, "%s%d%s", field_deco, i + 1, field_deco);
+		}
+		else
+		{
+			fprintf(item_file, "%s%d%s",
+				field_deco, 
+				get_random_int(items / 4) + 1, field_deco);
+		}
+		fprintf(item_file, "%c", delimiter);
+
+		/* i_pub_date */
+		tm1.tm_year = 30;
+		tm1.tm_mon = 0;
+		tm1.tm_mday = 1;
+		tm1.tm_sec = 0;
+		tm1.tm_min = 0;
+		tm1.tm_hour = 0;
+		t1 = mktime(&tm1);
+		time(&t2);
+		tm2 = localtime(&t2);
+		t3 = (time_t) (get_percentage() * (double) ((long long) t2 - (long long) t1 + (long long) 86400)) + t1;
+		tm3 = localtime(&t3);
+		fprintf(item_file, "%s%04d%02d%02d%s", 
+			field_deco, tm3->tm_year + 1900,
+			tm3->tm_mon + 1, tm3->tm_mday, field_deco);
+		fprintf(item_file, "%c", delimiter);
+
+		/* i_publisher */
+		get_a_string(a_string, 14, I_PUBLISHER_LEN);
+		fprintf(item_file, "%s%s%s", field_deco, a_string, field_deco);
+		fprintf(item_file, "%c", delimiter);
+
+		/* i_subject */
+		fprintf(item_file, "%s%s%s",
+			field_deco, 
+			i_subject[get_random_int(I_SUBJECT_MAX)], field_deco);
+		fprintf(item_file, "%c", delimiter);
+
+		/* i_desc */
+		get_a_string(a_string, 100, I_DESC_LEN);
+		fprintf(item_file, "%s%s%s", field_deco, a_string, field_deco);
+		fprintf(item_file, "%c", delimiter);
+
+		/* i_related1 */
+		i1 = get_random_int(items) + 1;
+		fprintf(item_file, "%s%d%s", field_deco, i1, field_deco);
+		fprintf(item_file, "%c", delimiter);
+
+		/* i_related2 */
+		do
+		{
+			i2 = get_random_int(items) + 1;
+		} while (i2 == i1);
+		fprintf(item_file, "%s%d%s", field_deco, i2, field_deco);
+		fprintf(item_file, "%c", delimiter);
+
+		/* i_related3 */
+		do
+		{
+			i3 = get_random_int(items) + 1;
+		} while (i3 == i1 || i3 == i2);
+		fprintf(item_file, "%s%d%s", field_deco, i3, field_deco);
+		fprintf(item_file, "%c", delimiter);
+
+		/* i_related4 */
+		do
+		{
+			i4 = get_random_int(items) + 1;
+		} while (i4 == i1 || i4 == i2 || i4 == i3);
+		fprintf(item_file, "%s%d%s", field_deco, i4, field_deco);
+		fprintf(item_file, "%c", delimiter);
+
+		/* i_related5 */
+		do
+		{
+			i5 = get_random_int(items) + 1;
+		}
+		while (i5 == i1 || i5 == i2 || i5 == i3 || i5 == i4);
+		fprintf(item_file, "%s%d%s", field_deco, i5, field_deco);
+		fprintf(item_file, "%c", delimiter);
+
+		/* i_thumbnail */
+		fprintf(item_file, "%s%d%s", field_deco, i + 1, field_deco);
+		fprintf(item_file, "%c", delimiter);
+
+		/* i_image */
+		fprintf(item_file, "%s%d%s", field_deco, i + 1, field_deco);
+		fprintf(item_file, "%c", delimiter);
+
+		/* i_srp */
+		srp = (get_random_int(999900) + 100.0) / 100;
+		fprintf(item_file, "%s%0.2f%s", field_deco, srp, field_deco);
+		fprintf(item_file, "%c", delimiter);
+
+		/* i_cost */
+		fprintf(item_file, "%s%0.2f%s",
+			field_deco, 
+			(1.0 - ((double) get_random_int(6) / 10.0)) * srp, 
+			field_deco);
+		fprintf(item_file, "%c", delimiter);
+
+		/* i_avail */
+		/*
+		 * 86400 is the number of seconds in a day, and 2505600 is the
+		 * number ofseconds in 29 days.
+		 */
+		t3 += 86400 + (time_t) get_random_int(2505601);
+		tm3 = localtime(&t3);
+		fprintf(item_file, "%s%04d%02d%02d%s", 
+			field_deco, tm3->tm_year + 1900,
+			tm3->tm_mon + 1, tm3->tm_mday, field_deco);
+		fprintf(item_file, "%c", delimiter);
+
+		/* i_isbn */
+		get_a_string(a_string, 13, I_ISBN_LEN);
+		fprintf(item_file, "%s%s%s", field_deco, a_string, field_deco);
+		fprintf(item_file, "%c", delimiter);
+
+		/* i_page */
+		fprintf(item_file, "%s%d%s", 
+			field_deco, get_random_int(9980) + 20, field_deco);
+		fprintf(item_file, "%c", delimiter);
+
+		/* i_backing */
+		fprintf(item_file, "%s%s%s",
+			field_deco, 
+			i_backing[get_random_int(I_BACKING_MAX)], field_deco);
+		fprintf(item_file, "%c", delimiter);
+
+		/* i_dimensions */
+		/* Clause 4.6.2.17 */
+		fprintf(item_file, "%s%0.2fx%0.2fx%0.2f%s",
+			field_deco, 
+			(double) (get_random_int(9999) + 1) / 100.0, (double) (get_random_int(9999) + 1) / 100.0, (double) (get_random_int(9999) + 1) / 100.0, field_deco);
+
+		fprintf(item_file, "\n");
+
+		/* pgxc modification creation of stock table */
+		/* st_i_id */
+		fprintf(stock_file, "%s%d%s", field_deco, i + 1, field_deco);
+		fprintf(stock_file, "%c", delimiter);
+
+		/* st_stock */
+		fprintf(stock_file, "%s%d%s",
+			field_deco, get_random_int(21) + 10, field_deco);
+
+		fprintf(stock_file, "\n");
+	}
+
+	fflush(item_file);
+	fflush(stock_file);
+	fclose(item_file);
+	fclose(stock_file);
+	printf("Finished item table data.\n");
+        printf("Finished stock table data.\n");
+	return;
+}
+
+int process_options(int count, char **vector)
+{
+	int option;
+	int set_items;
+	int set_eus;
+	int flag_all = 1;
+
+	set_items = 0;
+	set_eus = 0;
+	flag_cust_addr_ord = 0;
+	flag_item = 0;
+	flag_author = 0;
+
+	while ((option = getopt (count, vector, "i:u:p:T:h")) != -1)
+	{
+		switch (option)
+		{
+			case 'i':
+				items = atoi(optarg);
+				set_items = 1;
+				break;
+			case 'u':
+				ebs = atoi(optarg);
+				set_eus = 1;
+				break;
+			case 'p':
+				strcpy(path, optarg);
+				break;
+			case 'T':
+				flag_all = 0;
+				switch (*optarg)
+				{
+					case 'i':
+						flag_item = 1 ; /* generate item ONLY */
+						break;
+					case 'c':
+						flag_cust_addr_ord = 1 ; /* generate customer, address, orders. order_line, cc_xacts "ONLY" */
+						break;
+					case 'a':
+						flag_author = 1; /* generate author ONLY */
+						break;
+					default:
+						return 0;
+				}
+				break;
+			case 'h':
+				return 0;
+			default:
+				return 0;
+		}
+	}
+	if (flag_all == 1)
+	{
+		flag_cust_addr_ord = 1;
+		flag_item = 1;
+		flag_author = 1;
+		/* flag_address = 1;
+		 * flag_order = 1;
+		 */
+	}
+	if (set_items == 0 || set_eus == 0 )
+	{
+		printf("item, eu numbers are required\n");
+		return 0;
+	}
+	return 1;
+}
+
+void usage()
+{
+	printf("usage: ./datagen -i <item> -u <eu> -p <path> -T <table_name>\n");
+	printf("table name is:\n");
+	printf(" i -- item\n");
+	printf(" c -- customer & address & order\n");
+	printf(" a -- author\n");
+
+	printf("example: ./datagen -i 10000 -u 1000 -p /dbt1/data -T i -T c\n");
+	printf("generates table ITEM and CUSTOMER for 10k item 1k eu in directory /dbt1/data\n");
+}
+
+/* copied from dbt2 */
+void print_timestamp(FILE *ofile, struct tm *date)
+{
+	fprintf(ofile, "%04d-%02d-%02d %02d:%02d:%02d",
+		date->tm_year + 1900, date->tm_mon + 1, date->tm_mday,
+		date->tm_hour, date->tm_min, date->tm_sec);
+}

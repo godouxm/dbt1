@@ -1,0 +1,74 @@
+# Makefile
+# 20 february 2002
+
+include @TOPDIR@/make.common
+
+EXE = appServer
+APP_PRGS = appServer.c app_txn_array.c app_threadpool.c \
+	app_txn_queue.c app_interface.c
+APP_OBJS = $(APP_PRGS:.c=.o)
+
+OBJS = $(COMMON_OBJS) $(DBI_OBJS) $(APP_OBJS) $(CACHE_DIR)/cache_interface.o \
+		$(TOPDIR)/interfaces/db.o
+PRGS = $(COMMON_PRGS) $(DBI_PRGS) $(APP_PRGS)
+
+all: $(EXE)
+
+$(EXE): $(OBJS)
+	$(CC) -o $@ $(OBJS) $(LDFLAGS)
+
+$(COMMON_OBJS):$(COMMON_PRGS) \
+		$(TOPDIR)/make.common \
+		$(INCLUDE_DIR)/common.h \
+		$(COMMON_DIR)/Makefile
+	cd $(COMMON_DIR); $(MAKE)
+
+$(DBI_OBJS): $(DBI_PRGS) \
+		$(TOPDIR)/make.common \
+		$(INCLUDE_DIR)/common.h $(INCLUDE_DIR)/interaction_data.h \
+		$(DBI_INCLUDE2) \
+		$(DBI_PRGS) \
+		$(DBI_DIR)/Makefile
+	cd $(DBI_DIR); $(MAKE)
+
+$(TOPDIR)/interfaces/db.o: $(TOPDIR)/interfaces/db.c \
+		$(INCLUDE_DIR)/db.h \
+		$(DBI_INCLUDE2) \
+		$(TOPDIR)/interfaces/Makefile
+	cd $(TOPDIR)/interfaces; $(MAKE)
+
+$(CACHE_DIR)/cache_interface.o: $(CACHE_DIR)/cache_interface.c \
+		$(INCLUDE_DIR)/cache_interface.h \
+		$(CACHE_DIR)/Makefile
+	cd $(CACHE_DIR); $(MAKE)
+		
+$(EXE): \
+	$(TOPDIR)/make.common \
+	Makefile \
+	$(OBJS) \
+	$(INCLUDE_DIR)/common.h \
+	$(INCLUDE_DIR)/db.h \
+	$(INCLUDE_DIR)/app_interface.h \
+	$(INCLUDE_DIR)/app_threadpool.h \
+	$(INCLUDE_DIR)/app_txn_array.h \
+	$(INCLUDE_DIR)/app_txn_queue.h \
+	$(DBI_INCLUDE2)
+
+$(APP_OBJS): \
+	$(TOPDIR)/make.common \
+	Makefile \
+	$(INCLUDE_DIR)/common.h \
+	$(INCLUDE_DIR)/eu.h \
+	$(INCLUDE_DIR)/inc_pgsql_$(DBI_NAME)/interaction.h \
+	$(INCLUDE_DIR)/app_interface.h \
+	$(INCLUDE_DIR)/app_threadpool.h \
+	$(INCLUDE_DIR)/app_txn_array.h \
+	$(INCLUDE_DIR)/app_txn_queue.h \
+	$(APP_PRGS)
+
+clean:
+	rm -f $(EXE) *.o
+
+explain:
+	@echo "$(OBJS)"
+

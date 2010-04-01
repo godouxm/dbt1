@@ -1,0 +1,6 @@
+#!/bin/sh
+#drop DBT1 database
+
+source @TOPDIR@/scripts/pgsql/build_param.sh
+
+ssh $PGUSER@$SERVER_IP dropdb -p $SERVER_PORT $SID1

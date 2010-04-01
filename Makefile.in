@@ -1,0 +1,45 @@
+DBI_NAME=@DBI_NAME@
+all: common_obj db_interface_obj db_interface_obj2 cache_exe dbdriver_exe appServer_exe \
+	tools_exe wgen_obj datagen_exe
+
+wgen_obj:
+	cd wgen; $(MAKE)
+
+datagen_exe:
+	cd datagen; $(MAKE)
+
+common_obj:
+	cd common; $(MAKE)
+
+db_interface_obj:
+	cd interfaces; $(MAKE)
+
+db_interface_obj2:
+	cd interfaces/$(DBI_NAME)_com; $(MAKE)
+
+cache_exe:
+	cd cache; $(MAKE)
+
+dbdriver_exe:
+	cd dbdriver; $(MAKE)
+
+appServer_exe:
+	cd appServer; $(MAKE)
+
+tools_exe:
+	cd tools; $(MAKE)
+
+clean:
+	cd wgen; $(MAKE) clean
+	cd common; $(MAKE) clean
+	cd interfaces; $(MAKE) clean
+	cd interfaces/$(DBI_NAME)_com; $(MAKE) clean
+	cd dbdriver; $(MAKE) clean
+	cd appServer; $(MAKE) clean
+	cd tools; $(MAKE) clean
+	cd datagen; $(MAKE) clean
+	cd cache; $(MAKE) clean
+
+install:
+	chmod +x scripts/@DATABASE_TO_USE@/*.sh
+

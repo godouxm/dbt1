@@ -1,0 +1,13 @@
+# Makefile
+# 10 january 2001
+
+include @TOPDIR@/make.common
+
+all: $(COMMON_OBJS)
+
+common.o: $(TOPDIR)/make.common Makefile common.c $(INCLUDE_DIR)/common.h
+
+socket.o: $(TOPDIR)/make.common Makefile _socket.c $(INCLUDE_DIR)/_socket.h
+
+clean: 
+	rm -f $(COMMON_OBJS)

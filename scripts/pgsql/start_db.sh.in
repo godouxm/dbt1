@@ -1,0 +1,5 @@
+#!/bin/sh
+
+source @TOPDIR@/scripts/pgsql/build_param.sh
+ssh $PGUSER@$SERVER_IP pg_ctl start -S coordinator -D $PGDATA -o '-p $SERVER_PORT'
+

@@ -1,0 +1,367 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=iso-8859-1">
+	<TITLE>OSDL-DBT-1</TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 1.0  (Linux)">
+	<META NAME="AUTHOR" CONTENT="Jenny ">
+	<META NAME="CREATED" CONTENT="20020510;8270000">
+	<META NAME="CHANGED" CONTENT="20020620;10010400">
+	<STYLE>
+	<!--
+		H1 { margin-bottom: 0.11cm; color: #000000; widows: 0; orphans: 0 }
+		H1.western { font-family: "Arial", sans-serif; font-size: 16pt; so-language: en-US }
+		H1.cjk { font-family: "Times New Roman", serif; font-size: 16pt }
+		H1.ctl { font-family: "Arial Unicode MS"; font-size: 12pt; font-weight: medium }
+		H2 { margin-bottom: 0.11cm; color: #000000; widows: 0; orphans: 0 }
+		H2.western { font-family: "Arial", sans-serif; font-size: 14pt; so-language: en-US; font-style: italic }
+		H2.cjk { font-family: "Times New Roman", serif; font-size: 14pt; font-style: italic }
+		H2.ctl { font-family: "Arial Unicode MS"; font-size: 12pt; font-weight: medium }
+		P.sdfootnote-western { margin-left: 0.5cm; text-indent: -0.5cm; margin-bottom: 0cm; font-family: "Times New Roman", serif; font-size: 10pt; so-language: en-US }
+		P.sdfootnote-cjk { margin-left: 0.5cm; text-indent: -0.5cm; margin-bottom: 0cm; font-family: "Times New Roman", serif; font-size: 10pt }
+		P.sdfootnote-ctl { margin-left: 0.5cm; text-indent: -0.5cm; margin-bottom: 0cm }
+		A:link { text-decoration: none }
+		A.sdfootnoteanc { font-size: 57% }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" TEXT="#000000">
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=CENTER STYLE="margin-top: 0.42cm; margin-bottom: 0.11cm"><FONT FACE="Arial, sans-serif"><FONT SIZE=4 STYLE="font-size: 16pt"><B>OSDL-DBT-1</B></FONT></FONT></P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0.11cm"><FONT FACE="Arial, sans-serif">An
+On-Line Transaction Processing Test Kit</FONT></P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0.11cm"><BR><BR>
+</P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0.11cm"><FONT FACE="Arial, sans-serif">Architecture</FONT></P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0.11cm"><FONT FACE="Arial, sans-serif">Version
+1.0</FONT></P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0.11cm"><BR><BR>
+</P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0.11cm"><FONT FACE="Arial, sans-serif"><SDFIELD TYPE=DATETIME SDNUM="1033;1033;MMMM D, YYYY">June 20, 2002</SDFIELD></FONT></P>
+<P STYLE="margin-bottom: 0cm; page-break-before: always"><FONT FACE="Arial, sans-serif"><FONT SIZE=4 STYLE="font-size: 16pt"><B>Table
+of Contents</B></FONT></FONT></P>
+<DIV ID="Table of Contents1">
+	<P STYLE="margin-top: 0.21cm"><FONT SIZE=2><B>1OSDL Database Test
+	1	3</B></FONT></P>
+	<P STYLE="margin-left: 0.42cm; text-indent: 0cm; margin-bottom: 0cm">
+	<FONT SIZE=2>1.1Introduction	3</FONT></P>
+	<P STYLE="margin-left: 0.42cm; text-indent: 0cm; margin-bottom: 0cm">
+	<FONT SIZE=2>1.2What is TPC-W&trade;	3</FONT></P>
+	<P STYLE="margin-left: 0.42cm; text-indent: 0cm; margin-bottom: 0cm">
+	<FONT SIZE=2>1.3What is OSDL-DBT-1	5</FONT></P>
+	<P STYLE="margin-left: 0.42cm; text-indent: 0cm; margin-bottom: 0cm">
+	<FONT SIZE=2>1.4Improper Comparisons	7</FONT></P>
+	<P STYLE="margin-top: 0.21cm"><FONT SIZE=2><B>2Architecture Design	7</B></FONT></P>
+	<P STYLE="margin-left: 0.42cm; text-indent: 0cm; margin-bottom: 0cm">
+	<FONT SIZE=2>2.1Development Language and APIs	7</FONT></P>
+	<P STYLE="margin-left: 0.42cm; text-indent: 0cm; margin-bottom: 0cm">
+	<FONT SIZE=2>2.2The Driver	7</FONT></P>
+	<P STYLE="margin-left: 0.42cm; text-indent: 0cm; margin-bottom: 0cm">
+	<FONT SIZE=2>2.3Transaction Management Server	7</FONT></P>
+	<P STYLE="margin-left: 0.42cm; text-indent: 0cm; margin-bottom: 0cm">
+	<FONT SIZE=2>2.4The Database	8</FONT></P>
+	<P STYLE="margin-left: 0.42cm; text-indent: 0cm; margin-bottom: 0cm">
+	<FONT SIZE=2>2.5Other Design Issues	9</FONT></P>
+</DIV>
+<H1 CLASS="western" STYLE="page-break-before: always">1OSDL Database
+Test 1</H1>
+<H2 CLASS="western">1.1Introduction</H2>
+<P STYLE="margin-bottom: 0cm">The OSDL Database Test 1project
+(OSDL-DBT-1) is aimed at developing an easy to use transactional test
+kit to stress the Linux OS and its open source software stack in a
+manner that could be shared with the wider development community. 
+This test is a simplified derivative of the Transaction Processing
+Performance Council (TPC) Benchmark Specification W (TPC-W<SUP>&trade;</SUP>)<SUP><A CLASS="sdfootnoteanc" NAME="sdfootnote1anc" HREF="#sdfootnote1sym"><SUP>1</SUP></A></SUP>.
+ The TPC-W<SUP>&trade; </SUP>is used as a template for this test
+because it is felt that the work done by the TPC reflects a
+reasonable workload for realistic performance optimization activity.</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm">The TPC-W<SUP>&trade;</SUP> workload
+simulates the activities of web users browsing and buying items from
+an on-line bookstore.  The OSDL-DBT-1 test uses the workload
+characteristics of the TPC-W<SUP>&trade;</SUP> to create a simplified
+tool for exposing performance bottlenecks and measuring relative
+performance enhancements made by open source developers.</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm">Since TPC benchmarks are intended to be
+used as competitive tools, the results of the OSDL-DBT-1 workload are
+not comparable in any way to the results of a TPC-W<SUP>&trade;</SUP>
+benchmark.  The TPC requires all published results to comply with
+strict publication and auditing rules to ensure fair comparisons
+between competitors.  The TPC rules also require the general
+availability and disclosure of the pricing for all products used for
+the benchmark.  It is impractical for open source development
+projects to adhere to these rules; thus, the results reported by the
+OSDL-DBT-1 test do not constitute a &quot;TPC-W Benchmark&quot;.  The
+results of the OSDL-DBT-1 workload are completely incomparable with
+any TPC-W<SUP>&trade;</SUP> benchmark.</P>
+<H2 CLASS="western">1.2What is TPC-W&trade;</H2>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0cm">TPC-W<SUP>&trade;</SUP>
+specifies an e-commerce workload that simulates the activities of an
+on-line bookstore.  A typical TPC-W<SUP>&trade;</SUP> setup includes
+Remote Browser Emulators (RBE)<FONT SIZE=1 STYLE="font-size: 8pt"><!-- Always define the acronym first, before using it. --></FONT>,
+web servers, and a database.  For a complete description of the
+TPC-W<SUP>&trade;</SUP> benchmark please refer to the TPC web site at
+<FONT COLOR="#000080"><SPAN STYLE="text-decoration: none"><A HREF="http://www.tpc.org/"><FONT COLOR="#000000">www.tpc.org.</FONT></A></SPAN></FONT>
+</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm">The workload is generated by the <FONT COLOR="#000080"><SPAN STYLE="text-decoration: none"><A HREF="../../../../../../../tmp/evolution-500-21303/evolution.rgwFIA/evolution-500-23726/evolution.wdV0TP/osdl-dbt-1-tpcw.sdw#RBE &amp; Driver"><FONT COLOR="#000000">RBE</FONT></A></SPAN></FONT>.
+ An RBE emulates users that open multiple on-line browser sessions
+that allow the users to browse and order products.  Fourteen web
+pages are simulated.  They are:</P>
+<UL>
+	<LI><P STYLE="margin-left: -1.27cm; margin-bottom: 0cm">a home page</P>
+	<LI><P STYLE="margin-left: -1.27cm; margin-bottom: 0cm">a shopping
+	cart</P>
+	<LI><P STYLE="margin-left: -1.27cm; margin-bottom: 0cm">a customer
+	registration page</P>
+	<LI><P STYLE="margin-left: -1.27cm; margin-bottom: 0cm">a buy
+	request page</P>
+	<LI><P STYLE="margin-left: -1.27cm; margin-bottom: 0cm">a buy
+	confirm page</P>
+	<LI><P STYLE="margin-left: -1.27cm; margin-bottom: 0cm">an order
+	inquiry page</P>
+	<LI><P STYLE="margin-left: -1.27cm; margin-bottom: 0cm">an order
+	display page</P>
+	<LI><P STYLE="margin-left: -1.27cm; margin-bottom: 0cm">a search
+	request page</P>
+	<LI><P STYLE="margin-left: -1.27cm; margin-bottom: 0cm">a search
+	result page</P>
+	<LI><P STYLE="margin-left: -1.27cm; margin-bottom: 0cm">a new
+	products page</P>
+	<LI><P STYLE="margin-left: -1.27cm; margin-bottom: 0cm">a best
+	sellers page</P>
+	<LI><P STYLE="margin-left: -1.27cm; margin-bottom: 0cm">a detailed
+	product page</P>
+	<LI><P STYLE="margin-left: -1.27cm; margin-bottom: 0cm">an
+	administrator request page</P>
+	<LI><P ALIGN=JUSTIFY STYLE="margin-left: -1.27cm; margin-bottom: 0cm">
+	an administrator confirmation page</P>
+</UL>
+<P STYLE="margin-left: 1.77cm; margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm">One web page represents one web
+interaction.  Each web interaction<SUP><A CLASS="sdfootnoteanc" NAME="sdfootnote2anc" HREF="#sdfootnote2sym"><SUP>2</SUP></A></SUP>
+may include one or more exchanges between the System Under Test (SUT)
+and the <FONT COLOR="#000080"><SPAN STYLE="text-decoration: none"><A HREF="../../../../../../../tmp/evolution-500-21303/evolution.rgwFIA/evolution-500-23726/evolution.wdV0TP/osdl-dbt-1-tpcw.sdw#EB &amp; EU"><FONT COLOR="#000000">Emulated
+Browser (EB)</FONT></A></SPAN></FONT>.  The exchanges may include the
+request and communication of cookies, HTML pages, image files or
+other web objects.  According to defined navigation rules, the EBs
+randomly navigate through the various pages.  Those navigation rules
+simulate the behavior of a real user, and ensure that the access to
+the 14 pages follows the TPC-W<SUP>&trade; </SUP>&quot;Web
+Interaction Mix&quot;<SUP><A CLASS="sdfootnoteanc" NAME="sdfootnote3anc" HREF="#sdfootnote3sym"><SUP>3</SUP></A></SUP>
+that defines the range of percentages each transaction falls into.</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm">When receiving a request from the RBE,
+the web servers access and update the database, generate web pages
+dynamically, and send the pages back.  An e-commerce solution would
+typically have servers divided into several groups based on their
+functions.  For example, an image server serves .gif and .jpg files,
+the HTTP server and the application server execute business logic and
+access the database, and a web cache server serves the cacheable web
+objects.  For the search results web interaction, the TPC-W<SUP>&trade;
+</SUP>Specification allows the use of a commercially available text
+search engine<SUP><A CLASS="sdfootnoteanc" NAME="sdfootnote4anc" HREF="#sdfootnote4sym"><SUP>4</SUP></A></SUP>,
+which creates and maintains static indexes outside of the database. 
+TPC-W<SUP>&trade; </SUP>also requires a Payment Gateway Emulator to
+simulate credit card authorizations.</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm">The database consists of many tables
+with a wide range of sizes and complicated relationships.  The
+database transactions must maintain ACID properties.</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm">Database transaction ACID properties
+are Atomicity, Consistency, Isolation and Durability.  For detailed
+information, please refer to the TPC-W<SUP>&trade; </SUP>Specification
+Clause 3.1.1, 3.1.2, 3.1.3 and 3.1.4.</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm">Figure 1 shows a typical TPC-W<SUP>&trade;</SUP>
+setup:</P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm; page-break-after: avoid"><IMG SRC="architecture_html_m23771ffa.png" NAME="Graphic1" ALIGN=BOTTOM WIDTH=328 HEIGHT=339 BORDER=0></P>
+<P ALIGN=CENTER STYLE="margin-top: 0.21cm"><FONT SIZE=2><B>Figure 1. 
+TPC-W&trade; Setup</B></FONT></P>
+<H2 CLASS="western">1.3What is OSDL-DBT-1</H2>
+<P STYLE="margin-bottom: 0cm">OSDL-DBT-1 is a transactional based
+test kit.  It drives a database with a similar workload to the one
+defined by the TPC-W<SUP>&trade; </SUP>Specification.</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm">OSDL-DBT-1 consists of a database, a
+<FONT COLOR="#000080"><SPAN STYLE="text-decoration: none"><A HREF="../../../../../../../tmp/evolution-500-21303/evolution.rgwFIA/evolution-500-23726/evolution.wdV0TP/osdl-dbt-1-tpcw.sdw#TMS"><FONT COLOR="#000000">transaction
+management server</FONT></A></SPAN></FONT> and a driver.</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0cm">Figure 2 illustrates the
+components in OSDL-DBT-1:</P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm; page-break-after: avoid"><IMG SRC="architecture_html_m277c1b75.png" NAME="Graphic2" ALIGN=BOTTOM WIDTH=293 HEIGHT=450 BORDER=0></P>
+<P ALIGN=CENTER STYLE="margin-top: 0.21cm"><FONT SIZE=2><B>Figure 2. 
+OSDL-DBT-1 Architecture</B></FONT></P>
+<P STYLE="margin-bottom: 0cm">The <FONT COLOR="#000080"><SPAN STYLE="text-decoration: none"><A HREF="../../../../../../../tmp/evolution-500-21303/evolution.rgwFIA/evolution-500-23726/evolution.wdV0TP/osdl-dbt-1-tpcw.sdw#RBE &amp; Driver"><FONT COLOR="#000000">OSDL-DBT-1
+driver</FONT></A></SPAN></FONT> performs similar tasks to the RBE in
+TPC-W<SUP>&trade;</SUP>.  It generates and manages <FONT COLOR="#000080"><SPAN STYLE="text-decoration: none"><A HREF="../../../../../../../tmp/evolution-500-21303/evolution.rgwFIA/evolution-500-23726/evolution.wdV0TP/osdl-dbt-1-tpcw.sdw#EB &amp; EU"><FONT COLOR="#000000">Emulated
+Users (EU)</FONT></A></SPAN></FONT>.  The EU follows a similar logic
+to the EB in the TPC-W<SUP>&trade; </SUP>benchmark, but generates
+data structures instead of HTTP requests.</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm">While the TPC-W<SUP>&trade; </SUP>benchmark
+requires web servers to serve web objects, the OSDL-DBT-1 test kit
+uses the transaction management server to simplify testing and remove
+an entire layer of web servers.</P>
+<P STYLE="margin-top: 0.18cm; margin-bottom: 0cm">	</P>
+<P STYLE="margin-bottom: 0cm">The transaction management server is
+the middle tier connecting the driver to the database.  It performs
+transaction management functions.  It talks to the database via ODBC.</P>
+<P STYLE="margin-top: 0.18cm; margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm">The databases in OSDL-DBT-1 and TPC-W<SUP>&trade;
+</SUP>have essentially the same table and table definitions, and
+follow the same population rules.  The stored procedures execute
+similar business logic.  Some of the stored procedures in OSDL-DBT-1
+return less data than defined for the TPC-W<SUP>&trade;</SUP>.</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm">For details of the differences between
+TPC-W<SUP>&trade;</SUP> and OSDL-DBT-1, please refer to document
+<FONT COLOR="#000080"><SPAN STYLE="text-decoration: none"><A HREF="../../../../../../../tmp/evolution-500-21303/evolution.rgwFIA/evolution-500-23726/evolution.wdV0TP/osdl-dbt-1-tpcw.sdw#chapter 6"><FONT COLOR="#000000">&quot;Similarities
+and Differences to the TPC-W Specification&quot;.</FONT></A></SPAN></FONT></P>
+<H2 CLASS="western">1.4Improper Comparisons</H2>
+<P STYLE="margin-bottom: 0cm">If you discover any usage of the
+OSDL-DBT-1 in drawing conclusions about the TPC-W<SUP>&trade;</SUP>
+performance, this inappropriate usage should be reported to both the
+TPC and to the OSDL:</P>
+<P STYLE="margin-bottom: 0cm">	TPC - admin@tpc.org</P>
+<P STYLE="margin-bottom: 0cm">	OSDL- wookie@osdl.org</P>
+<H1 CLASS="western">2Architecture Design</H1>
+<P STYLE="margin-bottom: 0cm">There are three components in the
+OSDL-DBT-1 kit: the driver, the transaction management server and the
+database.</P>
+<H2 CLASS="western">2.1Development Language and APIs</H2>
+<P STYLE="margin-bottom: 0cm">The driver and the transaction
+management server are written in C and  use ODBC APIs to initiate the
+stored procedures<FONT SIZE=1 STYLE="font-size: 8pt">.</FONT>  The
+database used for development is the open source database SAP DB
+v7.3.0.21.  The operating system developed on is RedHat 7.2, but it
+was designed to run on any standard Linux distribution.</P>
+<H2 CLASS="western">2.2The Driver</H2>
+<P STYLE="margin-bottom: 0cm">The database driver executes a workload
+on the database system.  It is a multi-threaded program where each
+thread performs the activities of a single user.  The driver is
+compiled into two separate binaries.  The first binary (dbdriver_p1)
+is linked to the ODBC interface and communicates directly with the
+database; bypassing the transaction manager.  This driver can be used
+for simple functional testing of the database stored procedures.  The
+second binary (dbdriver_p2) is linked against a socket interface to
+communicate with the transaction management server.  This is the main
+driver for testing performance.</P>
+<H2 CLASS="western">2.3Transaction Management Server</H2>
+<P STYLE="margin-bottom: 0cm">The transaction management server is
+the middle-tier software.  It receives transaction requests from the
+driver, delivers the query to the database, and returns the query
+result back to the driver.  The transaction management server is
+configured to create a specified number of database connections, in
+order to handle a greater number of individual Emulated Users.  This
+allows greater throughput capabilities and gives the overall system a
+more realistic stress load.</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm">Figure 3 shows the transaction
+management server and its relationship to the driver and the
+database.</P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm; page-break-after: avoid"><IMG SRC="architecture_html_23295de.png" NAME="Graphic3" ALIGN=BOTTOM WIDTH=329 HEIGHT=322 BORDER=0></P>
+<P ALIGN=CENTER STYLE="margin-top: 0.21cm"><FONT SIZE=2><B>Figure 3. 
+Transaction Management Serer Architecture<FONT SIZE=1 STYLE="font-size: 8pt"><!-- It is the same title as Figure 2. It is more appropriate to call it 'Transaction Management Server Architecture' --></FONT></B></FONT></P>
+<P STYLE="margin-bottom: 0cm">When starting the transaction
+management server, a fixed number of DoTxn threads are started.  Each
+DoTxn opens a database connection, and then waits for queue elements
+to arrive in the Transaction Queue.</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm">There is only one thread listening on a
+dedicated port for incoming connections.  When the EU attempts a
+connection, the listener thread creates a DoConnection thread to
+service the request.</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm">DoConnection receives the query request
+from an EU, puts it in the Transaction Queue, tells DoTxn that there
+is something in the Queue, and then waits for the transaction to be
+completed.</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm">DoTxn picks up the query request from
+the Transaction Queue, accesses the database, and notifies
+DoConnection that the transaction is done.  DoConnection then sends
+the resulting data back to the EU.</P>
+<H2 CLASS="western">2.4The Database</H2>
+<P STYLE="margin-bottom: 0cm">The database is composed of tables,
+indexes, and stored procedures.  The tables hold information about
+the e-commerce bookstore inventory.  The stored procedures execute
+the queries.  The indexes are created to accelerate the queries. 
+Using the database, the Emulated Users can make queries about best
+selling books, new products, books by specific authors, etc.</P>
+<H2 CLASS="western">2.5Other Design Issues</H2>
+<P STYLE="margin-bottom: 0cm">Aside from the basic files to create
+and run the OSDL-DBT-1 test, other tools were implemented to support
+the development and debugging of the OSDL-DBT-1 kit.</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm">A database simulation module was
+implemented in the transaction management server to assist in the
+test and debug efforts for the driver and the transaction management
+server.</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm">Tools were developed to load and test
+each individual stored procedure, and analyze test run results.  Due
+to limitations in SAP DB repmcli, the loading tool is needed to load
+large stored procedures.  The test tool is compiled into two
+binaries:  odbc_test_p2 and odbc_test_p1.  They are used to test
+stored procedures with and without communicating with the transaction
+management server respectively.</P>
+<DIV ID="sdfootnote1">
+	<P CLASS="sdfootnote-western"><A CLASS="sdfootnotesym" NAME="sdfootnote1sym" HREF="#sdfootnote1anc">1</A>
+	TPC Benchmark W is a registered trademark of the Transaction
+	Processing Performance Council.</P>
+</DIV>
+<DIV ID="sdfootnote2">
+	<P CLASS="sdfootnote-western"><A CLASS="sdfootnotesym" NAME="sdfootnote2sym" HREF="#sdfootnote2anc">2</A>
+	TPC-W<SUP>&trade;</SUP> Specification Version 1.7 Clause 2.1.4.</P>
+</DIV>
+<DIV ID="sdfootnote3">
+	<P CLASS="sdfootnote-western"><A CLASS="sdfootnotesym" NAME="sdfootnote3sym" HREF="#sdfootnote3anc">3</A>
+	TPC-W<SUP>&trade;</SUP> Specification Version 1.7 Clause 5.2.1.</P>
+</DIV>
+<DIV ID="sdfootnote4">
+	<P CLASS="sdfootnote-western"><A CLASS="sdfootnotesym" NAME="sdfootnote4sym" HREF="#sdfootnote4anc">4</A>
+	TPC-W<SUP>&trade;  </SUP>Specification Version 1.7 Clause 2.2.1.5.</P>
+</DIV>
+</BODY>
+</HTML>

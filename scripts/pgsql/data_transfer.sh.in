@@ -1,0 +1,165 @@
+#!/bin/sh                                                                       
+# 
+# Scripts used to transform the tables of datagen from a format
+# data[1,1]>data[1,2]>...>data[1,n]
+# ...
+# data[m,1]>data[m,2]>...>data[m,n]
+# 
+# into the following SQL format
+# BEGIN
+# TRUNCATE table_name
+# INSERT INTO table_name VALUES (data[1,1], ..., data[1,n]);
+# INSERT INTO table_name VALUES (data[m,1], ..., data[m,n]);
+# END
+
+# all the data files
+# as an input argument $1 the name of the file /tmp/file_name.data is used
+# as datagen produces a link from the tmp folder to the local data directory
+# 2nd argument $2 is simply the table name
+
+datafile=$1
+tablename=$2
+filename=`echo "@TOPDIR@/scripts/pgsql/resultsql/"$tablename".sql"`
+
+echo "BEGIN;" > $filename
+echo "TRUNCATE "$tablename";" >> $filename
+
+echo "Data transfer of table "$tablename" in progress"
+
+# Data filter made depending on the data file name to identify which table it is
+# and completes it consecutively
+while [ 1 ]
+do
+  read charac || break
+  if [ "$tablename" = "country" ]
+      then
+      char1=`echo $charac | cut -d ">" -f 1` #co_id
+      char2=`echo $charac | cut -d ">" -f 2` #co_name
+      char3=`echo $charac | cut -d ">" -f 3` #co_currency
+      char4=`echo $charac | cut -d ">" -f 4` #co_exchange
+      echo "INSERT INTO country VALUES ("$char1",'"$char2"', "$char3", '"$char4"');" >> $filename
+  fi
+  if [ "$tablename" = "address" ]
+      then
+      char1=`echo $charac | cut -d ">" -f 1` #addr_id
+      char2=`echo $charac | cut -d ">" -f 2` #addr_street1
+      char3=`echo $charac | cut -d ">" -f 3` #addr_street2
+      char4=`echo $charac | cut -d ">" -f 4` #addr_city
+      char5=`echo $charac | cut -d ">" -f 5` #addr_state
+      char6=`echo $charac | cut -d ">" -f 6` #addr_zip
+      char7=`echo $charac | cut -d ">" -f 7` #addr_co_id
+      char8=`echo $charac | cut -d ">" -f 8` #addr_c_id
+      echo "INSERT INTO address VALUES ("$char1", '"$char2"', '"$char3"', '"$char4"', '"$char5"', '"$char6"', "$char7", "$char8");" >> $filename
+  fi
+  if [ "$tablename" = "author" ]
+      then
+      char1=`echo $charac | cut -d ">" -f 1` #a_id
+      char2=`echo $charac | cut -d ">" -f 2` #a_fname
+      char3=`echo $charac | cut -d ">" -f 3` #a_lname
+      char4=`echo $charac | cut -d ">" -f 4` #a_mname
+      char5=`echo $charac | cut -d ">" -f 5` #a_dob
+      char6=`echo $charac | cut -d ">" -f 6` #a_bio
+      echo "INSERT INTO author VALUES ("$char1", '"$char2"', '"$char3"', '"$char4"', '"$char5"', '"$char6"');" >> $filename
+  fi
+  if [ "$tablename" = "cc_xacts" ]
+      then
+      char1=`echo $charac | cut -d ">" -f 1` #cx_o_id
+      char2=`echo $charac | cut -d ">" -f 2` #cx_type
+      char3=`echo $charac | cut -d ">" -f 3` #cx_cc_num
+      char4=`echo $charac | cut -d ">" -f 4` #cx_cc_name
+      char5=`echo $charac | cut -d ">" -f 5` #cx_expiry
+      char6=`echo $charac | cut -d ">" -f 6` #cx_auth_id
+      char7=`echo $charac | cut -d ">" -f 7` #cx_xact_amt
+      char8=`echo $charac | cut -d ">" -f 8` #cx_xact_date
+      char9=`echo $charac | cut -d ">" -f 9` #cx_co_id
+      char10=`echo $charac | cut -d ">" -f 10` #cx_c_id
+      dataloc=`echo "INSERT INTO cc_xacts VALUES ("$char1", '"$char2"', '"$char3"', '"$char4"', '"$char5"', '"`
+      echo $dataloc$char6"', "$char7", '"$char8"', "$char9", "$char10");" >> $filename
+  fi
+  if [ "$tablename" = "customer" ]
+      then
+      char1=`echo $charac | cut -d ">" -f 1` #c_id
+      char2=`echo $charac | cut -d ">" -f 2` #c_name
+      char3=`echo $charac | cut -d ">" -f 3` #c_passwd
+      char4=`echo $charac | cut -d ">" -f 4` #c_fname
+      char5=`echo $charac | cut -d ">" -f 5` #c_lname
+      char6=`echo $charac | cut -d ">" -f 6` #c_addr_id
+      char7=`echo $charac | cut -d ">" -f 7` #c_phone
+      char8=`echo $charac | cut -d ">" -f 8` #c_email
+      char9=`echo $charac | cut -d ">" -f 9` #c_since
+      char10=`echo $charac | cut -d ">" -f 10` #c_last_visit
+      char11=`echo $charac | cut -d ">" -f 11` #c_login
+      char12=`echo $charac | cut -d ">" -f 12` #c_expiration
+      char13=`echo $charac | cut -d ">" -f 13` #c_discount
+      char14=`echo $charac | cut -d ">" -f 14` #c_balance
+      char15=`echo $charac | cut -d ">" -f 15` #c_ytd_pmt
+      char16=`echo $charac | cut -d ">" -f 16` #c_birthdate
+      char17=`echo $charac | cut -d ">" -f 17` #c_data
+      dataloc=`echo "INSERT INTO customer VALUES ("$char1", '"$char2"', '"$char3"', '"$char4"', '"$char5"', "$char6", '"`
+      dataloc=`echo $dataloc$char7"', '"$char8"', '"$char9"', '"$char10"', '"$char11"', '"$char12"', "`
+      echo $dataloc$char13", "$char14", "$char15", '"$char16"', '"$char17"');" >> $filename
+  fi
+  if [ "$tablename" = "item" ]
+      then
+      char1=`echo $charac | cut -d ">" -f 1` #i_id
+      char2=`echo $charac | cut -d ">" -f 2` #i_title
+      char3=`echo $charac | cut -d ">" -f 3` #i_a_id
+      char4=`echo $charac | cut -d ">" -f 4` #i_pub_date
+      char5=`echo $charac | cut -d ">" -f 5` #i_publisher
+      char6=`echo $charac | cut -d ">" -f 6` #i_subject
+      char7=`echo $charac | cut -d ">" -f 7` #i_desc
+      char8=`echo $charac | cut -d ">" -f 8` #i_related1
+      char9=`echo $charac | cut -d ">" -f 9` #i_related2
+      char10=`echo $charac | cut -d ">" -f 10` #i_related3
+      char11=`echo $charac | cut -d ">" -f 11` #i_related4
+      char12=`echo $charac | cut -d ">" -f 12` #i_related5
+      char13=`echo $charac | cut -d ">" -f 13` #i_thumbnail
+      char14=`echo $charac | cut -d ">" -f 14` #i_image
+      char15=`echo $charac | cut -d ">" -f 15` #i_srp
+      char16=`echo $charac | cut -d ">" -f 16` #i_cost
+      char17=`echo $charac | cut -d ">" -f 17` #i_avail
+      char18=`echo $charac | cut -d ">" -f 18` #i_isbn
+      char19=`echo $charac | cut -d ">" -f 19` #i_page
+      char20=`echo $charac | cut -d ">" -f 20` #i_backing
+      char21=`echo $charac | cut -d ">" -f 21` #i_dimension
+      dataloc=`echo "INSERT INTO item VALUES ("$char1", '"$char2"', "$char3", '"$char4"', '"$char5"', '"$char6"', '"`
+      dataloc=`echo $dataloc$char7"', "$char8", "$char9", "$char10", "$char11", "$char12", "`
+      dataloc=`echo $dataloc$char13", "$char14", "$char15", "$char16", '"$char17"', '"$char18"', "`
+      echo $dataloc$char19", '"$char20"', '"$char21"');" >> $filename
+      
+  fi
+  if [ "$tablename" = "order_line" ]
+      then
+      char1=`echo $charac | cut -d ">" -f 1` #ol_id
+      char2=`echo $charac | cut -d ">" -f 2` #ol_o_id
+      char3=`echo $charac | cut -d ">" -f 3` #ol_i_id
+      char4=`echo $charac | cut -d ">" -f 4` #ol_qty
+      char5=`echo $charac | cut -d ">" -f 5` #ol_discount
+      char6=`echo $charac | cut -d ">" -f 6` #ol_comment
+      char7=`echo $charac | cut -d ">" -f 7` #ol_c_id 
+      echo "INSERT INTO order_line VALUES ("$char1", "$char2", "$char3", "$char4", "$char5", '"$char6"', "$char7");" >> $filename
+  fi
+  if [ "$tablename" = "orders" ]
+      then
+      char1=`echo $charac | cut -d ">" -f 1` #o_id
+      char2=`echo $charac | cut -d ">" -f 2` #o_c_id
+      char3=`echo $charac | cut -d ">" -f 3` #o_date
+      char4=`echo $charac | cut -d ">" -f 4` #o_sub_total
+      char5=`echo $charac | cut -d ">" -f 5` #o_tax
+      char6=`echo $charac | cut -d ">" -f 6` #o_total
+      char7=`echo $charac | cut -d ">" -f 7` #o_ship_type
+      char8=`echo $charac | cut -d ">" -f 8` #o_ship_date
+      char9=`echo $charac | cut -d ">" -f 9` #o_bill_addr_id
+      char10=`echo $charac | cut -d ">" -f 10` #o_ship_addr_id
+      char11=`echo $charac | cut -d ">" -f 11` #o_status
+      echo "INSERT INTO orders VALUES ("$char1", "$char2", '"$char3"', "$char4", "$char5", "$char6", '"$char7"', '"$char8"', "$char9", "$char10", '"$char11"');" >> $filename
+  fi
+  if [ "$tablename" = "stock" ]
+      then
+      char1=`echo $charac | cut -d ">" -f 1` #st_i_id
+      char2=`echo $charac | cut -d ">" -f 2` #st_stock
+      echo "INSERT INTO stock VALUES ("$char1", "$char2");" >> $filename
+  fi
+done < $datafile
+
+echo "END;" >> $filename

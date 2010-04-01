@@ -1,0 +1,58 @@
+# Generated automatically from Makefile.in by configure.
+# Makefile
+# 30 january 2002
+
+include @TOPDIR@/make.common
+
+EXE = dbdriver
+DBDRIVER_PRGS = eu.c main.c tm_interface.c
+DBDRIVER_OBJS = $(DBDRIVER_PRGS:.c=.o)
+
+OBJS = $(DBDRIVER_OBJS) $(COMMON_OBJS) $(CACHE_DIR)/cache_interface.o \
+	$(TOPDIR)/interfaces/db.o $(DBI_OBJS)
+PRGS = $(COMMON_PRGS) $(DBDRIVER_PRGS) \
+	$(CACHE_DIR)/cache_interface.c $(TOPDIR)/interfaces/db.c
+
+all: $(EXE)
+
+$(EXE): $(OBJS)
+	$(CC) -o $@ $(OBJS) $(LDFLAGS)
+
+$(COMMON_OBJS):$(COMMON_PRGS) \
+		$(TOPDIR)/make.common \
+		$(INCLUDE_DIR)/common.h \
+		$(COMMON_DIR)/Makefile
+	cd $(COMMON_DIR); $(MAKE)
+
+$(DBI_OBJS): $(DBI_PRGS) \
+		$(TOPDIR)/make.common \
+		$(INCLUDE_DIR)/common.h $(INCLUDE_DIR)/interaction_data.h \
+		$(DBI_INCLUDE) \
+		$(DBI_PRGS) \
+		$(DBI_DIR)/Makefile
+	cd $(DBI_DIR); $(MAKE)
+
+$(TOPDIR)/interfaces/db.o: $(TOPDIR)/interfaces/db.c \
+		$(INCLUDE_DIR)/db.h \
+		$(DBI_INCLUDE) \
+		$(TOPDIR)/interfaces/Makefile
+	cd $(TOPDIR)/interfaces; $(MAKE)
+
+$(CACHE_DIR)/cache_interface.o: $(CACHE_DIR)/cache_interface.c \
+		$(INCLUDE_DIR)/cache_interface.h \
+		$(CACHE_DIR)/Makefile
+	cd $(CACHE_DIR); $(MAKE)
+		
+$(EXE): \
+	$(TOPDIR)/make.common \
+	Makefile \
+	$(OBJS) \
+	$(INCLUDE_DIR)/common.h \
+	$(INCLUDE_DIR)/db.h \
+	$(INCLUDE_DIR)/app_interface.h \
+	$(INCLUDE_DIR)/app_threadpool.h \
+	$(INCLUDE_DIR)/app_txn_array.h \
+	$(INCLUDE_DIR)/app_txn_queue.h \
+	$(DBI_INCLUDE)
+clean:
+	rm -f $(EXE) *.o

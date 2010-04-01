@@ -1,0 +1,18 @@
+# Makefile
+# 20 february 2002
+
+include @TOPDIR@/make.common
+
+CFLAGS_P1 = $(CFLAGS) -DPHASE1
+CFLAGS_P2 = $(CFLAGS) -DPHASE2
+
+all: results
+
+results: $(TOPDIR)/make.common Makefile results.c ../common/common.o
+	$(CC) $(CFLAGS) -fno-strict-aliasing results.c -o results -lm ../common/common.o
+
+explain:
+	@echo "$(DBI_OBJS)"
+
+clean:
+	rm -f results

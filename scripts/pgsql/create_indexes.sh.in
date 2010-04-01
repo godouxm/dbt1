@@ -1,0 +1,5 @@
+#!/bin/sh
+
+source @TOPDIR@/scripts/pgsql/build_param.sh
+
+psql -h $SERVER_IP -p $SERVER_PORT -d $SID1 -f @TOPDIR@/scripts/pgsql/create_indexes.sql

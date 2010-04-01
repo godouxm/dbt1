@@ -1,0 +1,150 @@
+#!/bin/sh
+
+#the server data file is written with the following format
+#IPAddress;port number;app server port number
+server_list=`cat @TOPDIR@/appServerList.data`
+
+declare -a appServer_dbconnection
+declare -a appServer_txn_q_size
+declare -a appServer_txn_a_size
+
+declare -a dbdriver_items
+declare -a dbdriver_customers
+declare -a dbdriver_eus
+declare -a dbdriver_eus_per_min
+declare -a dbdriver_think_time
+declare -a dbdriver_run_duration
+declare -a access_clean
+
+#read stats parameters in @TOPDIR@/pgxc_stats_param.data
+
+echo reading from pgxc_stats_param.data
+while read var1
+	do
+	if [ "$var1" == [appServer] ]
+	then
+		read #skip the comment
+		read -a appServer_dbconnection
+		read #skip the comment
+		read -a appServer_txn_q_size
+		read #skip the comment
+		read -a appServer_txn_a_size
+	fi
+	if [ "$var1" == [dbdriver] ]
+	then
+		read #skip the comment
+		read -a dbdriver_items
+		read #skip the comment
+		read -a dbdriver_customers
+		read #skip the comment
+		read -a dbdriver_eus #emulated users
+		read #skip the comment
+		read -a dbdriver_eus_per_minute # to define in command
+		read #skip the comment
+		read -a dbdriver_think_time #to define in command
+		read #skip the comment
+		read -a dbdriver_run_duration #to define in command
+		read #skip the comment
+		read -a access_mode
+		read #skip the comment
+		read -a access_clean
+	fi
+done < @TOPDIR@/pgxc_stats_param.data
+
+echo DBT-1 set up with $access_mode configuration
+if [ "$access_clean" = "access_clean" ]
+	then
+	option_clean=`echo --$access_clean`
+	echo DBT-1 set up with $access_clean option
+fi
+
+if [ "$server_list" = "" ]
+	then
+	echo "ERROR appServerlist does not exist..."
+	echo "Check @TOPDIR@/appServerList.data"
+	exit
+fi
+
+if [ "$server_list" != "" ]
+	then
+	#application server, connection establishment to pgxc servers
+	#if the configuration is in application server access mode
+	if [ "$access_mode" != "access_direct" ]
+	then
+		for serverdata in $server_list
+			do
+			servernum=`echo $serverdata | cut -d ";" -f 1`
+			port=`echo $serverdata | cut -d ";" -f 2`
+			appserverport=`echo $serverdata | cut -d ";" -f 3`
+			@TOPDIR@/appServer/appServer --dbname $SID1 --item_count $dbdriver_items --db_connection $appServer_dbconnection --username $PGUSER --host $servernum --dbport $port --server_port $appserverport --txn_q_size $appServer_txn_q_size --txn_array_size $appServer_txn_a_size  &
+			echo "appServer command launched"
+			echo "@TOPDIR@/appServer/appServer --dbname $SID1 --item_count $dbdriver_items --db_connection $appServer_dbconnection --username $PGUSER --host $servernum --dbport $port --server_port $appserverport --txn_q_size $appServer_txn_q_size --txn_array_size $appServer_txn_a_size  &"
+		 	sleep $appServer_dbconnection
+		done
+		for serverdata in $server_list
+		do
+			appserverport=`echo $serverdata | cut -d ";" -f 3`
+			@TOPDIR@/dbdriver/dbdriver $option_clean --$access_mode --item_count $dbdriver_items --dbname $SID1 --emulated_users $dbdriver_eus --customer_count $dbdriver_customers --dbhost localhost --port $appserverport --rampup_rate $dbdriver_eus_per_minute --think_time $dbdriver_think_time --duration $dbdriver_run_duration --username $PGUSER --output_path @TOPDIR@/ &
+			echo "db driver command launched"
+			echo "@TOPDIR@/dbdriver/dbdriver $option_clean --$access_mode --item_count $dbdriver_items --dbname SID1 --emulated_users $dbdriver_eus --customer_count $dbdriver_customers --dbhost localhost --port $appserverport --rampup_rate $dbdriver_eus_per_minute --think_time $dbdriver_think_time --duration $dbdriver_run_duration --username $PGUSER --output_path @TOPDIR@/ &"
+		done
+	fi
+	if [ "$access_mode" == "access_direct" ]
+	then
+		#launch of the transactions
+		#if direct mode is activated not necessary to use the appServer
+		for serverdata in $server_list
+			do
+			servernum=`echo $serverdata | cut -d ";" -f 1`
+			port=`echo $serverdata | cut -d ";" -f 2`
+			appserverport=`echo $serverdata | cut -d ";" -f 3`
+			@TOPDIR@/dbdriver/dbdriver $option_clean --$access_mode --item_count $dbdriver_items --dbname $SID1 --emulated_users $dbdriver_eus --customer_count $dbdriver_customers --dbport $port --dbhost $servernum --rampup_rate $dbdriver_eus_per_minute --think_time $dbdriver_think_time --duration $dbdriver_run_duration --username $PGUSER --output_path @TOPDIR@/ &
+			echo "db driver command launched"
+			echo "@TOPDIR@/dbdriver/dbdriver $option_clean --$access_mode --item_count $dbdriver_items --dbname SID1 --emulated_users $dbdriver_eus --customer_count $dbdriver_customers --dbport $port --dbhost $servernum --rampup_rate $dbdriver_eus_per_minute --think_time $dbdriver_think_time --duration $dbdriver_run_duration --username $PGUSER --output_path @TOPDIR@/ &"
+		done
+	fi
+fi
+
+#Beginning of statistics, gathering of several results...
+#Create one folder of statistics for each pgxc server
+#loader1 is chosen to launch the statistics stuff on all the coordinators
+
+#wait for all the users to start
+let "rampup_time = $dbdriver_eus/$dbdriver_eus_per_minute"
+#convert it to seconds
+let "rampup_time = $rampup_time*60"
+echo
+echo "Sleep for ramp up time $rampup_time"
+echo
+sleep $rampup_time
+
+#for pg-xc statistics are disactivated, force an exit after after made the process sleeping for the duration time
+sleep $dbdriver_run_duration
+exit
+
+echo all users started, start collecting data
+sleep 2
+
+#CPUS=`grep -c processor /proc/cpuinfo`
+#look for this information in the server in itself
+let "collect_count = $dbdriver_run_duration-$dbdriver_eus_per_minute"
+let "collect_count = $collect_count/10"
+interval=10
+sleep 2
+
+#This part is by default deactivated
+#the user should create a folder to gather the results properly
+
+#condition on loader1 environment if $HOSTNAME=loader1
+#ssh ... sh pgxc_collect_data.sh $interval $collect_count $result_path
+if [ "$HOSTNAME" == "loader1" ]
+	then
+	for serverdata in $server_list
+		do
+		servernum=`echo $serverdata | cut -d ";" -f 1`
+		port=`echo $serverdata | cut -d ";" -f 2`
+		ssh $PGUSER@$servernum sh @TOPDIR@/scripts/stats/pgxc_collect_data.sh $interval $collect_count ~/resultdbt1/$port $port &
+	done
+	echo "Statistic treatment being done..."
+	sleep 10
+fi

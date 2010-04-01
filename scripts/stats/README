@@ -1,0 +1,6 @@
+collect_data.sh	Script to collect syste stats.
+		This script use sar to collect most data, it calls io.sh and 
+		runtop.sh to monitor io and top usage.
+		Usage: ./collect_data.sh <interval> <count> <CPUs> <output_dir>
+io.sh		Script to collect I/O stats using iostat.
+runtop.sh	Script to run top at 120 seconds interval

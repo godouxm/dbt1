@@ -1,0 +1,486 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=iso-8859-1">
+	<TITLE>OSDL-DBT-1</TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 1.0  (Linux)">
+	<META NAME="AUTHOR" CONTENT="Jenny ">
+	<META NAME="CREATED" CONTENT="20020510;8270000">
+	<META NAME="CHANGEDBY" CONTENT="jenny zhang">
+	<META NAME="CHANGED" CONTENT="20020514;15200000">
+	<STYLE>
+	<!--
+		H1 { margin-bottom: 0.11cm; color: #000000; widows: 0; orphans: 0 }
+		H1.western { font-family: "Arial", sans-serif; font-size: 16pt; so-language: en-US }
+		H1.cjk { font-family: "Times New Roman", serif; font-size: 16pt }
+		H1.ctl { font-family: "Arial Unicode MS"; font-size: 12pt; font-weight: medium }
+		H2 { margin-bottom: 0.11cm; color: #000000; widows: 0; orphans: 0 }
+		H2.western { font-family: "Arial", sans-serif; font-size: 14pt; so-language: en-US; font-style: italic }
+		H2.cjk { font-family: "Times New Roman", serif; font-size: 14pt; font-style: italic }
+		H2.ctl { font-family: "Arial Unicode MS"; font-size: 12pt; font-weight: medium }
+		H3 { margin-bottom: 0.11cm; color: #000000; widows: 0; orphans: 0 }
+		H3.western { font-family: "Arial", sans-serif; font-size: 13pt; so-language: en-US }
+		H3.cjk { font-family: "Times New Roman", serif; font-size: 13pt }
+		H3.ctl { font-family: "Arial Unicode MS"; font-size: 12pt; font-weight: medium }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" TEXT="#000000">
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=CENTER STYLE="margin-top: 0.42cm; margin-bottom: 0.11cm"><FONT FACE="Arial, sans-serif"><FONT SIZE=4 STYLE="font-size: 16pt"><B>OSDL-DBT-1</B></FONT></FONT></P>
+<P ALIGN=CENTER STYLE="margin-top: 0.42cm; margin-bottom: 0.11cm"><BR><BR>
+</P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0.11cm"><FONT FACE="Arial, sans-serif">An
+On-Line Transaction Processing Test Kit</FONT></P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0.11cm"><BR><BR>
+</P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0.11cm"><FONT FACE="Arial, sans-serif">Maintenance</FONT></P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0.11cm"><BR><BR>
+</P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0.11cm"><FONT FACE="Arial, sans-serif">Version
+1.0</FONT></P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0.11cm"><BR><BR>
+</P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0.11cm"><FONT FACE="Arial, sans-serif"><SDFIELD TYPE=DATETIME SDNUM="1033;1033;MMMM D, YYYY">June 20, 2002</SDFIELD></FONT></P>
+<P STYLE="margin-bottom: 0cm; page-break-before: always"><FONT FACE="Arial, sans-serif"><FONT SIZE=4 STYLE="font-size: 16pt"><B>Table
+of Contents</B></FONT></FONT></P>
+<DIV ID="Table of Contents1">
+	<P STYLE="margin-top: 0.21cm"><FONT SIZE=2><B>1Maintenance
+	Documentation	3</B></FONT></P>
+	<P STYLE="margin-left: 0.42cm; text-indent: 0cm; margin-bottom: 0cm">
+	<FONT SIZE=2>1.1CVS Tree Structure	3</FONT></P>
+	<P STYLE="margin-left: 0.42cm; text-indent: 0cm; margin-bottom: 0cm">
+	<FONT SIZE=2>1.2appServer	4</FONT></P>
+	<P STYLE="margin-left: 0.42cm; text-indent: 0cm; margin-bottom: 0cm">
+	<FONT SIZE=2>1.3common	4</FONT></P>
+	<P STYLE="margin-left: 0.42cm; text-indent: 0cm; margin-bottom: 0cm">
+	<FONT SIZE=2>1.4datagen	4</FONT></P>
+	<P STYLE="margin-left: 0.42cm; text-indent: 0cm; margin-bottom: 0cm">
+	<FONT SIZE=2>1.5dbdriver	4</FONT></P>
+	<P STYLE="margin-left: 0.42cm; text-indent: 0cm; margin-bottom: 0cm">
+	<FONT SIZE=2>1.6interfaces	5</FONT></P>
+	<P STYLE="margin-left: 0.85cm; text-indent: 0cm; margin-bottom: 0cm">
+	<FONT SIZE=2><I>1.6.1odbc	5</I></FONT></P>
+	<P STYLE="margin-left: 0.42cm; text-indent: 0cm; margin-bottom: 0cm">
+	<FONT SIZE=2>1.7include	5</FONT></P>
+	<P STYLE="margin-left: 0.42cm; text-indent: 0cm; margin-bottom: 0cm">
+	<FONT SIZE=2>1.8scripts	6</FONT></P>
+	<P STYLE="margin-left: 0.85cm; text-indent: 0cm; margin-bottom: 0cm">
+	<FONT SIZE=2><I>1.8.1sapdb	6</I></FONT></P>
+	<P STYLE="margin-left: 0.85cm; text-indent: 0cm; margin-bottom: 0cm">
+	<FONT SIZE=2><I>1.8.2stats	7</I></FONT></P>
+	<P STYLE="margin-left: 0.42cm; text-indent: 0cm; margin-bottom: 0cm">
+	<FONT SIZE=2>1.9storedproc	7</FONT></P>
+	<P STYLE="margin-left: 0.85cm; text-indent: 0cm; margin-bottom: 0cm">
+	<FONT SIZE=2><I>1.9.1sapdb	7</I></FONT></P>
+	<P STYLE="margin-left: 0.42cm; text-indent: 0cm; margin-bottom: 0cm">
+	<FONT SIZE=2>1.10tools	8</FONT></P>
+</DIV>
+<H1 CLASS="western" STYLE="page-break-before: always">1Maintenance
+Documentation</H1>
+<P STYLE="margin-bottom: 0cm"><SPAN STYLE="background: #ffffff">This
+document is aimed at developers who want to contribute to the
+OSDL-DBT-1 test kit.</SPAN></P>
+<H2 CLASS="western"><A NAME="3-1"></A>1.1CVS Tree Structure</H2>
+<P STYLE="margin-bottom: 0cm"><FONT FACE="Courier, Courier New, monospace">rdbms_workload/</FONT></P>
+<P STYLE="margin-bottom: 0cm"><FONT FACE="Courier, Courier New, monospace">	LICENSE</FONT></P>
+<P STYLE="margin-bottom: 0cm"><FONT FACE="Courier, Courier New, monospace">	readme.txt</FONT></P>
+<P STYLE="margin-bottom: 0cm"><FONT FACE="Courier, Courier New, monospace">	sizing.sdc</FONT></P>
+<P STYLE="margin-bottom: 0cm"><FONT FACE="Courier, Courier New, monospace">	appServer/</FONT></P>
+<P STYLE="margin-bottom: 0cm"><FONT FACE="Courier, Courier New, monospace">	common/</FONT></P>
+<P STYLE="margin-bottom: 0cm"><FONT FACE="Courier, Courier New, monospace">	datagen/</FONT></P>
+<P STYLE="margin-bottom: 0cm"><FONT FACE="Courier, Courier New, monospace">	dbdriver/</FONT></P>
+<P STYLE="margin-bottom: 0cm"><FONT FACE="Courier, Courier New, monospace">	interfaces/</FONT></P>
+<P STYLE="margin-bottom: 0cm"><FONT FACE="Courier, Courier New, monospace">		odbc</FONT></P>
+<P STYLE="margin-bottom: 0cm"><FONT FACE="Courier, Courier New, monospace">	include/</FONT></P>
+<P STYLE="margin-bottom: 0cm"><FONT FACE="Courier, Courier New, monospace">	scripts/</FONT></P>
+<P STYLE="margin-bottom: 0cm"><FONT FACE="Courier, Courier New, monospace">		db/</FONT></P>
+<P STYLE="margin-bottom: 0cm"><FONT FACE="Courier, Courier New, monospace">		stats/</FONT></P>
+<P STYLE="margin-bottom: 0cm"><FONT FACE="Courier, Courier New, monospace">	storedproc/</FONT></P>
+<P STYLE="margin-bottom: 0cm"><FONT FACE="Courier, Courier New, monospace">		sapdb/</FONT></P>
+<P STYLE="margin-bottom: 0cm"><FONT FACE="Courier, Courier New, monospace">	tools/</FONT></P>
+<P STYLE="margin-bottom: 0cm"><FONT FACE="Courier, Courier New, monospace">	wgen/</FONT></P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm">readme.txt:	Describes the files under
+each directory.</P>
+<P STYLE="margin-bottom: 0cm">LICENSE:	The Artistic license agreement
+under which this project is released.</P>
+<P STYLE="margin-bottom: 0cm">sizing.sdc:	Star Office spreadsheet
+that calculates various sizing info.</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm">appServer:	Contains the files that
+create the middle tier application server module.</P>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">common:	Functions
+described in the TPC-W<SUP>&trade;</SUP> specification that can be
+shared 			throughout the toolkit.</FONT></P>
+<P STYLE="margin-bottom: 0cm">datagen:	Contains the files that create
+the database data generator module.</P>
+<P STYLE="margin-bottom: 0cm">dbdriver:	Contains the files that
+create the database driver module.</P>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">interfaces:	Contains
+DB interface modules.</FONT></P>
+<P STYLE="margin-bottom: 0cm">include:	All include files.</P>
+<P STYLE="margin-bottom: 0cm">scripts:		Shell scripts that create and
+load the database, and collect statistics on 			the system resources,
+etc.</P>
+<P STYLE="margin-bottom: 0cm">storedproc:	The stored procedure files.
+ Currently only contains files for SAP DB.</P>
+<P STYLE="margin-bottom: 0cm">tools:		Tools such as small component
+drivers, analysis programs, and 				other tools to aid in the
+debugging or to support the running of the 				benchmark.</P>
+<P STYLE="margin-bottom: 0cm">wgen:		A TPC supplied data generator
+required by datagen.</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm">Under each directory, there are
+readme.txt files.</P>
+<H2 CLASS="western">1.2appServer</H2>
+<P STYLE="margin-bottom: 0cm">The appServer module is the transaction
+management server.  It receives a directive from the Emulated User
+and places the request into a transaction queue.  It is also
+responsible for creating multiple connections to the back-end
+database.  The files in this directory are:</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm">Makefile:		The makefile to build the
+files in this directory.</P>
+<P STYLE="margin-bottom: 0cm">app_txn_array.c:	A transaction array
+used to hold transaction requests and responses 			to/from the
+database. 
+</P>
+<P STYLE="margin-bottom: 0cm">app_txn_queue.c:	A transaction queue
+used to hold waiting transaction requests.</P>
+<P STYLE="margin-bottom: 0cm">app_interface.c:	The communication
+interface between the driver and the</P>
+<P STYLE="margin-bottom: 0cm">			appServer.</P>
+<P STYLE="margin-bottom: 0cm">appServer.c:		The main module that
+handles requests from the driver.</P>
+<P STYLE="margin-bottom: 0cm">app_threadpool.c:	Implements the worker
+threads that access the database.</P>
+<P STYLE="margin-bottom: 0cm">design:			Data structures and
+implementation details.</P>
+<P STYLE="margin-bottom: 0cm">readme.txt		A textual description of
+the files in this directory.</P>
+<H2 CLASS="western">1.3common</H2>
+<P STYLE="margin-bottom: 0cm">The common directory contains a
+collection of functions that can be shared by the modules in the test
+kit.  The files in this directory are:</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm">Makefile:	Makefile to build the files
+in this directory.</P>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">common.c:	Functions
+defined in the TPC-W<SUP>&trade;</SUP> specification.</FONT></P>
+<P STYLE="margin-bottom: 0cm">_socket.c:	Socket function wrappers.</P>
+<P STYLE="margin-bottom: 0cm">readme.txt	A textual description of the
+files in this directory.</P>
+<H2 CLASS="western"><A NAME="3-4"></A>1.4datagen</H2>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">The datagen
+directory contains the files that create the database data generator
+module.  The files in this directory are:</FONT></P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm">Makefile:		The makefile to build the
+files in this directory.</P>
+<P STYLE="margin-bottom: 0cm">address.c:		Generates Address table
+data.</P>
+<P STYLE="margin-bottom: 0cm">author.c:		Generates Author table data.</P>
+<P STYLE="margin-bottom: 0cm">country.data:		Static Country table
+data.</P>
+<P STYLE="margin-bottom: 0cm">customer.c:		Generates Customer table
+data.</P>
+<P STYLE="margin-bottom: 0cm">item.c:			Generates Item table data.</P>
+<P STYLE="margin-bottom: 0cm">main.c:			The Main file.</P>
+<P STYLE="margin-bottom: 0cm">orders.c:		Generates Orders, Order
+Line, and CC_Xacts table data.</P>
+<H2 CLASS="western"><A NAME="3-5"></A>1.5dbdriver</H2>
+<P STYLE="margin-bottom: 0cm">The dbdriver directory contains files
+that create OSDL-DBT-1 drivers.</P>
+<P STYLE="margin-bottom: 0cm">The files in this directory are:</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm">Makefile: 		The makefile to build the
+files in this directory.</P>
+<P STYLE="margin-bottom: 0cm">eu.c: 			All logic required to emulate
+a user.</P>
+<P STYLE="margin-bottom: 0cm">main.c: 		The main file to start the
+application.</P>
+<P STYLE="margin-left: 3.81cm; text-indent: -3.81cm; margin-bottom: 0cm">
+tm_interface.c:	The communication interface between the driver and
+the appServer.</P>
+<H2 CLASS="western"><A NAME="3-6"></A>1.6interfaces</H2>
+<P STYLE="margin-bottom: 0cm">The interfaces directory contains
+subdirectories for various database interfaces.  There is currently
+only one interface included.</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm">odbc:	This directory contains interface
+files that use ODBC to communicate with the</P>
+<P STYLE="text-indent: 1.27cm; margin-bottom: 0cm">database.</P>
+<H3 CLASS="western">1.6.1odbc</H3>
+<P STYLE="margin-bottom: 0cm">The files in this directory are:</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm">Makefile: 				Makefile to build all
+files in this directory.</P>
+<P STYLE="margin-bottom: 0cm">odbc_interaction_admin_confirm.c:	ODBC
+interface functions for Admin Confirm.</P>
+<P STYLE="margin-bottom: 0cm">odbc_interaction_admin_request.c:	ODBC
+interface functions for Admin Request.</P>
+<P STYLE="margin-bottom: 0cm">odbc_interaction_best_sellers.c:	ODBC
+interface functions for Best Sellers.</P>
+<P STYLE="margin-bottom: 0cm">odbc_interaction_buy_confirm.c:	ODBC
+interface functions for Buy Confirm.</P>
+<P STYLE="margin-bottom: 0cm">odbc_interaction_buy_request.c:	ODBC
+interface functions for Buy Request.</P>
+<P STYLE="margin-bottom: 0cm">odbc_interaction.c:			ODBC interface
+functions for connecting,							disconnecting and error handling.</P>
+<P STYLE="margin-bottom: 0cm">odbc_interaction_home.c:		ODBC
+interface functions for Home.</P>
+<P STYLE="margin-bottom: 0cm">dbc_interaction_new_products.c:	ODBC
+interface functions for New Products.</P>
+<P STYLE="margin-bottom: 0cm">odbc_interaction_order_display.c:	ODBC
+interface functions for Order Display.</P>
+<P STYLE="margin-bottom: 0cm">odbc_interaction_order_inquiry.c:	ODBC
+interface functions for Order Inquiry.</P>
+<P STYLE="margin-bottom: 0cm">odbc_interaction_product_detail.c:	ODBC
+interface functions for Product Detail.</P>
+<P STYLE="margin-bottom: 0cm">odbc_interaction_search_request.c:	ODBC
+interface functions for Search Request.</P>
+<P STYLE="margin-bottom: 0cm">odbc_interaction_search_results.c:	ODBC
+interface functions for Search Results.</P>
+<P STYLE="margin-bottom: 0cm">odbc_interaction_shopping_cart.c:	ODBC
+interface functions for Shopping Cart.</P>
+<H2 CLASS="western"><A NAME="3-7"></A>1.7include</H2>
+<P STYLE="margin-bottom: 0cm">This directory includes all of the C
+header files. 
+</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm">app_interface.h:			Definitions and
+prototypes for the communication</P>
+<P STYLE="margin-bottom: 0cm">					interface between the driver and
+appServer.</P>
+<P STYLE="margin-bottom: 0cm">app_threadpool.h:			Definitions and
+prototypes for threadpool.</P>
+<P STYLE="margin-bottom: 0cm">app_txn_array.h:			Definitions and
+prototypes for txn_array.</P>
+<P STYLE="margin-bottom: 0cm">app_txn_queue.h:			Definitions and
+prototypes for txn_queue.</P>
+<P STYLE="margin-bottom: 0cm">common.h:				Definitions and prototypes
+for common functions 						shared by the modules in this kit.</P>
+<P STYLE="margin-bottom: 0cm">datagen.h:				Definitions and
+prototypes for the data generator.</P>
+<P STYLE="margin-bottom: 0cm">eu.h:					Definitions and prototypes
+for Emulated User</P>
+<P STYLE="margin-bottom: 0cm">					related functions.</P>
+<P STYLE="margin-bottom: 0cm">odbc_interaction_admin_confirm.h:	Definitions
+and prototypes for Admin Confirm.</P>
+<P STYLE="margin-bottom: 0cm">odbc_interaction_admin_request.h:	Definitions
+and prototypes for Admin Request.</P>
+<P STYLE="margin-bottom: 0cm">odbc_interaction_best_sellers.h:	Definitions
+and prototypes for Best Sellers.</P>
+<P STYLE="margin-bottom: 0cm">odbc_interaction_buy_confirm.h:	Definitions
+and prototypes for Buy Confirm.</P>
+<P STYLE="margin-bottom: 0cm">odbc_interaction_buy_request.h:	Definitions
+and prototypes for Buy Request.</P>
+<P STYLE="margin-bottom: 0cm">odbc_interaction.h:			Definitions and
+prototypes for general ODBC</P>
+<P STYLE="margin-bottom: 0cm">					functions.</P>
+<P STYLE="margin-bottom: 0cm">odbc_interaction_home.h:		Definitions
+and prototypes for Home.</P>
+<P STYLE="margin-bottom: 0cm">odbc_interaction_new_products.h:	Definitions
+and prototypes for New Products.</P>
+<P STYLE="margin-bottom: 0cm">odbc_interaction_order_display.h:	Definitions
+and prototypes for Order Display.</P>
+<P STYLE="margin-bottom: 0cm">odbc_interaction_order_inquiry.h:	Definitions
+and prototypes for Order Inquiry.</P>
+<P STYLE="margin-bottom: 0cm">odbc_interaction_product_detail.h:	Definitions
+and prototypes for Product Detail.</P>
+<P STYLE="margin-bottom: 0cm">odbc_interaction_search_request.h:	Definitions
+and prototypes for Search Request.</P>
+<P STYLE="margin-bottom: 0cm">odbc_interaction_search_results.h:	Definitions
+and prototypes for Search Results.</P>
+<P STYLE="margin-bottom: 0cm">odbc_interaction_shopping_cart.h:	Definitions
+and prototypes for Shopping Cart.</P>
+<P STYLE="margin-bottom: 0cm">_socket.h:				Definitions and
+prototypes for socket related</P>
+<P STYLE="margin-bottom: 0cm">					functions.</P>
+<H2 CLASS="western"><A NAME="3-8"></A>1.8scripts</H2>
+<P STYLE="margin-bottom: 0cm">There are two sub-directories in the
+scripts directory. The sub-directories are:</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm">sapdb:	The db directory contains
+scripts to create and load the database for SAP DB.</P>
+<P STYLE="margin-bottom: 0cm">stats:	This directory contains scripts
+to collect statistics on system resources.</P>
+<H3 CLASS="western"><A NAME="3-8-1"></A>1.8.1sapdb</H3>
+<P STYLE="margin-bottom: 0cm">The sapdb directory contains scripts to
+create and load the database specifically for SAP DB. The files in
+this directory are:</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm">address.sql: 		Sql file to load the
+address table.</P>
+<P STYLE="margin-bottom: 0cm">author.sql: 		Sql file to load the
+author table.</P>
+<P STYLE="margin-bottom: 0cm">backup_db.sh: 	Script to backup up the
+database.</P>
+<P STYLE="margin-bottom: 0cm">cc_xacts.sql: 		Sql file to load the
+cc_xacts table.</P>
+<P STYLE="margin-bottom: 0cm">country.sql: 		Sql file to load the
+country table.</P>
+<P STYLE="margin-bottom: 0cm">create_db.sh: 		Script to create
+database and devspaces.</P>
+<P STYLE="margin-bottom: 0cm">create_indexes.sql: 	Sql file to create
+indexes.</P>
+<P STYLE="margin-bottom: 0cm">create_indexes.sh: 	Script to execute
+dbmcli to execute the sql file.</P>
+<P STYLE="margin-bottom: 0cm">create_keys.sql: 	Sql file to crate
+foreign keys.</P>
+<P STYLE="margin-bottom: 0cm">create_keys.sh: 	Scripts to execute
+dbmcli to execute the sql file.</P>
+<P STYLE="margin-bottom: 0cm">create_tables.sql: 	Sql file to create
+tables.</P>
+<P STYLE="margin-bottom: 0cm">create_tables.sh: 	Script to execute
+dbmcli to execute the sql file.</P>
+<P STYLE="margin-bottom: 0cm">drop_dbproc.sql: 	Sql file to drop all
+stored procedures.</P>
+<P STYLE="margin-bottom: 0cm">drop_db.sh: 		Sript to drop the
+database.</P>
+<P STYLE="margin-bottom: 0cm">drop_tables.sql: 	Sql file to drop
+tables.</P>
+<P STYLE="margin-bottom: 0cm">drop_tables.sh: 	Scripts to execute
+dbmcli to execute the sql files.</P>
+<P STYLE="margin-bottom: 0cm">item.command: 	Sql file to load the
+item table.</P>
+<P STYLE="margin-bottom: 0cm">load_db.sh: 		Scripts to execute
+repmcli to execute the sql files.</P>
+<P STYLE="margin-bottom: 0cm">order_line.sql: 	Sql file to load the
+order line table.</P>
+<P STYLE="margin-bottom: 0cm">orders.sql: 		Sql file to load the
+orders table.</P>
+<P STYLE="margin-bottom: 0cm">update_stats.sql: 	Sql file to update
+stats on all tables.</P>
+<P STYLE="margin-bottom: 0cm">update_stats.sh: 	Script to execute
+dbmcli to execute the sql file.</P>
+<H3 CLASS="western"><A NAME="3-8-2"></A>1.8.2stats</H3>
+<P STYLE="margin-bottom: 0cm">The stats directory contains shell
+scripts that collect statistics on system resources.  The files
+included in this directory are:</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm">cpu.sh: 	Script to collect CPU stats
+using iostat.</P>
+<P STYLE="margin-bottom: 0cm">io.sh: 		Script to collect I/O stats
+using iostat.</P>
+<P STYLE="margin-bottom: 0cm">paging.sh: 	Script to collecting memory
+paging stats using sar.</P>
+<H2 CLASS="western"><A NAME="3-9"></A>1.9storedproc</H2>
+<P STYLE="margin-bottom: 0cm">This directory contains subdirectories
+that contain stored procedure files for specific databases. 
+Currently, only stored procedures for SAP DB are included.</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm">sapdb:	Stored procedures for SAP DB.</P>
+<H3 CLASS="western">1.9.1sapdb</H3>
+<P STYLE="margin-bottom: 0cm">The SAP DB stored procedures are
+located in this directory.  These files contain the SQL statements to
+execute the interactions of the OSDL-DBT-1 test kit.  The files
+included in this directory are:</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm">getPromoImages.sql:		Get the related
+items for the item.</P>
+<P STYLE="margin-bottom: 0cm">DigSyl.sql:			Generate u_name and
+password according to c_id.</P>
+<P STYLE="margin-bottom: 0cm">getSCSubTotal.sql:		For the given
+shopping_cart id, calculate sub_total</P>
+<P STYLE="margin-bottom: 0cm">				according to the cost and the
+quantity of each item in the</P>
+<P STYLE="margin-left: 3.81cm; text-indent: 1.27cm; margin-bottom: 0cm">
+shopping cart.</P>
+<P STYLE="margin-bottom: 0cm">addToSC.sql:			Add an item to the
+shopping cart.</P>
+<P STYLE="margin-bottom: 0cm">createSC.sql:			Create a new shopping
+cart</P>
+<P STYLE="margin-bottom: 0cm">refreshSC.sql:			Update the
+shopping_cart_line info.</P>
+<P STYLE="margin-bottom: 0cm">getCustInfo.sql:		Get the customer
+information.</P>
+<P STYLE="margin-bottom: 0cm">InsertCust.sql:			Create a new
+customer.</P>
+<P STYLE="margin-bottom: 0cm">updateSC.sql:			Calculate and update
+the sub_total, tax, ship_cost, and total</P>
+<P STYLE="margin-left: 3.81cm; text-indent: 1.27cm; margin-bottom: 0cm">
+for the shopping cart.</P>
+<P STYLE="margin-bottom: 0cm">initSCItems.sql:		Initialize output
+variables.</P>
+<P STYLE="margin-bottom: 0cm">getSCDetail.sql:		Get the
+shopping_cart_line info.</P>
+<P STYLE="margin-bottom: 0cm">initOrderItems.sql:		Initialize output
+variables.</P>
+<P STYLE="margin-bottom: 0cm">getOrderItems.sql:		Get the
+order_line_info.</P>
+<P STYLE="margin-bottom: 0cm">home.sql:			Get customer name if the
+user is a known customer.  Call</P>
+<P STYLE="margin-bottom: 0cm">				getPromoImages.</P>
+<P STYLE="margin-bottom: 0cm">buyrequest.sql:		Implement Buy Request
+interaction.</P>
+<P STYLE="margin-bottom: 0cm">buyconfirm.sql:		Implement Buy Confirm
+interaction.</P>
+<P STYLE="margin-bottom: 0cm">shoppingcart.sql:		Implement Shopping
+Cart interaction.</P>
+<P STYLE="margin-bottom: 0cm">order_inquiry.sql:		Return c_uname for
+the user.</P>
+<P STYLE="margin-bottom: 0cm">order_display.sql:		Get the order
+information for the user.</P>
+<P STYLE="margin-bottom: 0cm">admin_request.sql:		Implement Admin
+Request interaction.</P>
+<P STYLE="margin-bottom: 0cm">admin_confirm.sql:		Implement Admin
+Confirm interaction.</P>
+<P STYLE="margin-bottom: 0cm">new_products.sql:		Implement New
+Products interaction.</P>
+<P STYLE="margin-bottom: 0cm">best_sellers.sql:		Implement Best
+Sellers interaction.</P>
+<P STYLE="margin-bottom: 0cm">search_results_author.sql:	Implement
+Search Results (search by author) interaction.</P>
+<P STYLE="margin-bottom: 0cm">search_results_subject.sq:	Implement
+Search Results (search by subject) interaction.</P>
+<P STYLE="margin-bottom: 0cm">search_results_title.sql:	Implement
+Search Results (search by title) interaction.</P>
+<H2 CLASS="western"><A NAME="3-10"></A>1.10tools</H2>
+<P STYLE="margin-bottom: 0cm">The tools directory contain utilities
+and programs that aid in the debugging or to support the running of
+the test.  The files contained in this directory are: 
+</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm">Makefile: 		Makefile to build all files
+in this directory.</P>
+<P STYLE="margin-bottom: 0cm">odbc_test.c:		Test tool for each
+interaction.</P>
+<P STYLE="margin-bottom: 0cm">load_db_proc.c:	Tools to load some of
+the stored procedures.</P>
+<P STYLE="margin-bottom: 0cm">postproc.c:		Tools to analyze data
+after the run.</P>
+</BODY>
+</HTML>

@@ -1,0 +1,15 @@
+#!/bin/sh
+# set_run_env.sh.in: set dbt3 run environment variables
+#
+# This file is released under the terms of the Artistic License.  Please see
+# the file LICENSE, included in this package, for details.
+#
+# Copyright (C) 2002 Open Source Development Lab, Inc.
+# History:
+# Aug-3-2003 Create by Jenny Zhang
+
+export SID1=DBT1
+export PATH=/usr/local/pgsql/bin:$PATH
+export PGDATA=$PGDATA
+export PGUSER=pgsql
+export DBT1_PERL_MODULE=@TOPDIR@/perlmodules

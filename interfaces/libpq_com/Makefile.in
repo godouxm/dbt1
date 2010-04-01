@@ -1,0 +1,17 @@
+# Makefile
+
+include @TOPDIR@/make.common
+
+all: $(DBI_OBJS)
+
+clean:
+	rm -f $(DBI_OBJS)
+
+explain:
+	@echo "$(DBI_OBJS)"
+
+DBOBJS: \
+	Makefile \
+	$(TOPDIR)/make.common \
+	$(DBI_INCLUDE2) \
+	$(DBI_PRGS)

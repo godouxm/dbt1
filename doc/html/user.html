@@ -1,0 +1,896 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=iso-8859-1">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 1.0  (Linux)">
+	<META NAME="CREATED" CONTENT="20020618;13110200">
+	<META NAME="CHANGEDBY" CONTENT="Mark Wong">
+	<META NAME="CHANGED" CONTENT="20020715;10302000">
+	<STYLE>
+	<!--
+		@page { margin-left: 3.18cm; margin-right: 3.18cm; margin-top: 2.54cm; margin-bottom: 2.54cm }
+		P { margin-bottom: 0.21cm }
+		H1 { margin-bottom: 0.21cm }
+		H1.western { font-family: "Albany", sans-serif; font-size: 16pt }
+		H1.cjk { font-size: 16pt }
+		H1.ctl { font-size: 16pt }
+		H2 { margin-bottom: 0.21cm }
+		H2.western { font-family: "Albany", sans-serif; font-size: 14pt; font-style: italic }
+		H2.cjk { font-size: 14pt; font-style: italic }
+		H2.ctl { font-size: 14pt; font-style: italic }
+		H3 { margin-bottom: 0.21cm }
+		H3.western { font-family: "Albany", sans-serif }
+		H4 { margin-bottom: 0.21cm }
+		H4.western { font-family: "Albany", sans-serif; font-size: 11pt; font-style: italic }
+		H4.cjk { font-size: 11pt; font-style: italic }
+		H4.ctl { font-size: 11pt; font-style: italic }
+		A:link { color: #000000 }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" LINK="#000000">
+<DIV ID="Frame1" STYLE="position: absolute; top: 0cm; left: 0cm; width: 14.04cm; height: 4.89cm; border: none; padding: 0cm; background: #ffffff">
+	<P STYLE="margin-bottom: 0cm"><IMG SRC="user_html_e3a83bc.jpg" NAME="Graphic2" ALIGN=LEFT WIDTH=103 HEIGHT=164 BORDER=0><BR>
+	</P>
+	<P STYLE="margin-bottom: 0cm"><BR>
+	</P>
+	<P STYLE="margin-bottom: 0cm"><BR>
+	</P>
+	<P STYLE="margin-bottom: 0cm"><B>Open Source Development Lab,
+	Inc.<BR></B>15275 SW Koll Parkway, Suite H<BR>Beaverton, OR 97006 
+	</P>
+	<P ALIGN=LEFT STYLE="margin-bottom: 0cm">Phone: (503) 626-2455<BR>Fax:
+	(503) 626-2436 <BR>Email: info@osdl.org</P>
+</DIV>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=CENTER STYLE="margin-top: 0.42cm; page-break-after: avoid"><FONT FACE="Arial, sans-serif"><FONT SIZE=5><B>Open
+Source Development Lab</B></FONT></FONT></P>
+<P ALIGN=CENTER STYLE="margin-top: 0.42cm; page-break-after: avoid"><FONT FACE="Arial, sans-serif"><FONT SIZE=5><B>Database
+Test 1</B></FONT></FONT></P>
+<P ALIGN=CENTER STYLE="margin-top: 0.42cm; page-break-after: avoid"><BR><BR>
+</P>
+<P><BR><BR>
+</P>
+<P><BR><BR>
+</P>
+<P ALIGN=CENTER STYLE="margin-top: 0.42cm; page-break-after: avoid"><BR><BR>
+</P>
+<P ALIGN=CENTER STYLE="margin-top: 0.42cm; font-style: normal; page-break-after: avoid">
+<FONT FACE="Arial, sans-serif"><FONT SIZE=6 STYLE="font-size: 22pt"><B>User
+Manual</B></FONT></FONT></P>
+<P STYLE="font-style: normal; font-weight: medium"><BR><BR>
+</P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT FACE="Arial, sans-serif"><FONT SIZE=5><SDFIELD TYPE=DOCINFO SUBTYPE=CREATE FORMAT=DATE SDNUM="1033;1033;MMMM D, YYYY">June 18, 2002</SDFIELD></FONT></FONT></P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P STYLE="page-break-before: always">Copyright (c) 2002 by The Open
+Source Development Laboratory, Inc. This material may be distributed
+only subject to the terms and conditions set forth in the Open
+Publication License, v1.0 or later (the latest version is currently
+available at <FONT COLOR="#000000"><A HREF="http://www.opencontent.org/openpub/"><SPAN STYLE="text-decoration: none">http://www.opencontent.org/openpub/</SPAN></A></FONT>).
+Distribution of substantively modified versions of this document is
+prohibited without the explicit permission of the copyright holder.</P>
+<P>Other company, product or service names may be trademarks or
+service marks of others.</P>
+<P>Contributors to this white paper include:</P>
+<P>	Mark Wong (OSDL)</P>
+<P>	Jenny Zhang (OSDL)</P>
+<P>	Craig Thomas (OSDL)</P>
+<P>	Bryan Olmstead (OSDL)</P>
+<DIV ID="Table of Contents1">
+	<DIV ID="Table of Contents1_Head">
+		<P STYLE="margin-top: 0.42cm; page-break-before: always; page-break-after: avoid">
+		<FONT FACE="Albany, sans-serif"><FONT SIZE=4 STYLE="font-size: 16pt"><B>Table
+		of Contents</B></FONT></FONT></P>
+	</DIV>
+	<P STYLE="margin-bottom: 0cm">1Introduction	4</P>
+	<P STYLE="margin-bottom: 0cm">2Setup	4</P>
+	<P STYLE="margin-left: 0.5cm; margin-bottom: 0cm">2.1Getting and
+	Installing the Files	4</P>
+	<P STYLE="margin-left: 1cm; margin-bottom: 0cm">2.1.1SAP DB	4</P>
+	<P STYLE="margin-left: 1cm; margin-bottom: 0cm">2.1.2OSDL-DBT-1 Test
+	Kit Source	4</P>
+	<P STYLE="margin-left: 1cm; margin-bottom: 0cm">2.1.3Compiling the
+	Test Kit	5</P>
+	<P STYLE="margin-left: 0.5cm; margin-bottom: 0cm">2.2Building the
+	Database	5</P>
+	<P STYLE="margin-left: 1cm; margin-bottom: 0cm">2.2.1Sizing SAP DB	5</P>
+	<P STYLE="margin-left: 1cm; margin-bottom: 0cm">2.2.2Creating the
+	Database	5</P>
+	<P STYLE="margin-left: 1.5cm; margin-bottom: 0cm">2.2.2.1SAP DB	5</P>
+	<P STYLE="margin-bottom: 0cm">3Configuration	6</P>
+	<P STYLE="margin-left: 0.5cm; margin-bottom: 0cm">3.1ODBC	6</P>
+	<P STYLE="margin-bottom: 0cm">4Running the Test Kit	6</P>
+	<P STYLE="margin-bottom: 0cm">5Test Results	7</P>
+	<P STYLE="margin-bottom: 0cm">6Advanced Topics	9</P>
+	<P STYLE="margin-left: 0.5cm; margin-bottom: 0cm">6.1Additional
+	Compiler Options	9</P>
+	<P STYLE="margin-left: 0.5cm; margin-bottom: 0cm">6.2Manually
+	Running the Test Kit	9</P>
+	<P STYLE="margin-left: 1cm; margin-bottom: 0cm">6.2.1Two-Tier
+	Environment	10</P>
+	<P STYLE="margin-left: 1cm; margin-bottom: 0cm">6.2.2Three-Tier
+	Environment	10</P>
+	<P STYLE="margin-left: 1cm; margin-bottom: 0cm">6.2.3Three-Tier
+	Environment with Cache	11</P>
+	<P STYLE="margin-left: 0.5cm; margin-bottom: 0cm">6.3Tools	13</P>
+	<P STYLE="margin-left: 1cm; margin-bottom: 0cm">6.3.1ODBC Test
+	Tools	13</P>
+	<P STYLE="margin-left: 1cm; margin-bottom: 0cm">6.3.2System
+	Resources	15</P>
+	<P STYLE="margin-left: 1cm; margin-bottom: 0cm">6.3.3Database
+	Notes	15</P>
+	<P STYLE="margin-left: 1.5cm; margin-bottom: 0cm">6.3.3.1SAP DB	15</P>
+</DIV>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<H1 CLASS="western" STYLE="page-break-before: always">1Introduction</H1>
+<P>This document provides instructions on how to set up and use the
+Open Source Development Lab's Database Transaction 1 (OSDL-DBT-1)
+test kit.</P>
+<H1 CLASS="western">2Setup</H1>
+<P>This section covers the steps of getting and installing a database
+and the OSDL-DBT-1 test kit source code.  The test kit currently only
+supports SAP DB.</P>
+<H2 CLASS="western">2.1Getting and Installing the Files</H2>
+<H3 CLASS="western">2.1.1SAP DB</H3>
+<P>The OSDL-DBT-1 test kit was developed using SAP DB Version
+7.3.0.21, however,  newer versions of the database should work with
+the test kit.  Linux binaries can be obtained from the Web at:</P>
+<P>	http://www.sapdb.org/tgz_linux.htm</P>
+<P><BR><BR>
+</P>
+<P>The source package along with installation instructions can be
+found on the Web at:</P>
+<P><SPAN STYLE="text-decoration: none">	</SPAN><A HREF="http://www.sapdb.org/develop/dev_linux.htm"><SPAN STYLE="text-decoration: none">http://www.sapdb.org/develop/dev_linux.htm</SPAN></A></P>
+<P><BR><BR>
+</P>
+<P>If you wish to install SAP DB with rpms, and if your Linux
+distribution supports rpm packages, they can be retrieved from the
+Web at:</P>
+<P STYLE="margin-left: 2.2cm">http://www.sapdb.org/rpm_linux.htm</P>
+<P>The following rpm packages are required:</P>
+<UL>
+	<LI><P>sapdb-ind-7.3.0.21-1.i386.rpm</P>
+	<LI><P>sapdb-srv-7.3.0.21-1.i386.rpm</P>
+	<LI><P><A HREF="http://sapdb-callif-7.3.0.21-1.i386.rpm/"><SPAN STYLE="text-decoration: none">sapdb-callif-7.3.0.21-1.i386.rpm</SPAN></A><SPAN STYLE="text-decoration: none">
+	(includes ODBC files)</SPAN></P>
+</UL>
+<P>Once the database has been installed, verify that the ODBC header
+files and libraries are included, as these are needed to build and
+install the OSDL-DBT-1 test kit.  The rpm file
+<A HREF="http://sapdb-callif-7.3.0.21-1.i386.rpm/"><SPAN STYLE="text-decoration: none">sapdb-callif-7.3.0.21-1.i386.rpm
+needs to be installed on any system that communicates with the
+database as well as on the database system.  Installing it onto the
+middle-tier system or the database system should be sufficient.</SPAN></A></P>
+<H3 CLASS="western">2.1.2OSDL-DBT-1 Test Kit Source</H3>
+<P>The latest stable version of the kit can be found on SourceForge
+via:</P>
+<P><SPAN STYLE="text-decoration: none">	</SPAN><A HREF="http://sourceforge.net/project/showfiles.php?group_id=52479"><SPAN STYLE="text-decoration: none">http://sourceforge.net/project/showfiles.php?group_id=52479</SPAN></A></P>
+<P><BR><BR>
+</P>
+<P>For complete instructions on retrieving the latest tested source
+from CVS see the Web at:</P>
+<P>	http://sourceforge.net/cvs/?group_id=52479</P>
+<P>This is an abbrievated set of steps to download only the source
+code:</P>
+<P STYLE="font-style: normal"><FONT SIZE=2>	cvs
+-d:pserver:anonymous@cvs.osdldbt.sourceforge.net:/cvsroot/osdldbt
+login</FONT></P>
+<P STYLE="font-style: normal"><FONT SIZE=2>	cvs -z3
+-d:pserver:anonymous@cvs.osdldbt.sourceforge.net:/cvsroot/osdldbt co
+dbt1</FONT></P>
+<P><SPAN STYLE="font-style: normal"><FONT SIZE=3>When prompted for a
+password, simply hit the enter key.  </FONT></SPAN>Once the source
+has been downloaded and extracted, it is recommended to create a
+symbolic link from /usr/local/src/dbt1 to the location where the
+source code resides<I>, </I> since some scripts and programs assume
+the source code is in that location.  For example:</P>
+<P STYLE="font-style: normal"><FONT SIZE=2>	ln -s /tmp/dbt1
+/usr/local/dbt1</FONT></P>
+<P STYLE="font-style: normal">where /tmp/dbt1 is the location of the
+source code.</P>
+<H3 CLASS="western">2.1.3Compiling the Test Kit</H3>
+<P STYLE="font-style: normal"><FONT SIZE=3>The test kit has different
+dependencies based on which database is used with the kit.  For
+example, to use SAP DB, ODBC drivers must be also be installed in
+order to build the test kit.  These details are explained in the
+previous sections for each database.  Once those dependencies are
+met, the entire kit can be compiled by running <I>make</I> in the top
+level directory.</FONT></P>
+<H2 CLASS="western">2.2Building the Database</H2>
+<P>The following sections explain how to build the database depending
+on which database is used.  SAP DB is currently the only database
+supported.</P>
+<H3 CLASS="western">2.2.1Sizing SAP DB</H3>
+<P>SAP DB can be used with any user account on the system.</P>
+<P><BR><BR>
+</P>
+<P>An OpenOffice.org spreadsheet is provided to aid in sizing the
+database:</P>
+<P>	doc/sapdb_sizing.sxc</P>
+<P><BR><BR>
+</P>
+<P>Under the <I>Performance</I> tab there are two parameters that can
+be changed.  A default value of 1,000 is entered for the number of
+items to create and a default value of 1 is entered for the number of
+emulated users (EUs) expected to run against the database.  The
+number of items can be changed to 10,000, 100,000, 1,000,000, or
+10,000,000.  The number of EUs can be any positive integer.</P>
+<P><BR><BR>
+</P>
+<P>The data displayed under the <I>Load</I><SPAN STYLE="font-style: normal">
+tab report the expected size of the database, for the parameters
+entered, and are to be used for the physical database layout.  The
+number to note is the total number of 8 KB pages since SAP DB uses
+those units in its configuration settings.  Keep in mind that extra
+space must be taken into consideration because the database grows
+during a test run.  The </SPAN><I>Load</I><SPAN STYLE="font-style: normal">
+tab also calculates the growth rate of the database based on the
+expected number of users that access the database.</SPAN></P>
+<H3 CLASS="western">2.2.2Creating the Database</H3>
+<P><SPAN STYLE="font-style: normal">The </SPAN><I>scripts/</I><SPAN STYLE="font-style: normal">
+directory contains a list of databases that this test kit supports. 
+Only SAP DB is currently supported.  Under each of these database
+directories is a file called db_setup_sample.sh.  This script has two
+variables defined in it, ITEMS and EUS, which refer to the number of
+items to generate in the database and the number of EUs expected to
+run</SPAN>.  Executing the script runs the <I>create_db.sh </I><SPAN STYLE="font-style: normal">script,
+</SPAN>generates the database table data, creates the database
+tables, loads the database, creates indexes, loads the stored
+procedures, and backs up the database.</P>
+<H4 CLASS="western">2.2.2.1SAP DB</H4>
+<P><SPAN STYLE="font-style: normal">The shell script,
+</SPAN><I>scripts/sapdb/create_db.sh</I><SPAN STYLE="font-style: normal">,
+creates the physical database.  In that script, there are lines
+beginning with </SPAN><I>param_adddevspace</I><SPAN STYLE="font-style: normal">
+that define the devices on which the database resides.  These lines
+must be tailored for the system devspace, log devspace, and user
+devspace in order to fit the I/O subsystem on the system where the
+database is running.  The number defining the size of the log
+devspaces and the data devspaces are in units of 8 KB pages.  This
+script is executed within the </SPAN><I>db_setup_sample.sh</I><SPAN STYLE="font-style: normal">
+script that is explained in the next section.</SPAN></P>
+<P STYLE="font-style: normal"><BR><BR>
+</P>
+<P STYLE="font-style: normal">The SAP DB database users dbm, dba, and
+dbt are created, with passwords the same as the user name, by
+<I>create_db.sh</I>.  The user dbm is the database administrator
+account, dba is the utility account, and dbt is the user account. 
+The dbt account is used when running the programs built in the test
+kit, or to execute SQL using the <I>dbmcli</I> program included with
+SAP DB.</P>
+<H1 CLASS="western" STYLE="font-style: normal">3Configuration</H1>
+<P>This section explains how to configure various parts of the system
+before running the test kit.</P>
+<H2 CLASS="western">3.1ODBC</H2>
+<P>Configuring ODBC may not be required depending on the database
+used with the test kit.  With the current supported databases, ODBC
+is only used with SAP DB.</P>
+<P><BR><BR>
+</P>
+<P>There are two ways to connect to the a database using ODBC.  The
+first way is to use the address of the database system and the
+database name separated by a colon in for the <I>server name</I><SPAN STYLE="font-style: normal">.
+ For example:</SPAN></P>
+<P STYLE="font-style: normal">	<I>192.168.0.1:DBT1</I></P>
+<P STYLE="font-style: normal">is a valid <I>server name</I> for the
+DBT1 database on the system at 192.168.0.1.  The hostname can also be
+used instead of an IP address.</P>
+<P STYLE="font-style: normal"><BR><BR>
+</P>
+<P STYLE="font-style: normal">The second method uses the <I>.odbc.ini</I>
+file that must reside in the home directory of the user attempting to
+run the program.  The format of the file is:</P>
+<P STYLE="margin-left: 2.2cm"><I>[alias]</I></P>
+<P STYLE="margin-left: 2.2cm"><I>ServerDB = database_name</I></P>
+<P STYLE="margin-left: 2.2cm"><I>ServerNode = address</I></P>
+<P STYLE="margin-left: 2.2cm"><I>Driver =
+/opt/sapdb/interfaces/odbc/lib/libsqlod.so</I></P>
+<P STYLE="margin-left: 2.2cm"><I>Description = any text</I></P>
+<P STYLE="font-style: normal">For example:</P>
+<P STYLE="margin-left: 2.2cm"><I>[dbt1]</I></P>
+<P STYLE="margin-left: 2.2cm"><I>ServerDB = DBT1</I></P>
+<P STYLE="margin-left: 2.2cm"><I>ServerNode = 192.168.0.1</I></P>
+<P STYLE="margin-left: 2.2cm"><I>Driver =
+/opt/sapdb/interfaces/odbc/lib/libsqlod.so</I></P>
+<P STYLE="margin-left: 2.2cm"><I>Description = OSDL-DBT-1</I></P>
+<P STYLE="font-style: normal">is a valid <I>.odbc.ini</I> file where
+<I>dbt1</I> can be used as the <I>server </I>name to connect to the
+database.</P>
+<H1 CLASS="western">4Running the Test Kit</H1>
+<P STYLE="font-style: normal">The script, <I>run_test_sample.sh</I>,
+in the <I>scripts/</I> directory is provided as a sample on how to
+run the test kit on a single system.  The variables that should be
+changed are:</P>
+<UL>
+	<LI><P ALIGN=LEFT STYLE="font-style: normal">SRCHOME	-	The root
+	directory of the source code.</P>
+	<LI><P ALIGN=LEFT STYLE="font-style: normal">EUS		-	The number of
+	users to emulate.</P>
+	<LI><P ALIGN=LEFT STYLE="font-style: normal">ITEMS		-	The number of
+	items in the database.</P>
+	<LI><P ALIGN=LEFT STYLE="font-style: normal">CUSTOMERS	-	The number
+	of customers in the database: 				EUS * 2880</P>
+	<LI><P ALIGN=LEFT STYLE="font-style: normal">RAMPUP		-	The number of
+	users to start per minute.</P>
+	<LI><P ALIGN=LEFT STYLE="font-style: normal">THINKTIME	-	The number
+	of seconds a user spends between 			interactions.</P>
+	<LI><P ALIGN=LEFT STYLE="font-style: normal">DURATION	-	The length
+	of a test run in seconds.</P>
+	<LI><P ALIGN=LEFT STYLE="font-style: normal">CONNECT_STR	-	The
+	database connect string.</P>
+	<LI><P ALIGN=LEFT STYLE="font-style: normal">DB_USER		-	The user
+	name: dbt.</P>
+	<LI><P ALIGN=LEFT STYLE="font-style: normal">DB_PASS		-	The user
+	password: dbt.</P>
+	<LI><P ALIGN=LEFT STYLE="font-style: normal">DB_CONN	-	The number of
+	database connections to open 			from the appServer program.</P>
+	<LI><P ALIGN=LEFT STYLE="font-style: normal">APP_PORT	-	The port
+	where the appServer program is 				listening for connection requests
+	from the 				driver.</P>
+	<LI><P ALIGN=LEFT STYLE="font-style: normal">Q_SIZE		-	The maximum 
+	number of transaction that can 			be queued in the appServer
+	program.</P>
+	<LI><P ALIGN=LEFT STYLE="font-style: normal">T_SIZE		-	The maximum
+	number of transactions that can 			be queued for an individual
+	interaction.</P>
+	<LI><P ALIGN=LEFT STYLE="font-style: normal">SAMPLE_LENGTH	-	The
+	number of seconds the processor, disk, 			and paging statistics
+	should be sampled over.</P>
+	<LI><P ALIGN=LEFT STYLE="font-style: normal">NUMBER_OF_SAMPLES	The
+	number of samples to take of the processor, 			disk, and paging
+	statistics.</P>
+</UL>
+<H1 CLASS="western">5Test Results</H1>
+<P>The driver program, in both its forms, records response time data
+to the file <I>mix.log</I><SPAN STYLE="font-style: normal">.  A
+program, </SPAN><I>results</I><SPAN STYLE="font-style: normal">, is
+provided in the </SPAN><I>tools/</I><SPAN STYLE="font-style: normal">
+directory, which takes the file name as a command line argument to
+analyze the file.  The </SPAN><I>results</I><SPAN STYLE="font-style: normal">
+program also assumes the output files from the </SPAN><I>cpu.sh</I><SPAN STYLE="font-style: normal">,
+</SPAN><I>io.sh</I><SPAN STYLE="font-style: normal">, and </SPAN><I>paging.sh</I><SPAN STYLE="font-style: normal">
+are in the </SPAN><I>scripts/stats/</I><SPAN STYLE="font-style: normal">
+directory relative to the </SPAN><I>tools/</I><SPAN STYLE="font-style: normal">
+directory.  The </SPAN><I>results</I><SPAN STYLE="font-style: normal">
+program displays the results of these files to the screen, for
+example:</SPAN></P>
+<P STYLE="margin-left: 2.2cm"><FONT SIZE=2><I>interaction	%	avg
+response time (s)</I></FONT></P>
+<P STYLE="margin-left: 2.2cm"><FONT SIZE=2><I>AC	0.04	0.000</I></FONT></P>
+<P STYLE="margin-left: 2.2cm"><FONT SIZE=2><I>AR	0.05	0.000</I></FONT></P>
+<P STYLE="margin-left: 2.2cm"><FONT SIZE=2><I>BS	5.19	0.000</I></FONT></P>
+<P STYLE="margin-left: 2.2cm"><FONT SIZE=2><I>BC	1.08	0.000</I></FONT></P>
+<P STYLE="margin-left: 2.2cm"><FONT SIZE=2><I>BR	2.50	0.000</I></FONT></P>
+<P STYLE="margin-left: 2.2cm"><FONT SIZE=2><I>CR	2.92	0.000</I></FONT></P>
+<P STYLE="margin-left: 2.2cm"><FONT SIZE=2><I>HO	17.19	0.000</I></FONT></P>
+<P STYLE="margin-left: 2.2cm"><FONT SIZE=2><I>NP	4.98	0.000</I></FONT></P>
+<P STYLE="margin-left: 2.2cm"><FONT SIZE=2><I>OD	0.63	0.000</I></FONT></P>
+<P STYLE="margin-left: 2.2cm"><FONT SIZE=2><I>OI	0.78	0.000</I></FONT></P>
+<P STYLE="margin-left: 2.2cm"><FONT SIZE=2><I>PD	16.71	0.000</I></FONT></P>
+<P STYLE="margin-left: 2.2cm"><FONT SIZE=2><I>SR	19.76	0.000</I></FONT></P>
+<P STYLE="margin-left: 2.2cm"><FONT SIZE=2><I>SU	16.55	0.000</I></FONT></P>
+<P STYLE="margin-left: 2.2cm"><FONT SIZE=2><I>SC	11.62	0.000</I></FONT></P>
+<P STYLE="margin-left: 2.2cm"><BR><BR>
+</P>
+<P STYLE="margin-left: 2.2cm"><FONT SIZE=2><I>12.6 interactions per
+second</I></FONT></P>
+<P STYLE="margin-left: 2.2cm"><FONT SIZE=2><I>17.7 minute duration</I></FONT></P>
+<P STYLE="margin-left: 2.2cm"><BR><BR>
+</P>
+<P STYLE="margin-left: 2.2cm"><FONT SIZE=2><I>CPU:</I></FONT></P>
+<P STYLE="margin-left: 2.2cm"><FONT SIZE=2><I>Average %user 11.43</I></FONT></P>
+<P STYLE="margin-left: 2.2cm"><FONT SIZE=2><I>Average %nice 0.00</I></FONT></P>
+<P STYLE="margin-left: 2.2cm"><FONT SIZE=2><I>Average %sys 7.26</I></FONT></P>
+<P STYLE="margin-left: 2.2cm"><FONT SIZE=2><I>Average %idle 81.30</I></FONT></P>
+<P STYLE="margin-left: 2.2cm"><BR><BR>
+</P>
+<P STYLE="margin-left: 2.2cm"><FONT SIZE=2><I>I/O:</I></FONT></P>
+<P STYLE="margin-left: 2.2cm"><FONT SIZE=2><I>The following numbers
+are presented as averages for each column.</I></FONT></P>
+<P STYLE="margin-left: 2.2cm"><FONT SIZE=2><I>Note that stats are
+reported for every device attached to the system.</I></FONT></P>
+<P STYLE="margin-left: 2.2cm; font-style: normal"><FONT SIZE=2>[Note:
+The following lines have wrapped in this document.]</FONT></P>
+<P STYLE="margin-left: 2.2cm"><FONT SIZE=2><I>device	rrqm/s	wrqm/s	r/s	w/s	rsec/s	wsec/s	avgrq-sz	avgqu-sz
+       await	svctm	%util</I></FONT></P>
+<P STYLE="margin-left: 2.2cm"><FONT SIZE=2><I>hda1	0.00	0.00	0.00	0.00	0.00	0.00	0.24		0.00	</I></FONT></P>
+<P STYLE="margin-left: 2.2cm"><FONT SIZE=2><I>       
+16.77	10.50	0.00</I></FONT></P>
+<P STYLE="margin-left: 2.2cm"><FONT SIZE=2><I>hda2	7.38	4.25	2.29	2.62	77.39	55.23	27.89		1.25	</I></FONT></P>
+<P STYLE="margin-left: 2.2cm"><FONT SIZE=2><I>       
+360.66	181.54	6.34</I></FONT></P>
+<P STYLE="margin-left: 2.2cm"><FONT SIZE=2><I>hda3	0.17	0.00	0.02	0.00	1.59	0.00	11.87		0.00	</I></FONT></P>
+<P STYLE="margin-left: 2.2cm"><FONT SIZE=2><I>       
+39.44	26.33	0.03</I></FONT></P>
+<P STYLE="margin-left: 2.2cm"><FONT SIZE=2><I>hdb	0.00	0.00	0.01	0.01	0.10	0.09	2.29		0.00	</I></FONT></P>
+<P STYLE="margin-left: 2.2cm"><FONT SIZE=2><I>        46.27	3.41	0.00</I></FONT></P>
+<P STYLE="margin-left: 2.2cm"><FONT SIZE=2><I>hdb1	0.00	0.00	0.01	0.01	0.10	0.09	2.29		0.00	</I></FONT></P>
+<P STYLE="margin-left: 2.2cm"><FONT SIZE=2><I>        46.27	3.41	0.00</I></FONT></P>
+<P STYLE="margin-left: 2.2cm"><FONT SIZE=2><I>hda	7.73	4.25	2.37	2.67	80.82	55.65	27.72		1.29	</I></FONT></P>
+<P STYLE="margin-left: 2.2cm"><FONT SIZE=2><I>       
+364.82	183.28	6.50</I></FONT></P>
+<P STYLE="margin-left: 2.2cm"><BR><BR>
+</P>
+<P STYLE="margin-left: 2.2cm"><FONT SIZE=2><I>Paging:</I></FONT></P>
+<P STYLE="margin-left: 2.2cm"><FONT SIZE=2><I>Average pgpgin/s 43.67</I></FONT></P>
+<P STYLE="margin-left: 2.2cm"><FONT SIZE=2><I>Average pgpgout/s 27.91</I></FONT></P>
+<P STYLE="margin-left: 2.2cm"><FONT SIZE=2><I>Average activepg
+29601.77</I></FONT></P>
+<P STYLE="margin-left: 2.2cm"><FONT SIZE=2><I>Average inadtypg
+14288.26</I></FONT></P>
+<P STYLE="margin-left: 2.2cm"><FONT SIZE=2><I>Average inaclnpg
+2696.00</I></FONT></P>
+<P STYLE="margin-left: 2.2cm"><FONT SIZE=2><I>Average inatarpg
+2112.82</I></FONT></P>
+<H1 CLASS="western">6Advanced Topics</H1>
+<H2 CLASS="western">6.1Additional Compiler Options</H2>
+<P STYLE="font-style: normal"><FONT SIZE=3>The following section
+describes the compiler flags defined in <I>common.mk </I>that can be
+used to generate different binaries from the default:</FONT></P>
+<UL>
+	<LI><P STYLE="font-style: normal"><FONT SIZE=3>_SIMDB: generates the
+	appServer which simulates the database.  Instead 	of connecting to
+	database, appServer returns dummy data to the driver.</FONT></P>
+</UL>
+<UL>
+	<LI><P><SPAN STYLE="font-style: normal">GET_TIME: when this flag is
+	defined, appServer generates a file </SPAN><I>time.log </I><SPAN STYLE="font-style: normal">and
+	logs time in the following format:  &ldquo;interaction_name, total,
+	db, server_db_time, where</SPAN></P>
+	<LI><P STYLE="font-style: normal">total: the time it takes appServer
+	to respond once it has received a request.  It is the sum of the
+	database response time, the time a request stays in the transaction
+	queue and the time for enqueue operation.</P>
+	<LI><P STYLE="font-style: normal">db: the database response time</P>
+	<LI><P STYLE="font-style: normal">server_db_time: the time elapsed
+	between a transction request being put in the transaction queue and
+	appServer sends the response back.  It is the sum of the database
+	response time and the time a request stays in the transaction queue.</P>
+</UL>
+<UL>
+	<LI><P STYLE="font-style: normal">SEARCH_RESULTS_CACHE: Enables
+	caching.  The appServer then sends two of the SearchResults
+	functions (search on title and search on author) to the cache module
+	instead of the database.</P>
+</UL>
+<UL>
+	<LI><P STYLE="font-style: normal">DEBUG: when this flag is defined,
+	appServer writes debug messges to <I>debug.log</I>.</P>
+</UL>
+<P STYLE="font-style: normal"><BR><BR>
+</P>
+<P STYLE="font-style: normal">For example, in common.mk, the
+following CFLAG generates the appServer which generates <I>time.log
+</I>and sends SearchResults on title and SearchResults on author to
+the cache module.</P>
+<P STYLE="font-style: normal">CFLAGS = -g -I$(INCLUDE_DIR)
+-I$(SAPDBROOT)/incl -DGET_TIME -DSEARCH_RESULTS_CACHE</P>
+<H2 CLASS="western">6.2Manually Running the Test Kit</H2>
+<P>The OSDL-DBT-1 test kit can be run in two ways.  The kit is
+designed to be run in a two-tier and a three-tier environment.  The
+two-tier environment involves running the driver against the database
+directly while the three-tier environment involves running the driver
+against a type of transaction management program on the middle-tier
+system that sits in front of the database.  A sample script it
+provided to run the kit in a three tier environment.  Running the kit
+manually for each environment is explained later in this section.</P>
+<H3 CLASS="western">6.2.1Two-Tier Environment</H3>
+<P ALIGN=CENTER><IMG SRC="user_html_274752e.gif" NAME="Frame3" ALT="Frame3" ALIGN=BOTTOM HSPACE=7 VSPACE=8></P>
+<P>The driver program for the two-tier environment is compiled as
+<I>dbdriver_p1</I> in the <I>dbdriver</I><SPAN STYLE="font-style: normal">/
+directory.  The </SPAN><I>dbdriver_p1</I><SPAN STYLE="font-style: normal">
+program takes the following arguments in the following order:</SPAN></P>
+<UL>
+	<LI><P STYLE="font-style: normal">server name	-	The database connect
+	string.</P>
+	<LI><P STYLE="font-style: normal">user		-	Database user name: <I>dbt</I>.</P>
+	<LI><P STYLE="font-style: normal">pass		-	Database user password:
+	<I>dbt</I>.</P>
+	<LI><P STYLE="font-style: normal">items		-	Number of items in the
+	database.</P>
+	<LI><P STYLE="font-style: normal">customers		-	Number of customers
+	in the database: eus <FONT FACE="StarSymbol">*</FONT> 			2880.</P>
+	<LI><P STYLE="font-style: normal">eus		-	The number of users
+	emulated.</P>
+	<LI><P STYLE="font-style: normal">eu/min		-	The number of users to
+	connect per minute.</P>
+	<LI><P STYLE="font-style: normal">think time		-	The number of
+	seconds a user spends between 			interactions.</P>
+	<LI><P ALIGN=LEFT STYLE="font-style: normal">duration		-	The length
+	of test, in seconds, after all users  			connect.</P>
+</UL>
+<H3 CLASS="western">6.2.2Three-Tier Environment</H3>
+<P ALIGN=CENTER><IMG SRC="user_html_mffc9dcb.gif" NAME="Frame4" ALT="Frame4" ALIGN=BOTTOM HSPACE=7 VSPACE=8></P>
+<P ALIGN=LEFT STYLE="font-style: normal">If tests are conducted in a
+three-tier environment, then the applications that are started are:</P>
+<UL>
+	<LI><P ALIGN=LEFT STYLE="font-style: normal">the database</P>
+	<LI><P ALIGN=LEFT STYLE="font-style: normal">the appServer</P>
+	<LI><P ALIGN=LEFT STYLE="font-style: normal">the driver</P>
+</UL>
+<P ALIGN=LEFT STYLE="font-style: normal"><BR><BR>
+</P>
+<P ALIGN=LEFT STYLE="font-style: normal">The <I>appServer</I> program
+must be started before the driver in the three-tier environment.  The
+program resides in the <I>appServer/</I> directory and take the
+following arguments in the following order:</P>
+<UL>
+	<LI><P STYLE="font-style: normal">dbnodename	-	Synonymous to <I>server
+	name</I> and is the address 			of the database.</P>
+	<LI><P STYLE="font-style: normal">username		-	The database user
+	name: dbt.</P>
+	<LI><P STYLE="font-style: normal">password		-	The database user
+	password: dbt.</P>
+	<LI><P STYLE="font-style: normal">port		-	The port to listen for
+	connection requests from 			the driver program.</P>
+	<LI><P STYLE="font-style: normal">db_connection	-	The number of
+	database connections to open.</P>
+	<LI><P STYLE="font-style: normal">transaction queue size	-	The
+	maximum number of transactions that can 			be queued.</P>
+	<LI><P STYLE="font-style: normal">transaction array size	-	The
+	maximum number of transactions that can be queued for an
+	interaction.</P>
+</UL>
+<UL>
+	<LI><P STYLE="font-style: normal">items		-	Number of items in the
+	database.</P>
+</UL>
+<P STYLE="font-style: normal"><BR><BR>
+</P>
+<P>The driver program for the three-tier environment is compiled as
+<I>dbdriver_p2</I> in the <I>dbdriver</I><SPAN STYLE="font-style: normal">/
+directory.  The </SPAN><I>dbdriver_p2</I><SPAN STYLE="font-style: normal">
+program takes the following arguments in the following order:</SPAN></P>
+<UL>
+	<LI><P STYLE="font-style: normal">server name	-	The address of the
+	appServer program.</P>
+	<LI><P STYLE="font-style: normal">port		-	The port the appServer
+	program is listening to.</P>
+	<LI><P STYLE="font-style: normal">items		-	Number of items in the
+	database.</P>
+	<LI><P STYLE="font-style: normal">customers	-	Number of customers in
+	the database: eus <FONT FACE="StarSymbol">*</FONT> 			2880.</P>
+	<LI><P STYLE="font-style: normal">eus		-	The number of users
+	emulated.</P>
+	<LI><P STYLE="font-style: normal">eu/min		-	The number of users to
+	connect per minute.</P>
+	<LI><P STYLE="font-style: normal">think time	-	The number of seconds
+	a user spends between 			interactions.</P>
+	<LI><P STYLE="font-style: normal">duration		-	The length of test, in
+	seconds, after all users 
+	</P>
+</UL>
+<P STYLE="font-style: normal">			connect.</P>
+<H3 CLASS="western">6.2.3Three-Tier Environment with Cache</H3>
+<P STYLE="font-style: normal"><BR><BR>
+</P>
+<P STYLE="font-style: normal"><FONT SIZE=3><IMG SRC="user_html_m3adf8c92.gif" NAME="Frame2" ALT="Frame2" ALIGN=BOTTOM HSPACE=7 VSPACE=8>If
+tests are conducted in a three-tier environment then the applications
+that are started are:</FONT></P>
+<UL>
+	<LI><P STYLE="font-style: normal"><FONT SIZE=3>the database</FONT></P>
+	<LI><P STYLE="font-style: normal"><FONT SIZE=3>the cache</FONT></P>
+	<LI><P STYLE="font-style: normal"><FONT SIZE=3>the appServer</FONT></P>
+	<LI><P STYLE="font-style: normal"><FONT SIZE=3>the driver</FONT></P>
+</UL>
+<P STYLE="font-style: normal"><BR><BR>
+</P>
+<P STYLE="font-style: normal"><FONT SIZE=3>Since SearchResults on
+title and SearchResults on author interactions do not need to reflect
+any changes in the database, a cache module is provided to serve
+those two interactions.  When the cache module starts, it accesses
+the database to warm up the cache.  Then it waits for connections
+from the appServer.</FONT></P>
+<P ALIGN=LEFT STYLE="font-style: normal"><BR><BR>
+</P>
+<P ALIGN=LEFT STYLE="font-style: normal">The <I>cache</I> program
+must be started before the <I>appServer</I>.  The program resides in
+the <I>cache/</I> directory and take the following arguments in the
+following order:</P>
+<UL>
+	<LI><P STYLE="font-style: normal">dbnodename	-	Synonymous to <I>server
+	name</I> and is the address 			of the database.</P>
+	<LI><P STYLE="font-style: normal">username		-	The database user
+	name: dbt.</P>
+	<LI><P STYLE="font-style: normal">password		-	The database user
+	password: dbt.</P>
+	<LI><P STYLE="font-style: normal">port		-	The port to listen for
+	connection requests from 			the appServer.</P>
+	<LI><P STYLE="font-style: normal">db_connection	-	The number of
+	database connections to open.                            			&lt;items&gt;
+	must be a multiple interger of 			&lt;db_connection&gt;*10.  And 
+	&lt;db_connection&gt; 			should be less than 7.  We recommend 5
+				db_connections.</P>
+	<LI><P STYLE="font-style: normal">Items		-	The number of items in
+	the database.</P>
+</UL>
+<P STYLE="font-style: normal"><BR><BR>
+</P>
+<P ALIGN=LEFT STYLE="font-style: normal">The <I>appServer</I> program
+must be started before the driver.  The program resides in the
+<I>appServer/</I> directory and take the following arguments in the
+following order:</P>
+<UL>
+	<LI><P STYLE="font-style: normal">dbnodename	-	Synonymous to <I>server
+	name</I> and is the address 			of the database.</P>
+	<LI><P STYLE="font-style: normal">username		-	The database user
+	name: dbt.</P>
+	<LI><P STYLE="font-style: normal">password		-	The database user
+	password: dbt.</P>
+	<LI><P STYLE="font-style: normal">port		-	The port to listen for
+	connection requests from 			the driver program.</P>
+	<LI><P STYLE="font-style: normal">db_connection	-	The number of
+	database connections to open.</P>
+	<LI><P STYLE="font-style: normal">transaction queue size	-	The
+	maximum number of transactions that can 			be queued.</P>
+	<LI><P STYLE="font-style: normal">transaction array size	-	The
+	maximum number of transactions that can be queued for an
+	interaction.</P>
+</UL>
+<UL>
+	<LI><P STYLE="font-style: normal">items		-	Number of items in the
+	database.</P>
+	<LI><P STYLE="font-style: normal">search_results_cache_host -	The
+	hostname or IP address of the cache machine.</P>
+	<LI><P STYLE="font-style: normal">search_results_cache_port -	The
+	port the cache program is listening to.</P>
+</UL>
+<P STYLE="font-style: normal"><BR><BR>
+</P>
+<P>The driver program for the three-tier environment is compiled as
+<I>dbdriver_p2</I> in the <I>dbdriver</I><SPAN STYLE="font-style: normal">/
+directory.  The </SPAN><I>dbdriver_p2</I><SPAN STYLE="font-style: normal">
+program takes the following arguments in the following order:</SPAN></P>
+<UL>
+	<LI><P STYLE="font-style: normal">server name	-	The address of the
+	appServer program.</P>
+	<LI><P STYLE="font-style: normal">port		-	The port the appServer
+	program is listening to.</P>
+	<LI><P STYLE="font-style: normal">items		-	Number of items in the
+	database.</P>
+	<LI><P STYLE="font-style: normal">customers	-	Number of customers in
+	the database: eus <FONT FACE="StarSymbol">*</FONT> 			2880.</P>
+	<LI><P STYLE="font-style: normal">eus		-	The number of users
+	emulated.</P>
+	<LI><P STYLE="font-style: normal">eu/min		-	The number of users to
+	connect per minute.</P>
+	<LI><P STYLE="font-style: normal">think time	-	The number of seconds
+	a user spends between 			interactions.</P>
+	<LI><P STYLE="font-style: normal">duration		-	The length of test, in
+	seconds, after all users 
+	</P>
+</UL>
+<P STYLE="font-style: normal">			connect.</P>
+<H2 CLASS="western">6.3Tools</H2>
+<P>Various tools are provided in the test kit that aid in setting up
+the database or testing different functions of the kit.  These tools
+are covered in this section.</P>
+<H3 CLASS="western">6.3.1ODBC Test Tools</H3>
+<P>The tools explained in this section are: <I>load_db_proc,
+odbc_test_p1</I>, and <I>odbc_test_p2</I>.  Database specific tools
+are listed under the appropriate sections.</P>
+<P><BR><BR>
+</P>
+<P>The <I>odbc_test_p1</I> and <I>odbc_test_p2</I> programs , in the
+<I>tools/</I><SPAN STYLE="font-style: normal"> directory, </SPAN>are
+used to support isolated testing of the database stored procedures. 
+And <I>load_db_proc</I> is the program to load long stored procedures
+that <I>repmcli</I><SPAN STYLE="font-style: normal"> cannot load. 
+D</SPAN>ue to limitations in <I>repmcli</I> <SPAN STYLE="font-style: normal">,
+the </SPAN>program  fails to load a stored procedure if the size of
+the stored procedures is too large.  The <I>load_db_proc</I> program
+is provided as a tool to load those zlong stored procedures.  To
+execute <I>load_db_proc </I>, go to the <I>tools/</I><SPAN STYLE="font-style: normal">
+directory</SPAN> and type:</P>
+<P>	<I>./load_db_proc &lt;servername&gt; &lt;uname&gt; &lt;password&gt;
+&lt;db_procedure_name&gt;</I></P>
+<P STYLE="font-style: normal">where:</P>
+<UL>
+	<LI><P>servername	-	The database connect string. 
+	</P>
+	<LI><P>user		-	 Database user name, e.g. dbt. 
+	</P>
+	<LI><P>pass		-	 Database user password, e.g. dbt.</P>
+	<LI><P>db_procedure_name	-	The stored procedure file name. 
+	</P>
+</UL>
+<P><BR><BR>
+</P>
+<P>The <I>odbc_test_p1</I> program is the tool used to test each
+individual interaction.  It connects to the database directly.  To
+execute the program, go to directory tools and type:</P>
+<P>	<I>./odbc_test_p1 &lt;interaction&gt; &lt;servername&gt; &lt;uname&gt;
+&lt;password&gt; </I>
+</P>
+<P>The <I>&lt;interaction&gt;</I> option can be one of the following:</P>
+<UL>
+	<LI><P>ac	-	Admin Confirm</P>
+	<LI><P>ar	-	Admin Request</P>
+	<LI><P>bs	-	Best Sellers</P>
+	<LI><P>bc	-	Buy Confirm</P>
+	<LI><P>br	-	Buy Request</P>
+	<LI><P>ho	-	Home</P>
+	<LI><P>np	-	New Products</P>
+	<LI><P>od	-	Order Display</P>
+	<LI><P>oi	-	Order Inquiry</P>
+	<LI><P>pd	-	Product Display</P>
+	<LI><P>sr	-	Search Request</P>
+	<LI><P>su	-	Search Results</P>
+	<LI><P>sc	-	Shopping Cart</P>
+</UL>
+<P><BR><BR>
+</P>
+<P>The <I>&lt;servername&gt;</I><SPAN STYLE="font-style: normal"> is
+t</SPAN>he database node name in the format of
+<I>hostname:database_name</I>. For example, <I>localhost:DBT1</I>.</P>
+<P><BR><BR>
+</P>
+<P>The <I>&lt;uname&gt;</I><SPAN STYLE="font-style: normal"> option
+is the d</SPAN>atabase user name: dbt.</P>
+<P><BR><BR>
+</P>
+<P>The <I>&lt;password&gt;</I> options is the database user password:
+dbt.</P>
+<P><BR><BR>
+</P>
+<P>The <I>odbc_test_p2</I> program is used to test each individual
+interaction and it connects to the <I>appServer</I> program instead
+of connecting directly to the database. To execute this program, go
+to directory tools and type:</P>
+<P>	<I>./odbc_test_p2 &lt;interaction&gt; &lt;servername&gt; &lt;port&gt;
+</I>
+</P>
+<P>The interaction options are the same as those for the <I>odbc_test_p1</I><SPAN STYLE="font-style: normal">
+program.  The </SPAN><I>&lt;interaction&gt;</I> option can be one of
+the following:</P>
+<UL>
+	<LI><P>ac	-	Admin Confirm</P>
+	<LI><P>ar	-	Admin Request</P>
+	<LI><P>bs	-	Best Sellers</P>
+	<LI><P>bc	-	Buy Confirm</P>
+	<LI><P>br	-	Buy Request</P>
+	<LI><P>ho	-	Home</P>
+	<LI><P>np	-	New Products</P>
+	<LI><P>od	-	Order Display 
+	</P>
+	<LI><P>oi	-	Order Inquiry</P>
+	<LI><P>pd	-	Product Display</P>
+	<LI><P>sr	-	Search Request</P>
+	<LI><P>su	-	Search Results</P>
+	<LI><P>sc	-	Shopping Cart</P>
+</UL>
+<P><BR><BR>
+</P>
+<P>The <I>&lt;servername&gt;</I> option is the hostname or IP address
+of the system where the <I>appServer</I> program is running on.</P>
+<P><BR><BR>
+</P>
+<P>The <I>&lt;port&gt;</I> option is the port number where the
+<I>appServer</I><SPAN STYLE="font-style: normal"> is listening to</SPAN>.
+ It is the port number used when starting the <I>appServer</I><SPAN STYLE="font-style: normal">
+program.</SPAN></P>
+<H3 CLASS="western">6.3.2System Resources</H3>
+<P ALIGN=LEFT>The test kit provides scripts to help collect
+processor, disk, and memory utilization, using<I> iostat</I><SPAN STYLE="font-style: normal">,</SPAN><I>
+</I>in the <I>scrips/stats/</I><SPAN STYLE="font-style: normal">
+directory, </SPAN><I>cpu.sh</I><SPAN STYLE="font-style: normal">,
+</SPAN><I>io.sh</I><SPAN STYLE="font-style: normal">, and </SPAN><I>paging.sh</I><SPAN STYLE="font-style: normal">
+respectively.  Each script takes two command line arguments, in the
+following order, the sample length in seconds, and the number of
+samples to take.  To collect ten minutes of processor utilization
+data over 30 second intervals:</SPAN></P>
+<P ALIGN=LEFT STYLE="margin-left: 2.2cm"><I>cpu.sh 30 20</I></P>
+<H3 CLASS="western">6.3.3Database Notes</H3>
+<H4 CLASS="western">6.3.3.1SAP DB</H4>
+<P>The tools provided for SAP DB are a set of scripts that aid in
+using the database.</P>
+<P><BR><BR>
+</P>
+<P>The <I>backup_db.sh</I><SPAN STYLE="font-style: normal"> script
+backups the database.</SPAN></P>
+<P STYLE="font-style: normal"><BR><BR>
+</P>
+<P><SPAN STYLE="font-style: normal">The </SPAN><I>drop_db.sh</I><SPAN STYLE="font-style: normal">
+script drops the database.</SPAN></P>
+<P STYLE="font-style: normal"><BR><BR>
+</P>
+<P><SPAN STYLE="font-style: normal">The </SPAN><I>monitor.sh</I><SPAN STYLE="font-style: normal">
+script takes a snapshot of all of the counters in most of the monitor
+tables and outputs them into text files.</SPAN></P>
+<P STYLE="font-style: normal"><BR><BR>
+</P>
+<P><SPAN STYLE="font-style: normal">The </SPAN><I>restart.sh</I><SPAN STYLE="font-style: normal">
+script shutdown down and start the database.</SPAN></P>
+<P><SPAN STYLE="font-style: normal">The </SPAN><I>trace_off.sh</I><SPAN STYLE="font-style: normal">
+script shutsturns off the database trace and takes a command line
+argument for where to output the trace data.  For example:</SPAN></P>
+<P STYLE="margin-left: 2.2cm"><I>trace_off.sh /tmp/todays_trace.txt</I></P>
+<P><SPAN STYLE="font-style: normal">Be sure to run </SPAN><I>trace_on.sh</I><SPAN STYLE="font-style: normal">
+first, or else there will not be any trace data collected.</SPAN></P>
+<P><BR><BR>
+</P>
+<P><SPAN STYLE="font-style: normal">The </SPAN><I>trace_on.sh</I><SPAN STYLE="font-style: normal">
+script turns on the database trace.</SPAN></P>
+<P><SPAN STYLE="font-style: normal">The </SPAN><I>update_stats.sh</I><SPAN STYLE="font-style: normal">
+script updates the statistics table in the database to help the
+optimizer.</SPAN></P>
+<P STYLE="font-style: normal"><BR><BR>
+</P>
+<P STYLE="font-style: normal">Within SAP there exist internal
+variables that you may wish to change.  Following is a description
+and an example of how to change them.</P>
+<P><BR><BR>
+</P>
+<P>DATA_CACHE	-	The database cache.</P>
+<P>MAXUSERTASKS	-	The maximum amount of connections a single
+user			can have to the database at any one time.  This is set 			to
+50 by default.</P>
+<P>MAXCPU		-	The number of CPUs in your system (default is 1). 
+			This must be changed if you have a smp machine to 			achive better
+results.  The database will not use 			more then the number of
+processors defined here.</P>
+<P><BR><BR>
+</P>
+<P>To change MAXCPU on an 8-way system:</P>
+<P>	dbmcli -d DBT1 -u dbm,dbm</P>
+<P>	param_startsession</P>
+<P>	param_put MAXCPU 8</P>
+<P>	param_checkall</P>
+<P>	param_commitsession</P>
+<P>	db_restart</P>
+<P><BR><BR>
+</P>
+<P STYLE="font-style: normal">See the SAP documentation at
+<A HREF="http://www.sap.org/"><SPAN STYLE="text-decoration: none">http://www.sap.org/</SPAN></A>
+for more information.</P>
+<DIV TYPE=FOOTER>
+	<P ALIGN=CENTER STYLE="margin-top: 0.5cm; margin-bottom: 0cm"><SDFIELD TYPE=PAGE SUBTYPE=RANDOM FORMAT=PAGE>16</SDFIELD></P>
+</DIV>
+</BODY>
+</HTML>

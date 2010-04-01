@@ -1,0 +1,4 @@
+#!/bin/sh
+
+source @TOPDIR@/scripts/pgsql/build_param.sh
+psql -h $SERVER_IP -p $SERVER_PORT -d $SID1 -c "VACUUM ANALYZE"

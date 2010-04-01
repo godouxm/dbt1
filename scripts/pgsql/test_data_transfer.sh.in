@@ -1,0 +1,11 @@
+#!/bin/sh
+
+sh @TOPDIR@/scripts/pgsql/data_transfer.sh /tmp/country.data
+sh @TOPDIR@/scripts/pgsql/data_transfer.sh /tmp/author.data
+sh @TOPDIR@/scripts/pgsql/data_transfer.sh /tmp/orders.data
+sh @TOPDIR@/scripts/pgsql/data_transfer.sh /tmp/order_line.data
+sh @TOPDIR@/scripts/pgsql/data_transfer.sh /tmp/cc_xacts.data
+sh @TOPDIR@/scripts/pgsql/data_transfer.sh /tmp/address.data
+sh @TOPDIR@/scripts/pgsql/data_transfer.sh /tmp/item.data
+sh @TOPDIR@/scripts/pgsql/data_transfer.sh /tmp/stock.data
+sh @TOPDIR@/scripts/pgsql/data_transfer.sh /tmp/customer.data

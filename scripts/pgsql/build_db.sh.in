@@ -1,0 +1,62 @@
+#!/bin/sh
+#this script can be used to build the database
+
+sh @TOPDIR@/scripts/pgsql/set_run_env.sh
+source @TOPDIR@/scripts/pgsql/build_param.sh
+
+if [ "$DATAGEN_USE" = "ON" ]
+	then
+	echo "Generating data... $ITEMS item and $EUS eu"
+	cd @TOPDIR@/datagen
+	date
+	@TOPDIR@/datagen/datagen -i $DATAGEN_ITEMS -u $DATAGEN_EUS -p $DATAGEN_RESULT -T i
+	@TOPDIR@/datagen/datagen -i $DATAGEN_ITEMS -u $DATAGEN_EUS -p $DATAGEN_RESULT -T a
+	@TOPDIR@/datagen/datagen -i $DATAGEN_ITEMS -u $DATAGEN_EUS -p $DATAGEN_RESULT -T c
+	echo "data file is generated"
+	date
+	cd @TOPDIR@/scripts/pgsql
+else
+	echo "build the database without generating the data file"
+fi
+if [ "$PGXC_USE" = "OFF" ]
+	then
+	date
+	echo "drop db"
+	@TOPDIR@/scripts/pgsql/drop_db.sh
+	echo
+
+	date
+	echo "create db"
+	@TOPDIR@/scripts/pgsql/create_db.sh
+	echo
+fi
+date
+echo "create tables"
+@TOPDIR@/scripts/pgsql/create_tables.sh
+echo
+
+date
+echo "load db"
+@TOPDIR@/scripts/pgsql/load_db.sh
+echo
+
+date
+echo "create indexes"
+@TOPDIR@/scripts/pgsql/create_indexes.sh
+echo
+
+date
+echo "create foreign key"
+@TOPDIR@/scripts/pgsql/create_fk.sh
+echo
+
+date
+echo "load dbproc"
+@TOPDIR@/scripts/pgsql/load_dbproc.sh
+echo
+
+date
+echo "start updating optimizer statistics"
+@TOPDIR@/scripts/pgsql/update_statistics.sh
+
+exit 0

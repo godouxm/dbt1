@@ -1,0 +1,13 @@
+# Makefile
+# 06 March 2003
+
+include @TOPDIR@/make.common
+
+OBJS = db.o
+
+all: $(OBJS)
+
+db.so: db.c $(INCLUDE_DIR)/db.h $(DBI_INCLUDE2)
+
+clean:
+	rm -f $(OBJS)

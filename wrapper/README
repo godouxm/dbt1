@@ -1,0 +1,71 @@
+■DBT-1簡易自動実行ツール
+
+◆本ツールの機能
+  - 複数の測定条件での連続測定が可能。
+  - CPUのコア数を切り替えながらの連続測定が可能。
+  - 複数クライアント（負荷サーバ）に対応。
+  - DBサーバ、負荷サーバのリソース状況を自動取得。
+
+◆前提
+  - PostgreSQLがインストール済みであること。
+  - 全ての負荷サーバにDBT1がインストール済みであること。
+  - DBT1で使用するDBクラスタがコールドバック(tar cfh)されていること。
+  - 「TestSet測定作業手順書」に従い、ユーザー制限の上限値、および
+    パスワードレスssh接続、sudo設定が行われていること。
+
+◆作業ディレクトリの作成とファイルの設置
+  - DBサーバおよび、すべての負荷サーバに作業用ディレクトリを作成する。
+    + 各マシンに作成する作業ディレクトリパス名は同じであること。
+  - wrapperを起動するマシンを負荷サーバの中から1台選択し、そのマシンの
+    作業ディレクトリに wrapperディレクトリ配下のすべてのファイルを配置する。
+  - init_env.sh および init_env_dr.sh を、すべての負荷サーバの
+    作業ディレクトリに設置する。
+
+◆変数の設定
+  - すべての負荷サーバ上に設置した init_env.sh および init_env_dr.sh 内の
+    変数の設定を行う。詳しくは「TestSet測定作業手順書」を参照のこと。
+  - autorun.sh（測定自動スクリプト）内の変数の設定を行う。
+		DB_SERVER    ：DBサーバ名
+		PGDATA       ：DBクラスタのパス
+		PGXLOG       ：pg_xlogのパス
+		ARCHIVELOG   ：アーカイブログのパス
+		TAR_FILENAME ：コールドバックアップファイルのパス
+		REBOOT_FLAG  ：測定前マシンリブートの有無 1:有 0:無
+		PGUSERHOME   ：PostgreSQL実行ユーザのホームのパス
+		ITEM_NUM     ：DBT1実行パラメータ - item数
+		CUST_NUM     ：DBT1実行パラメータ - customer数
+		THINKING_TIME：DBT1実行パラメータ - thinking time(sec.)
+		PORT_NUM     ：DB接続ポート番号
+		USER_NAME    ：DBユーザ名
+		USER_PASS    ：DBユーザパス
+		DB_NAME      ：DB名
+		WRAPPER_DIR=`pwd`（作業ディレクトリのパス）
+
+◆測定内容の記述
+  - repeat_autorun.sh（連続測定スクリプト）に測定内容を記述する。
+    詳しくは、repeat_autorun.sh内のusageを参照のこと。
+
+◆測定用wrapper詳細設定ファイルの作成
+  - 測定で使用するwrapper詳細設定ファイルを作成する。
+    repeat_autorun.sh で記述した測定条件毎にwrapper詳細設定ファイルを
+    1ファイル作成する。wrapper詳細設定ファイルの命名規則は以下のとおり。
+        wrapper_eu<EU数>_cn<DBコネクション数>.conf
+    + 各wrapper詳細設定ファイル内のクライアントセット毎の測定条件を記述する。
+      appServer と dbdriver で1クライアントセットになるように記述する。
+      詳しくは、wrapper_eu2000_cn30.conf(sample)内のusageを参照のこと。
+      （2クライアント構成で1クライアント単位 EU:1000 / CN:15 の条件で測定）
+
+◆測定の開始
+  - repeat_autorun.sh を実行。
+
+◆出力ファイル
+  - 簡易自動実行ツール独自のファイルは以下の2つ。
+        appServer_wrapper.log ：全APサーバの実行情報および実行結果
+        dbdriver_wrapper.log  ：全DRサーバの実行情報および実行結果
+    + その他の出力ファイルについては、各サーバ内の作業用ディレクトリ内に
+      出力される。詳細は「TestSet測定作業手順書」を参照のこと。
+
+◆その他
+  - 各リソース状況のグラフ化は、別途TestSetに付属のツールを用いること。
+  - repeat_autorun.sh による測定では、libqpモードのみに対応する。
+    odbcモードには非対応。

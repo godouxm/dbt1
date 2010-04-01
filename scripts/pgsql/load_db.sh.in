@@ -1,0 +1,41 @@
+#!/bin/sh
+# load_db.sh
+#
+# This file is released under the terms of the Artistic License.  Please see
+# the file LICENSE, included in this package, for details.
+#
+# Copyright (C) 2002 Open Source Development Lab, Inc.
+# History:
+# Feb 2001: Original version created by Mark Wong & Jenny Zhang for SAPDB
+# Apr 2003: Rewritten for PostgreSQL by
+#           Virginie Megy & Thierry Missimilly
+#                Bull, Linux Competence Center
+
+source @TOPDIR@/scripts/pgsql/build_param.sh
+
+#data transfer, this process takes a lot of time ...;(
+#all the results are put in the same folder as the *.data files
+if [ "$DATAGEN_USE" = "ON" ]
+	then
+	sh @TOPDIR@/scripts/pgsql/data_transfer.sh @TOPDIR@/datagen/country.data.pgsql country
+	sh @TOPDIR@/scripts/pgsql/data_transfer.sh @TOPDIR@/scripts/pgsql/resultsql/author.data author
+	sh @TOPDIR@/scripts/pgsql/data_transfer.sh @TOPDIR@/scripts/pgsql/resultsql/orders.data orders
+	sh @TOPDIR@/scripts/pgsql/data_transfer.sh @TOPDIR@/scripts/pgsql/resultsql/order_line.data order_line
+	sh @TOPDIR@/scripts/pgsql/data_transfer.sh @TOPDIR@/scripts/pgsql/resultsql/cc_xacts.data cc_xacts
+	sh @TOPDIR@/scripts/pgsql/data_transfer.sh @TOPDIR@/scripts/pgsql/resultsql/address.data address
+	sh @TOPDIR@/scripts/pgsql/data_transfer.sh @TOPDIR@/scripts/pgsql/resultsql/item.data item
+	sh @TOPDIR@/scripts/pgsql/data_transfer.sh @TOPDIR@/scripts/pgsql/resultsql/stock.data stock
+	sh @TOPDIR@/scripts/pgsql/data_transfer.sh @TOPDIR@/scripts/pgsql/resultsql/customer.data customer
+fi
+
+#then load the data...
+psql -p $SERVER_PORT -h $SERVER_IP -d $SID1 -f @TOPDIR@/scripts/pgsql/resultsql/country.sql
+psql -p $SERVER_PORT -h $SERVER_IP -d $SID1 -f @TOPDIR@/scripts/pgsql/resultsql/author.sql
+psql -p $SERVER_PORT -h $SERVER_IP -d $SID1 -f @TOPDIR@/scripts/pgsql/resultsql/orders.sql
+psql -p $SERVER_PORT -h $SERVER_IP -d $SID1 -f @TOPDIR@/scripts/pgsql/resultsql/order_line.sql
+psql -p $SERVER_PORT -h $SERVER_IP -d $SID1 -f @TOPDIR@/scripts/pgsql/resultsql/cc_xacts.sql
+psql -p $SERVER_PORT -h $SERVER_IP -d $SID1 -f @TOPDIR@/scripts/pgsql/resultsql/address.sql
+psql -p $SERVER_PORT -h $SERVER_IP -d $SID1 -f @TOPDIR@/scripts/pgsql/resultsql/item.sql
+# pgxc additional stock table
+psql -p $SERVER_PORT -h $SERVER_IP -d $SID1 -f @TOPDIR@/scripts/pgsql/resultsql/stock.sql
+psql -p $SERVER_PORT -h $SERVER_IP -d $SID1 -f @TOPDIR@/scripts/pgsql/resultsql/customer.sql
