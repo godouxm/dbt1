@@ -1,0 +1,33 @@
+Modified DBT-1 for Postgres-XC test and evaluation
+
+This folder contains DBT-1 material to test and evaluate Postgres-XC.
+
+The following modifications were made.
+
+1. PostgreSQL interface was changed from ODBC to libpq.   It allows 
+   much more workload to apply.
+
+2. Added housekeeping feature of ORDER table.   Original DBT-1 did not 
+   maintain old ORDER table.   So performance drop was observed when 
+   the benchmark is done for a long period (days to weeks).   The main 
+   reason is infinite growth of ORDER table.
+
+3. Table design change.  Table design was changed to utilize Postgres-XC's 
+   parallel execution feature and to avoid cross-node operations.   
+   For details of the change, please refer to Postgres-XC's architecture 
+   document.
+
+The original DBT-1 repository will be found at 
+
+git://osdldbt.git.sourceforge.net/gitroot/osdldbt/osdldbt
+
+And the summary will be at
+
+http://osdldbt.git.sourceforge.net/git/gitweb.cgi?p=osdldbt/dbt1;a=summary
+
+Postgres-XC development team appreciates Mr.Mark Wong who kindly approved 
+to add this material to Postgres-XC releases.   We also appreciate if 
+anybody take a look at these modifications and include some of them into 
+the original DBT-1 repository.
+
+Postgres-XC development team
