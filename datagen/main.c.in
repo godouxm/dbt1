@@ -112,17 +112,17 @@ int main(int argc, char *argv[])
 	fprintf(sequence_sql,
 		"%s CREATE SEQUENCE custid INCREMENT 1 START %d;\n",
 		exec_sql,
-		2880 * ebs + 1);
+		3000 * ebs + 1);
 	fprintf(sequence_sql, "commit;");
 	fprintf(sequence_sql,
 		"%s CREATE SEQUENCE addrid INCREMENT 1 START %d;\n",
 		exec_sql,
-		ebs * 2880 * 2 + 1);
+		ebs * 3000 * 2 + 1);
 	fprintf(sequence_sql, "commit;");
 	fprintf(sequence_sql,
 		"%s CREATE SEQUENCE scid INCREMENT 1 START %d;\n",
 		exec_sql,
-		(int) ((double) ebs * 2880.0 * 0.9 + 1.0));
+		(int) ((double) ebs * 3000.0 * 0.9 + 1.0));
 	fprintf(sequence_sql, "commit;");
 
 	fclose(sequence_sql);
@@ -137,9 +137,9 @@ int main(int argc, char *argv[])
 	if (flag_item == 1) 
 	{
 		gen_items();
-		sprintf(cmd, "ln -fs %sitem.data /tmp/item.data\n", path);
+		sprintf(cmd, "ln -fs %s/item.data /tmp/item.data\n", path);
 		popen(cmd, "r");
-		sprintf(cmd, "ln -fs %sstock.data /tmp/stock.data\n", path);
+		sprintf(cmd, "ln -fs %s/stock.data /tmp/stock.data\n", path);
                 popen(cmd, "r");
 	}
 
@@ -147,25 +147,25 @@ int main(int argc, char *argv[])
 	{
 		/* all the tables depend on ebs for the customer number */
 		gen_customers();
-		sprintf(cmd, "ln -fs %scustomer.data /tmp/customer.data", path);
+		sprintf(cmd, "ln -fs %s/customer.data /tmp/customer.data", path);
 		popen(cmd, "r");
 
-	 	sprintf(cmd, "ln -fs %saddress.data /tmp/address.data", path);
+	 	sprintf(cmd, "ln -fs %s/address.data /tmp/address.data", path);
 	 	popen(cmd, "r");
 
-	 	sprintf(cmd, "ln -fs %sorders.data /tmp/orders.data", path);
+	 	sprintf(cmd, "ln -fs %s/orders.data /tmp/orders.data", path);
 	 	popen(cmd, "r");
-	 	sprintf(cmd, "ln -fs %sorder_line.data /tmp/order_line.data",
+	 	sprintf(cmd, "ln -fs %s/order_line.data /tmp/order_line.data",
 	 		path);
 	 	popen(cmd, "r");
-	 	sprintf(cmd, "ln -fs %scc_xacts.data /tmp/cc_xacts.data", path);
+	 	sprintf(cmd, "ln -fs %s/cc_xacts.data /tmp/cc_xacts.data", path);
 	 	popen(cmd, "r");
 	}
 
 	if (flag_author == 1) 
 	{
 		gen_authors();
-		sprintf(cmd, "ln -fs %sauthor.data /tmp/author.data", path);
+		sprintf(cmd, "ln -fs %s/author.data /tmp/author.data", path);
 		popen(cmd, "r");
 	}
 

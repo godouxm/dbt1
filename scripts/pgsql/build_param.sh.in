@@ -7,7 +7,9 @@ SERVER_PORT=5432
 DATAGEN_ITEMS=1000
 DATAGEN_EUS=10
 DATAGEN_RESULT=$TOPDIR/scripts/pgsql/resultsql
-PGXC_USE=ON
 #as createdb and dropdb commands delicate to manipulate with Postgres-XC, this parameter skips the parts liked to that
 #it can be set at ON of necessary
-DATAGEN_USE=OFF
+DATAGEN_USE=ON #permits to activate data generator
+#COPY FROM/TO is supported since Postgres-XC 0.9.1
+COPYFROM_USE=ON		#activates data load with COPY at ON
+			#set at OFF, it activates data transfer

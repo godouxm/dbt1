@@ -1,5 +1,4 @@
 #!/bin/sh
 
 source @TOPDIR@/scripts/pgsql/build_param.sh
-
-psql -h $SERVER_IP -p $SERVER_PORT -d $SID1 -f /home/michael/workdbt1/scripts/pgsql/create_sequence.sql
+psql -h $SERVER_IP -p $SERVER_PORT -d $SID1 -f @TOPDIR@/scripts/pgsql/create_sequence.sql

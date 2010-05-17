@@ -15,7 +15,7 @@ source @TOPDIR@/scripts/pgsql/build_param.sh
 
 #data transfer, this process takes a lot of time ...;(
 #all the results are put in the same folder as the *.data files
-if [ "$DATAGEN_USE" = "ON" ]
+if [ "$COPYFROM_USE" = "OFF" ]
 	then
 	sh @TOPDIR@/scripts/pgsql/data_transfer.sh @TOPDIR@/datagen/country.data.pgsql country
 	sh @TOPDIR@/scripts/pgsql/data_transfer.sh @TOPDIR@/scripts/pgsql/resultsql/author.data author
@@ -26,16 +26,19 @@ if [ "$DATAGEN_USE" = "ON" ]
 	sh @TOPDIR@/scripts/pgsql/data_transfer.sh @TOPDIR@/scripts/pgsql/resultsql/item.data item
 	sh @TOPDIR@/scripts/pgsql/data_transfer.sh @TOPDIR@/scripts/pgsql/resultsql/stock.data stock
 	sh @TOPDIR@/scripts/pgsql/data_transfer.sh @TOPDIR@/scripts/pgsql/resultsql/customer.data customer
+	#data is loaded with file transferred
+	#then load the data...
+	psql -p $SERVER_PORT -h $SERVER_IP -d $SID1 -f @TOPDIR@/scripts/pgsql/resultsql/country.sql
+	psql -p $SERVER_PORT -h $SERVER_IP -d $SID1 -f @TOPDIR@/scripts/pgsql/resultsql/author.sql
+	psql -p $SERVER_PORT -h $SERVER_IP -d $SID1 -f @TOPDIR@/scripts/pgsql/resultsql/orders.sql
+	psql -p $SERVER_PORT -h $SERVER_IP -d $SID1 -f @TOPDIR@/scripts/pgsql/resultsql/order_line.sql
+	psql -p $SERVER_PORT -h $SERVER_IP -d $SID1 -f @TOPDIR@/scripts/pgsql/resultsql/cc_xacts.sql
+	psql -p $SERVER_PORT -h $SERVER_IP -d $SID1 -f @TOPDIR@/scripts/pgsql/resultsql/address.sql
+	psql -p $SERVER_PORT -h $SERVER_IP -d $SID1 -f @TOPDIR@/scripts/pgsql/resultsql/item.sql
+	# pgxc additional stock table
+	psql -p $SERVER_PORT -h $SERVER_IP -d $SID1 -f @TOPDIR@/scripts/pgsql/resultsql/stock.sql
+	psql -p $SERVER_PORT -h $SERVER_IP -d $SID1 -f @TOPDIR@/scripts/pgsql/resultsql/customer.sql
+else
+	#load data with copy... by default also
+	psql -p $SERVER_PORT -h $SERVER_IP -d $SID1 -f @TOPDIR@/scripts/pgsql/copy.sql
 fi
-
-#then load the data...
-psql -p $SERVER_PORT -h $SERVER_IP -d $SID1 -f @TOPDIR@/scripts/pgsql/resultsql/country.sql
-psql -p $SERVER_PORT -h $SERVER_IP -d $SID1 -f @TOPDIR@/scripts/pgsql/resultsql/author.sql
-psql -p $SERVER_PORT -h $SERVER_IP -d $SID1 -f @TOPDIR@/scripts/pgsql/resultsql/orders.sql
-psql -p $SERVER_PORT -h $SERVER_IP -d $SID1 -f @TOPDIR@/scripts/pgsql/resultsql/order_line.sql
-psql -p $SERVER_PORT -h $SERVER_IP -d $SID1 -f @TOPDIR@/scripts/pgsql/resultsql/cc_xacts.sql
-psql -p $SERVER_PORT -h $SERVER_IP -d $SID1 -f @TOPDIR@/scripts/pgsql/resultsql/address.sql
-psql -p $SERVER_PORT -h $SERVER_IP -d $SID1 -f @TOPDIR@/scripts/pgsql/resultsql/item.sql
-# pgxc additional stock table
-psql -p $SERVER_PORT -h $SERVER_IP -d $SID1 -f @TOPDIR@/scripts/pgsql/resultsql/stock.sql
-psql -p $SERVER_PORT -h $SERVER_IP -d $SID1 -f @TOPDIR@/scripts/pgsql/resultsql/customer.sql

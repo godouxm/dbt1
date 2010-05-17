@@ -2,4 +2,4 @@
 
 source @TOPDIR@/scripts/pgsql/build_param.sh
 
-psql -h $SERVER_IP -p $SERVER_PORT -f @TOPDIR@/scripts/pgsql/create_fk.sql
+psql -h $SERVER_IP -p $SERVER_PORT -f @TOPDIR@/scripts/pgsql/create_fk.sql $SID1

@@ -18,18 +18,17 @@ if [ "$DATAGEN_USE" = "ON" ]
 else
 	echo "build the database without generating the data file"
 fi
-if [ "$PGXC_USE" = "OFF" ]
-	then
-	date
-	echo "drop db"
-	@TOPDIR@/scripts/pgsql/drop_db.sh
-	echo
 
-	date
-	echo "create db"
-	@TOPDIR@/scripts/pgsql/create_db.sh
-	echo
-fi
+date
+echo "drop db"
+@TOPDIR@/scripts/pgsql/drop_db.sh
+echo
+
+date
+echo "create db"
+@TOPDIR@/scripts/pgsql/create_db.sh
+echo
+
 date
 echo "create tables"
 @TOPDIR@/scripts/pgsql/create_tables.sh
