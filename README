@@ -31,3 +31,7 @@ anybody take a look at these modifications and include some of them into
 the original DBT-1 repository.
 
 Postgres-XC development team
+
+Command to launch in order to get results easily
+./tools/results --mixfile mix.log --outputdir .
+Output files are BT and ips.csv.

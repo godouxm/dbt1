@@ -4,20 +4,24 @@
 #create database
 createdb dbt1
 
+DATAGEN_FOLDER=$HOME/git/dbt1/datagen
+PORT=5432
+DBT1=dbt1
+
 #launch DDL
 echo "Launching dbt-1 DDL"
-psql -p 5451 -f datagen/create_tables.sql dbt1
-psql -p 5451 -f datagen/create_sequence.sql dbt1
+psql -p $PORT -f datagen/create_tables.sql $DBT1
+psql -p $PORT -f datagen/create_sequence.sql $DBT1
 sleep 1
 
 #install data
-echo "filling in DBT1 tables with data"
-psql -p 5451 -c "copy address from '$DATAGEN_FOLDER/address.data' delimiter '>'" dbt1
-psql -p 5451 -c "copy author from '$DATAGEN_FOLDER/author.data' delimiter '>'" dbt1
-psql -p 5451 -c "copy cc_xacts from '$DATAGEN_FOLDER/cc_xacts.data' delimiter '>'" dbt1
-psql -p 5451 -c "copy country from '$DATAGEN_FOLDER/country.data' delimiter '>'" dbt1
-psql -p 5451 -c "copy customer from '$DATAGEN_FOLDER/customer.data' delimiter '>'" dbt1
-psql -p 5451 -c "copy item from '$DATAGEN_FOLDER/item.data' delimiter '>'" dbt1
-psql -p 5451 -c "copy order_line from '$DATAGEN_FOLDER/order_line.data' delimiter '>'" dbt1
-psql -p 5451 -c "copy orders from '$DATAGEN_FOLDER/orders.data' delimiter '>'" dbt1
-psql -p 5451 -c "copy stock from '$DATAGEN_FOLDER/stock.data' delimiter '>'" dbt1
+echo "filling in dbt1 tables with data"
+psql -p $PORT -c "copy address from '$DATAGEN_FOLDER/address.data' delimiter '>'" $DBT1
+psql -p $PORT -c "copy author from '$DATAGEN_FOLDER/author.data' delimiter '>'" $DBT1
+psql -p $PORT -c "copy cc_xacts from '$DATAGEN_FOLDER/cc_xacts.data' delimiter '>'" $DBT1
+psql -p $PORT -c "copy country from '$DATAGEN_FOLDER/country.data' delimiter '>'" $DBT1
+psql -p $PORT -c "copy customer from '$DATAGEN_FOLDER/customer.data' delimiter '>'" $DBT1
+psql -p $PORT -c "copy item from '$DATAGEN_FOLDER/item.data' delimiter '>'" $DBT1
+psql -p $PORT -c "copy order_line from '$DATAGEN_FOLDER/order_line.data' delimiter '>'" $DBT1
+psql -p $PORT -c "copy orders from '$DATAGEN_FOLDER/orders.data' delimiter '>'" $DBT1
+psql -p $PORT -c "copy stock from '$DATAGEN_FOLDER/stock.data' delimiter '>'" $DBT1
