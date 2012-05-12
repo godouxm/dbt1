@@ -2,6 +2,6 @@
 make clean
 autoconf
 autoheader
-./configure --with-postgresql=/usr/local/pgsql
+./configure --with-postgresql=$HOME/pgsql
 make
 make install
